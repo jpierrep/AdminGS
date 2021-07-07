@@ -1,0 +1,8 @@
+{
+  "name": "GuardService Admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "43549054"
+}
