@@ -26,3 +26,9 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+# Android App
+/android
+
+# IOS APP
+/ios
