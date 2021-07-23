@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import findInvoices from "../actions/accounting/findInvoices";
-import findPaymentNotices from "../actions/accounting/findPaymentNotices";
-import createPaymentNotice from "../actions/accounting/createPaymentNotices";
-import findOnePaymentNotice from "../actions/accounting/findOnePaymentNotice";
-import parsePaymentNoticesFile from "../actions/accounting/parsePaymentNoticesFile";
+import findInvoices from "./actions/findInvoices";
+import findPaymentNotices from "./actions/findPaymentNotices";
+import createPaymentNotice from "./actions/createPaymentNotices";
+import findOnePaymentNotice from "./actions/findOnePaymentNotice";
+import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
 
 interface PaymentNotice {
   id: number;

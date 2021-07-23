@@ -48,7 +48,6 @@ const Menu: React.FC = () => {
               <h3>{user.email}</h3>
             </IonLabel>
           </IonItem>
-
           {appPages.map((appPage, index) => {
             return (
               <IonItem
@@ -62,7 +61,9 @@ const Menu: React.FC = () => {
                 detail={false}
               >
                 <IonIcon slot="start" icon={appPage.icon} />
-                <IonLabel>{appPage.title}</IonLabel>
+                <IonLabel>
+                  <h2>{appPage.title}</h2>
+                </IonLabel>
               </IonItem>
             );
           })}

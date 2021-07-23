@@ -1,10 +1,6 @@
 import {
   IonButton,
   IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   IonItem,
   IonLabel,
   IonListHeader,
@@ -15,10 +11,9 @@ import {
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import findPaymentNotices from "../store/actions/accounting/findPaymentNotices";
-import { selectPaymentNoticesGroupedByDateLatest } from "../store/selectors/selectPaymentNoticesGroupedByDateLatest";
+import findPaymentNotices from "../store/accounting/actions/findPaymentNotices";
+import { selectPaymentNoticesGroupedByDateLatest } from "../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
 import currencyFormat from "../utils/currencyFormat";
-import PaymentNoticeListByDate from "./PaymentNoticeListByDate";
 
 const PaymentNoticeListSummary: React.FC = () => {
   const paymentNoticesGroupedByDate = useSelector((store: any) =>

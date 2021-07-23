@@ -9,7 +9,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import rootReducer from "./store/reducers";
+import rootReducer from "./store/rootReducer";
 
 const persistentConfig = {
   key: "root",

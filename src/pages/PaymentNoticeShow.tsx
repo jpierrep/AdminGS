@@ -15,7 +15,7 @@ import {
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import findOnePaymentNotice from "../store/actions/accounting/findOnePaymentNotice";
+import findOnePaymentNotice from "../store/accounting/actions/findOnePaymentNotice";
 import currencyFormat from "../utils/currencyFormat";
 
 const PaymentNoticeShow: React.FC = () => {

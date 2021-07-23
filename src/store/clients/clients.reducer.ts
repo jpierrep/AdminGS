@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import findClients from "../actions/clients/findClients";
+import findClients from "./actions/findClients";
 
 interface ClientsState {
   clients: any[];

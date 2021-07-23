@@ -1,6 +1,6 @@
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
-import UserAuthenticatedRouter from "./pages/UserAuthenticatedRouter";
+import UserAuthenticatedRouter from "./UserAuthenticatedRouter";
 import { Login } from "./pages/Login";
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,25 +22,30 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import { useSelector } from "react-redux";
+import { IonApp, IonPage, IonRouterOutlet } from "@ionic/react";
 
 const App: React.FC = () => {
   const { user } = useSelector((store: any) => store.userAuthentication);
 
   return (
-    <IonReactRouter>
-      <Route
-        path="/app"
-        render={(props) => {
-          return user ? (
-            <UserAuthenticatedRouter {...props} />
-          ) : (
-            <Redirect to="/ingresar" />
-          );
-        }}
-      ></Route>
-      <Route path="/ingresar" component={Login}></Route>
-      <Redirect to="/app" />
-    </IonReactRouter>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route
+            path="/app"
+            render={(props) => {
+              return user ? (
+                <UserAuthenticatedRouter {...props} />
+              ) : (
+                <Redirect to="/ingresar" />
+              );
+            }}
+          ></Route>
+          <Route path="/ingresar" component={Login}></Route>
+          <Redirect to="/app/contabilidad" />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
   );
 };
 

@@ -1,17 +1,17 @@
-import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
+import { IonPage, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 
 import React from "react";
 import { Redirect, Route, RouteComponentProps } from "react-router";
-import Menu from "../components/Menu";
-import AccountingDashboards from "./AccountingDashboards";
-import PaymentNoticeCreate from "./PaymentNoticeCreate";
-import PaymentNoticeList from "./PaymentNoticeList";
-import PaymentNoticeShow from "./PaymentNoticeShow";
-import { UserAuthenticatedAccount } from "./UserAuthenticatedAccount";
+import Menu from "./components/Menu";
+import AccountingDashboards from "./pages/AccountingDashboards";
+import PaymentNoticeCreate from "./pages/PaymentNoticeCreate";
+import PaymentNoticeList from "./pages/PaymentNoticeList";
+import PaymentNoticeShow from "./pages/PaymentNoticeShow";
+import { UserAuthenticatedAccount } from "./pages/UserAuthenticatedAccount";
 
 const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
   return (
-    <IonApp>
+    <IonPage>
       <IonSplitPane contentId="main">
         <Menu />
         <IonRouterOutlet id="main">
@@ -33,10 +33,10 @@ const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
           >
             <PaymentNoticeShow />
           </Route>
-          <Route render={() => <Redirect to={`${match.url}/contabilidad`} />} />
+          {/* <Redirect exact from={match.url} to={`${match.url}/contabilidad`} /> */}
         </IonRouterOutlet>
       </IonSplitPane>
-    </IonApp>
+    </IonPage>
   );
 };
 
