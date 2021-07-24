@@ -19,7 +19,7 @@ import {
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import findClients from "../../store/clients/actions/findClients";
+import findClients from "../../../store/clients/actions/findClients";
 
 const PaymentNoticeCreateItemModal: React.FC = () => {
   const dispatch = useDispatch();

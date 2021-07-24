@@ -3,7 +3,7 @@ import { IonButton, IonLoading } from "@ionic/react";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import parsePaymentNoticesFile from "../store/accounting/actions/parsePaymentNoticesFile";
+import parsePaymentNoticesFile from "../../../store/accounting/actions/parsePaymentNoticesFile";
 
 const PaymentNoticeCreateButton: React.FC = () => {
   const history = useHistory();

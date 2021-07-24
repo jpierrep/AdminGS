@@ -18,10 +18,10 @@ import { checkboxOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import PaymentNoticeCreateButton from "../components/PaymentNoticeCreateButton";
-import PaymentNoticeListByDate from "../components/PaymentNoticeListByDate";
-import findPaymentNotices from "../store/accounting/actions/findPaymentNotices";
-import { selectPaymentNoticesGroupedByDate } from "../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
+import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
+import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
+import findPaymentNotices from "../../store/accounting/actions/findPaymentNotices";
+import { selectPaymentNoticesGroupedByDate } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
 
 const PaymentNoticeList: React.FC = () => {
   const paymentNoticesGroupedByDate = useSelector((store: any) =>

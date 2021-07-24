@@ -20,11 +20,11 @@ import {
 import { alertCircleOutline, checkmarkCircleOutline } from "ionicons/icons";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
-import PaymentNoticeCreateItemModal from "../components/PaymentNoticeCreateForm/PaymentNoticeCreateItemModal";
-import createPaymentNotices from "../store/accounting/actions/createPaymentNotices";
-import PaymentNoticeCreateFormSummary from "../components/PaymentNoticeCreateForm/PaymentNoticeCreateFormSummary";
+import createPaymentNotices from "../../store/accounting/actions/createPaymentNotices";
+import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import { useHistory } from "react-router";
-import currencyFormat from "../utils/currencyFormat";
+import currencyFormat from "../../utils/currencyFormat";
+import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();

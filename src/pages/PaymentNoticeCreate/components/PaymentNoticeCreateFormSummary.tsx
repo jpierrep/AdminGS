@@ -1,7 +1,7 @@
 import { IonLabel, IonItem, IonListHeader, IonNote } from "@ionic/react";
 import { useSelector } from "react-redux";
 import React from "react";
-import currencyFormat from "../../utils/currencyFormat";
+import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeCreateFormSummary: React.FC = () => {
   const identifiedAmount = useSelector((store: any) => {

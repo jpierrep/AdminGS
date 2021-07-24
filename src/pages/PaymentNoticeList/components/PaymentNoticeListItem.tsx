@@ -1,7 +1,7 @@
 import { IonLabel, IonItem, IonNote } from "@ionic/react";
 
 import React from "react";
-import currencyFormat from "../utils/currencyFormat";
+import currencyFormat from "../../../utils/currencyFormat";
 
 interface PaymentNoticeListItemProps {
   paymentNotice: any;

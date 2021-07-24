@@ -11,14 +11,12 @@ import {
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import findPaymentNotices from "../store/accounting/actions/findPaymentNotices";
-import { selectPaymentNoticesGroupedByDateLatest } from "../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
-import currencyFormat from "../utils/currencyFormat";
+import findPaymentNotices from "../../../store/accounting/actions/findPaymentNotices";
+import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
+import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeListSummary: React.FC = () => {
-  const paymentNoticesGroupedByDate = useSelector((store: any) =>
-    selectPaymentNoticesGroupedByDateLatest(store)
-  );
+  const paymentNoticesGroupedByDate = useSelector(selectPaymentNoticesGroupedByDateLatest);
   const dispatch = useDispatch();
 
   useEffect(() => {

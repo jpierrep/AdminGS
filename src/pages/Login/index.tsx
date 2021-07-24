@@ -20,7 +20,7 @@ import { personOutline, shieldOutline } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useHistory } from "react-router";
-import login from "../store/userAuthentication/actions/login";
+import login from "../../store/userAuthentication/actions/login";
 
 export const Login: React.FC = () => {
   const dispatch = useDispatch();

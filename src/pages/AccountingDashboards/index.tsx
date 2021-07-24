@@ -9,7 +9,7 @@ import {
 } from "@ionic/react";
 
 import React from "react";
-import PaymentNoticeListSummary from "../components/PaymentNoticeListSummary";
+import PaymentNoticeListSummary from "./components/PaymentNoticeListSummary";
 
 const AccountingDashboards: React.FC = () => {
   return (
