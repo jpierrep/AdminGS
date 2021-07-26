@@ -25,6 +25,8 @@ import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateForm
 import { useHistory } from "react-router";
 import currencyFormat from "../../utils/currencyFormat";
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
+import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDateCreateForm";
+import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const PaymentNoticeCreate: React.FC = () => {
   const { paymentNoticesCreateFormData } = useSelector(
     (store: any) => store.accounting
   );
+
+  const paymentNoticesGroupedByDate = useSelector(selectPaymentNoticesGroupedByDateCreateForm);
 
   const { paymentNoticesCreatePending } = useSelector(
     (store: any) => store.accounting
@@ -48,34 +52,6 @@ const PaymentNoticeCreate: React.FC = () => {
       console.log(error);
     }
   };
-
-  const PaymentNoticeItem = ({ paymentNotice }: any) => (
-    <IonItem
-      onClick={() =>
-        dispatch({
-          type: "accounting/showPaymentNoticeItemEditForm",
-          payload: paymentNotice,
-        })
-      }
-    >
-      <IonIcon
-        icon={
-          paymentNotice.client ? checkmarkCircleOutline : alertCircleOutline
-        }
-        style={{ color: paymentNotice.client ? "green" : "red" }}
-        slot="start"
-      />
-      <IonLabel>
-        <strong>{paymentNotice.client?.name || "No identificado"}</strong>
-        <p>
-          <small>{paymentNotice.identifier}</small>
-        </p>
-      </IonLabel>
-      <IonNote slot="end">
-        <strong>{currencyFormat(paymentNotice.amount)}</strong>
-      </IonNote>
-    </IonItem>
-  );
 
   return (
     <IonPage>
@@ -100,14 +76,11 @@ const PaymentNoticeCreate: React.FC = () => {
           <IonListHeader>
             <IonLabel>Abonos</IonLabel>
           </IonListHeader>
-          {paymentNoticesCreateFormData.items.map(
-            (paymentNotice: any, index: any) => (
-              <PaymentNoticeItem
-                paymentNotice={paymentNotice}
-                key={index}
-              ></PaymentNoticeItem>
-            )
-          )}
+
+          <PaymentNoticeListByDate
+            paymentNoticesGroupedByDate={paymentNoticesGroupedByDate}
+          />
+
           <PaymentNoticeCreateFormSummary />
         </IonList>
       </IonContent>

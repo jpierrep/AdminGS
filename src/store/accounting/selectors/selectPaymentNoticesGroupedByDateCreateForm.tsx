@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
 
-export const selectPaymentNoticesGroupedByDate = createSelector(
+export const selectPaymentNoticesGroupedByDateCreateForm = createSelector(
   [
-    (store: any) => store.accounting.paymentNotices
+    (store: any) => store.accounting.paymentNoticesCreateFormData.items
   ],
   (list) =>
     list

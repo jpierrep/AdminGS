@@ -5,15 +5,9 @@ import createPaymentNotice from "./actions/createPaymentNotices";
 import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
 
-interface PaymentNotice {
-  id: number;
-  total: string;
-}
-
 interface AccountingState {
   invoices: any[];
   paymentNotices: any[];
-  paymentNoticesGroupedByDate: [];
   paymentNoticeShowed: {};
   paymentNoticesCreateFormData: {
     items: any[];
@@ -31,12 +25,15 @@ interface AccountingState {
   parseFilePending: boolean;
   paymentNoticesCreatePending: boolean;
   paymentNoticesCreateFulfilled: boolean;
+  paymentNoticesListFilter: {
+    segmentSelected: string;
+    searchText: string;
+  };
 }
 
 const initialState = {
   invoices: [],
   paymentNotices: [],
-  paymentNoticesGroupedByDate: [],
   paymentNoticeShowed: {},
   paymentNoticesCreateFormData: {
     items: [],
@@ -52,6 +49,10 @@ const initialState = {
   parseFilePending: false,
   paymentNoticesCreatePending: false,
   paymentNoticesCreateFulfilled: false,
+  paymentNoticesListFilter: {
+    segmentSelected: "pending",
+    searchText: "",
+  },
 } as AccountingState;
 
 const accountingSlice = createSlice({
@@ -85,6 +86,15 @@ const accountingSlice = createSlice({
         })),
       };
     },
+    updatePaymentNoticesListFilter(state, action: PayloadAction<object>) {
+      state.paymentNoticesListFilter = {
+        ...state.paymentNoticesListFilter,
+        ...action.payload,
+      };
+    },
+    setPaymentNoticesCreateFulfilled(state) {
+      state.paymentNoticesCreateFulfilled = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -93,30 +103,15 @@ const accountingSlice = createSlice({
       })
       .addCase(findPaymentNotices.fulfilled, (state, { payload }) => {
         state.paymentNotices = [...payload];
-
-        state.paymentNoticesGroupedByDate = payload.reduce(
-          (list: any, item: any) => {
-            let dateExists = list.find(
-              (listItem: any) => listItem.dateLabel === item.payedAtLegible
-            );
-            if (dateExists) {
-              dateExists.items.push(item);
-            } else {
-              list.push({
-                dateLabel: item.payedAtLegible,
-                items: [item],
-              });
-            }
-            return list;
-          },
-          []
-        );
       })
       .addCase(parsePaymentNoticesFile.pending, (state) => {
         state.parseFilePending = true;
       })
       .addCase(parsePaymentNoticesFile.fulfilled, (state, { payload }) => {
         state.paymentNoticesCreateFormData.items = payload;
+        state.parseFilePending = false;
+      })
+      .addCase(parsePaymentNoticesFile.rejected, (state, { payload }) => {
         state.parseFilePending = false;
       })
       .addCase(createPaymentNotice.pending, (state, { payload }) => {

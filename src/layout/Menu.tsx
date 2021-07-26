@@ -43,9 +43,9 @@ const Menu: React.FC = () => {
           <IonItem className="ion-margin-vertical" lines="none">
             <IonLabel>
               <h1>
-                <strong>{user.username}</strong>
+                <strong>{user?.username}</strong>
               </h1>
-              <h3>{user.email}</h3>
+              <h3>{user?.email}</h3>
             </IonLabel>
           </IonItem>
           {appPages.map((appPage, index) => {

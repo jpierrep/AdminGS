@@ -30,13 +30,13 @@ const PaymentNoticeList: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const [searchText, setSearchText] = useState();
   const { paymentNoticesCreateFulfilled } = useSelector(
     (store: any) => store.accounting
   );
-  useEffect(() => {
-    dispatch(findPaymentNotices());
-  }, [dispatch, searchText]);
+
+  const { segmentSelected } = useSelector(
+    (store: any) => store.accounting.paymentNoticesListFilter
+  );
 
   return (
     <IonPage>
@@ -55,18 +55,34 @@ const PaymentNoticeList: React.FC = () => {
         <br />
         <section className="ion-padding-horizontal">
           <IonSegment
-            onIonChange={(e) => console.log("Segment selected", e.detail.value)}
+            onIonChange={(e) => {
+              dispatch({
+                type: "accounting/updatePaymentNoticesListFilter",
+                payload: { segmentSelected: e.detail.value },
+              });
+              dispatch(findPaymentNotices());
+            }}
+            value={segmentSelected}
           >
-            <IonSegmentButton value="Pendientes">
+            <IonSegmentButton value="pending">
               <IonLabel>Pendientes</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value="Procesados">
+            <IonSegmentButton value="fullfiled">
               <IonLabel>Procesados</IonLabel>
             </IonSegmentButton>
           </IonSegment>
         </section>
         <br />
-        <IonSearchbar placeholder="Buscar" />
+        <IonSearchbar
+          placeholder="Buscar"
+          onIonChange={(e) => {
+            dispatch({
+              type: "accounting/updatePaymentNoticesListFilter",
+              payload: { searchText: e.detail.value },
+            });
+            dispatch(findPaymentNotices());
+          }}
+        />
         <PaymentNoticeListByDate
           paymentNoticesGroupedByDate={paymentNoticesGroupedByDate}
         />
@@ -78,6 +94,9 @@ const PaymentNoticeList: React.FC = () => {
         isOpen={paymentNoticesCreateFulfilled}
         message="Abonos registrados exitosamente"
         position="bottom"
+        onWillDismiss={() =>
+          dispatch({ type: "accounting/setPaymentNoticesCreateFulfilled", payload: false })
+        }
         duration={6000}
         color="success"
       />

@@ -13,7 +13,7 @@ const PaymentNoticeCreateButton: React.FC = () => {
   const onSelectFile = async (event: any) => {
     console.log(event.target.files[0]);
     try {
-      await dispatch(parsePaymentNoticesFile());
+      await dispatch(parsePaymentNoticesFile(event.target.files[0]));
       event.target.value = null;
       history.push("/app/contabilidad/abonos/agregar");
     } catch (error) {

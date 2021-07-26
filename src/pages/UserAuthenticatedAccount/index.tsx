@@ -3,6 +3,9 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
   IonMenuButton,
   IonPage,
   IonTitle,
@@ -34,6 +37,14 @@ export const UserAuthenticatedAccount: React.FC = () => {
             Hola <strong>{user.username}</strong>
           </h1>
         </section>
+        <IonList>
+          <IonItem>
+            <IonLabel>Ayuda</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Salir</IonLabel>
+          </IonItem>
+        </IonList>
       </IonContent>
     </IonPage>
   );
