@@ -74,17 +74,20 @@ const accountingSlice = createSlice({
       state,
       action: PayloadAction<object>
     ) {
-      state.paymentNoticesCreateFormDataItem = action.payload;
+      state.paymentNoticesCreateFormDataItem = {
+        ...state.paymentNoticesCreateFormDataItem,
+        ...action.payload,
+      };
     },
     confirmUpdatePaymentNoticesCreateFormDataItem(state) {
-/*       state.paymentNoticesCreateFormData = {
+      state.paymentNoticesCreateFormData = {
         ...state.paymentNoticesCreateFormData,
         items: state.paymentNoticesCreateFormData.items.map((item) => ({
           ...(item.id === state.paymentNoticesCreateFormDataItem.id
-            ? state.paymentNoticesCreateFormDataItem
-            : item),
+            ? { ...state.paymentNoticesCreateFormDataItem }
+            : { ...item }),
         })),
-      }; */
+      };
       state.paymentNoticesCreateFormDataItemEditing = false;
       state.paymentNoticesCreateFormDataItem = {};
     },

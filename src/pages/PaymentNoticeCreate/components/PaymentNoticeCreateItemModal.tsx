@@ -19,16 +19,20 @@ import {
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectPaymentNoticesCreateFormDataItemEditing } from "../../../store/accounting/selectors/selectPaymentNoticesCreateFormDataItemEditing";
 import findClients from "../../../store/clients/actions/findClients";
 import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeCreateItemModal: React.FC = () => {
   const dispatch = useDispatch();
 
-  const {
-    paymentNoticesCreateFormDataItem,
-    paymentNoticesCreateFormDataItemEditing,
-  } = useSelector((store: any) => store.accounting);
+  const paymentNoticesCreateFormDataItemEditing = useSelector(
+    selectPaymentNoticesCreateFormDataItemEditing
+  );
+
+  const { paymentNoticesCreateFormDataItem } = useSelector(
+    (store: any) => store.accounting
+  );
 
   const { clients } = useSelector((store: any) => store.clients);
 
@@ -36,13 +40,10 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
     dispatch({
       type: "accounting/updatePaymentNoticesCreateFormDataItem",
       payload: {
-        ...paymentNoticesCreateFormDataItem,
         client: clients.find(({ id }: any) => id === clientSelected),
       },
     });
   };
-
-  const invoices = [{}, {}];
 
   useEffect(() => {
     dispatch(findClients());
@@ -126,7 +127,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
             </IonLabel>
           </IonListHeader>
           <section>
-            {paymentNoticesCreateFormDataItem.invoices?.map(
+            {paymentNoticesCreateFormDataItem.client?.invoices?.map(
               (invoice: any, index: number) => (
                 <IonItem key={index}>
                   <IonCheckbox slot="start" />
