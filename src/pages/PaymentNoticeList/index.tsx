@@ -22,7 +22,7 @@ import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import findPaymentNotices from "../../store/accounting/actions/findPaymentNotices";
 import { selectPaymentNoticesGroupedByDate } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
-
+import { isPlatform } from "@ionic/react";
 const PaymentNoticeList: React.FC = () => {
   const paymentNoticesGroupedByDate = useSelector((store: any) =>
     selectPaymentNoticesGroupedByDate(store)
@@ -44,7 +44,7 @@ const PaymentNoticeList: React.FC = () => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
-              text="Contabilidad"
+              text={isPlatform("ios") ? "Contabilidad" : ""}
               default-href="/app/contabilidad"
             />
           </IonButtons>
@@ -95,7 +95,10 @@ const PaymentNoticeList: React.FC = () => {
         message="Abonos registrados exitosamente"
         position="bottom"
         onWillDismiss={() =>
-          dispatch({ type: "accounting/setPaymentNoticesCreateFulfilled", payload: false })
+          dispatch({
+            type: "accounting/setPaymentNoticesCreateFulfilled",
+            payload: false,
+          })
         }
         duration={6000}
         color="success"

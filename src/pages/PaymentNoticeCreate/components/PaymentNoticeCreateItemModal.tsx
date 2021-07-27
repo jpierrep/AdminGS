@@ -20,6 +20,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import findClients from "../../../store/clients/actions/findClients";
+import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeCreateItemModal: React.FC = () => {
   const dispatch = useDispatch();
@@ -88,13 +89,20 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel>
+              <strong>Descripción</strong>
+            </IonLabel>
+            <IonNote slot="end">
+              {paymentNoticesCreateFormDataItem.description}
+            </IonNote>
+          </IonItem>
+          <IonItem>
+            <IonLabel>
               <strong>Total</strong>
             </IonLabel>
             <IonNote slot="end">
-              ${paymentNoticesCreateFormDataItem.amount}
+              {currencyFormat(paymentNoticesCreateFormDataItem.amount)}
             </IonNote>
           </IonItem>
-
           <IonItem>
             <IonLabel>
               <strong>Cliente</strong>
@@ -104,8 +112,8 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
               placeholder="Seleccionar"
               onIonChange={(e) => setClient(e.detail.value)}
             >
-              {clients.map((client: any) => (
-                <IonSelectOption value={client.id}>
+              {clients.map((client: any, index: number) => (
+                <IonSelectOption value={client.id} key={index}>
                   {client.name}
                 </IonSelectOption>
               ))}

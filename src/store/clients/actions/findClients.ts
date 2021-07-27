@@ -7,6 +7,7 @@ const findClients = createAsyncThunk(
     try {
       const url = new URL(`${api.baseURL}client`);
       url.searchParams.append("sort", "name ASC");
+      url.searchParams.append("limit", "50000");
       let response = await fetch(url.toJSON());
       if (!response.ok) {
         throw response.statusText;

@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import findOnePaymentNotice from "../../store/accounting/actions/findOnePaymentNotice";
 import currencyFormat from "../../utils/currencyFormat";
-
+import { isPlatform } from "@ionic/react";
 const PaymentNoticeShow: React.FC = () => {
   const { paymentNoticeShowed } = useSelector((store: any) => store.accounting);
 
@@ -33,7 +33,10 @@ const PaymentNoticeShow: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton text="Abonos" default-href="/contabilidad/abonos" />
+            <IonBackButton
+              text={isPlatform("ios") ? "Abonos" : ""}
+              default-href="/contabilidad/abonos"
+            />
           </IonButtons>
           <IonTitle>Abono</IonTitle>
         </IonToolbar>
@@ -66,6 +69,12 @@ const PaymentNoticeShow: React.FC = () => {
             <IonLabel>
               <p>Monto</p>
               <strong>{currencyFormat(paymentNoticeShowed.amount || 0)}</strong>
+            </IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>
+              <p>Descripción</p>
+              <strong>{paymentNoticeShowed.description || '--'}</strong>
             </IonLabel>
           </IonItem>
           <IonItem>

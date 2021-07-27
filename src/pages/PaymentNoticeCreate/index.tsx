@@ -27,7 +27,7 @@ import currencyFormat from "../../utils/currencyFormat";
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDateCreateForm";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
-
+import { isPlatform } from "@ionic/react";
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -36,7 +36,9 @@ const PaymentNoticeCreate: React.FC = () => {
     (store: any) => store.accounting
   );
 
-  const paymentNoticesGroupedByDate = useSelector(selectPaymentNoticesGroupedByDateCreateForm);
+  const paymentNoticesGroupedByDate = useSelector(
+    selectPaymentNoticesGroupedByDateCreateForm
+  );
 
   const { paymentNoticesCreatePending } = useSelector(
     (store: any) => store.accounting
@@ -59,7 +61,7 @@ const PaymentNoticeCreate: React.FC = () => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
-              text="Cancelar"
+              text={isPlatform("ios") ? "Cancelar" : ""}
               default-href="/app/contabilidad/abonos"
             />
           </IonButtons>

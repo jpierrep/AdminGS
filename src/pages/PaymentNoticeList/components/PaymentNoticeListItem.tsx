@@ -22,7 +22,7 @@ const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
           <span>No identificado</span>
         )}
         <p>
-          <small>{paymentNotice.code}</small>
+          <small>{paymentNotice.code || paymentNotice.description}</small>
         </p>
       </IonLabel>
       <IonNote slot="end">

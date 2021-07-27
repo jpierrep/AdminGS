@@ -1,9 +1,10 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import findPaymentNotices from "./findPaymentNotices";
 
 const createPaymentNotices = createAsyncThunk(
   "paymentnotice/create",
-  async (arg, { getState, rejectWithValue }) => {
+  async (arg, { getState, rejectWithValue, dispatch }) => {
     try {
       const state: any = getState();
       const createdList = [];
@@ -13,7 +14,8 @@ const createPaymentNotices = createAsyncThunk(
           body: JSON.stringify({
             amount: item.amount,
             client: item.client?.id,
-            payedAt: item.payedAt
+            payedAt: item.payedAt,
+            description: item.description
           }),
         });
         if (!response.ok) {
@@ -22,6 +24,7 @@ const createPaymentNotices = createAsyncThunk(
         let createdItem = await response.json();
         createdList.push(createdItem);
       }
+      dispatch(findPaymentNotices);
       return createdList;
     } catch (error) {
       return rejectWithValue(error);

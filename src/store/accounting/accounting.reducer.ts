@@ -77,14 +77,16 @@ const accountingSlice = createSlice({
       state.paymentNoticesCreateFormDataItem = action.payload;
     },
     confirmUpdatePaymentNoticesCreateFormDataItem(state) {
-      state.paymentNoticesCreateFormData = {
+/*       state.paymentNoticesCreateFormData = {
         ...state.paymentNoticesCreateFormData,
         items: state.paymentNoticesCreateFormData.items.map((item) => ({
           ...(item.id === state.paymentNoticesCreateFormDataItem.id
             ? state.paymentNoticesCreateFormDataItem
             : item),
         })),
-      };
+      }; */
+      state.paymentNoticesCreateFormDataItemEditing = false;
+      state.paymentNoticesCreateFormDataItem = {};
     },
     updatePaymentNoticesListFilter(state, action: PayloadAction<object>) {
       state.paymentNoticesListFilter = {
@@ -118,7 +120,7 @@ const accountingSlice = createSlice({
         state.paymentNoticesCreatePending = true;
       })
       .addCase(createPaymentNotice.fulfilled, (state, { payload }) => {
-        state.paymentNotices = [...state.paymentNotices, ...payload];
+        //state.paymentNotices = [...state.paymentNotices, ...payload];
         state.paymentNoticesCreatePending = false;
         state.paymentNoticesCreateFulfilled = true;
       })
