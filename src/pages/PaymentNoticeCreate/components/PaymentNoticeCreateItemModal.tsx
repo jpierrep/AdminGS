@@ -27,18 +27,16 @@ import { selectPaymentNoticesCreateFormDataItem } from "../../../store/accountin
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 // Types
-import { PaymentNotice } from "../../../@types/paymentNotice";
-import { Client } from "../../../@types/client";
 import { Invoice } from "../../../@types/invoice";
 
 const PaymentNoticeCreateItemModal: React.FC = () => {
   const dispatch = useDispatch();
 
-  const clients: Client[] = useSelector(selectClients);
+  const clients = useSelector(selectClients);
   const paymentNoticesCreateFormDataItemEditing = useSelector(
     selectPaymentNoticesCreateFormDataItemEditing
   );
-  const paymentNoticesCreateFormDataItem: PaymentNotice = useSelector(
+  const paymentNoticesCreateFormDataItem = useSelector(
     selectPaymentNoticesCreateFormDataItem
   );
 
@@ -119,7 +117,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
               placeholder="Seleccionar"
               onIonChange={(e) => setClient(e.detail.value)}
             >
-              {clients.map((client: Client, index: number) => (
+              {clients.map((client, index: number) => (
                 <IonSelectOption value={client.id} key={index}>
                   {client.name}
                 </IonSelectOption>

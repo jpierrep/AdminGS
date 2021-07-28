@@ -1,6 +1,6 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
+import { Client } from "../../../@types/client";
 const findClients = createAsyncThunk(
   "clients/find",
   async (filter, { rejectWithValue }) => {
@@ -12,7 +12,7 @@ const findClients = createAsyncThunk(
       if (!response.ok) {
         throw response.statusText;
       }
-      let data = await response.json();
+      let data: Client[] = await response.json();
       return data;
     } catch (error) {
       return rejectWithValue(error);

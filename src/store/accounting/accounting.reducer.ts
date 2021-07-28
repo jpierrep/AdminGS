@@ -22,19 +22,14 @@ interface AccountingState {
   };
 }
 
-const defaultPaymentNotice = {
-  items: [],
-  amount: 0,
-};
-
 const initialState = {
   paymentNotices: [],
-  paymentNoticeShowed: { ...defaultPaymentNotice },
+  paymentNoticeShowed: {},
   paymentNoticesCreateFormData: {
     items: [],
   },
   paymentNoticesCreateFormDataItemEditing: false,
-  paymentNoticesCreateFormDataItem: { ...defaultPaymentNotice },
+  paymentNoticesCreateFormDataItem: {},
   parseFilePending: false,
   paymentNoticesCreatePending: false,
   paymentNoticesCreateFulfilled: false,

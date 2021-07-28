@@ -25,7 +25,7 @@ const PaymentNoticeListByDate: React.FC = () => {
               <IonItemDivider color="light">
                 <IonLabel>{dateItem.dateLabel}</IonLabel>
               </IonItemDivider>
-              {dateItem.items.map((paymentNotice: PaymentNotice) => (
+              {dateItem.items.map((paymentNotice) => (
                 <PaymentNoticeListItem
                   paymentNotice={paymentNotice}
                   key={paymentNotice.id}

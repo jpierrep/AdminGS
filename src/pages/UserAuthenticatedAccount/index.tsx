@@ -14,11 +14,9 @@ import {
 } from "@ionic/react";
 // Selectors
 import { selectUser } from "../../store/userAuthentication/selectors/selectUser";
-// Types
-import { User } from "../../@types/user";
 
 export const UserAuthenticatedAccount: React.FC = () => {
-  const user: User = useSelector(selectUser);
+  const user = useSelector(selectUser);
   return (
     <IonPage>
       <IonHeader>
