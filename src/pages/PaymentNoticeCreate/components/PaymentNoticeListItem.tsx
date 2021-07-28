@@ -3,10 +3,13 @@ import { checkmarkCircleOutline, alertCircleOutline } from "ionicons/icons";
 
 import React from "react";
 import { useDispatch } from "react-redux";
+// Types
+import { PaymentInvoice } from "../../../@types/paymentInvoice";
+// Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
 interface PaymentNoticeListItemProps {
-  paymentNotice: any;
+  paymentNotice: PaymentInvoice;
 }
 
 const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
@@ -36,7 +39,7 @@ const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
         </p>
       </IonLabel>
       <IonNote slot="end">
-        <strong>{currencyFormat(paymentNotice.amount)}</strong>
+        <strong>{currencyFormat(paymentNotice.amount || 0)}</strong>
       </IonNote>
     </IonItem>
   );

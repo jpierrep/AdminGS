@@ -1,15 +1,18 @@
 import { IonButton, IonLoading } from "@ionic/react";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+// Actions
 import parsePaymentNoticesFile from "../../../store/accounting/actions/parsePaymentNoticesFile";
 
 const PaymentNoticeCreateButton: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const fileInput = useRef(null);
   const { parseFilePending } = useSelector((store: any) => store.accounting);
+
   const onSelectFile = async (event: any) => {
     console.log(event.target.files[0]);
     try {

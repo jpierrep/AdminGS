@@ -18,8 +18,8 @@ import {
 
 import { personOutline, shieldOutline } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useHistory } from "react-router";
+// Actions
 import login from "../../store/userAuthentication/actions/login";
 
 export const Login: React.FC = () => {

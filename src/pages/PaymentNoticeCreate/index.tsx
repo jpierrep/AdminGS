@@ -3,31 +3,32 @@ import {
   IonTitle,
   IonToolbar,
   IonLabel,
-  IonItem,
   IonList,
   IonPage,
   IonContent,
   IonBackButton,
   IonButtons,
   IonListHeader,
-  IonNote,
   IonButton,
   IonFooter,
-  IonIcon,
   IonLoading,
   IonAlert,
+  isPlatform,
 } from "@ionic/react";
-import { alertCircleOutline, checkmarkCircleOutline } from "ionicons/icons";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
-import createPaymentNotices from "../../store/accounting/actions/createPaymentNotices";
-import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import { useHistory } from "react-router";
-import currencyFormat from "../../utils/currencyFormat";
-import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
+
+// Actions
+import createPaymentNotices from "../../store/accounting/actions/createPaymentNotices";
+// Selectors
 import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDateCreateForm";
+
+// Components
+import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
+import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
-import { isPlatform } from "@ionic/react";
+
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();

@@ -1,22 +1,18 @@
-import {
-  IonItemDivider,
-  IonItemGroup,
-  IonLabel,
-  IonList,
-  IonListHeader,
-} from "@ionic/react";
+import { IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
 
 import React from "react";
+import { useSelector } from "react-redux";
 
+// Components
 import PaymentNoticeListItem from "./PaymentNoticeListItem";
+// Selectors
+import { selectPaymentNoticesGroupedByDate } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
 
-interface PaymentNoticeListByDateProps {
-  paymentNoticesGroupedByDate: any;
-}
+const PaymentNoticeListByDate: React.FC = () => {
+  const paymentNoticesGroupedByDate = useSelector(
+    selectPaymentNoticesGroupedByDate
+  );
 
-const PaymentNoticeListByDate: React.FC<PaymentNoticeListByDateProps> = ({
-  paymentNoticesGroupedByDate,
-}) => {
   return (
     <IonList>
       {paymentNoticesGroupedByDate.length === 0 && (

@@ -10,23 +10,33 @@ import {
   IonBackButton,
   IonButtons,
   IonListHeader,
+  isPlatform,
 } from "@ionic/react";
-
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+// Actions
 import findOnePaymentNotice from "../../store/accounting/actions/findOnePaymentNotice";
+// Selectors
+import { selectPaymentNoticeShowed } from "../../store/accounting/selectors/selectPaymentNoticeShowed";
+// Types
+import { PaymentInvoice } from "../../@types/paymentInvoice";
+// Utils
 import currencyFormat from "../../utils/currencyFormat";
-import { isPlatform } from "@ionic/react";
+
 const PaymentNoticeShow: React.FC = () => {
-  const { paymentNoticeShowed } = useSelector((store: any) => store.accounting);
-
   const dispatch = useDispatch();
-  let { id } = useParams<{ id: string }>();
 
+  // Buscar detalles al cambiar parámetro id de la url
+  let { id } = useParams<{ id: string }>();
   useEffect(() => {
     dispatch(findOnePaymentNotice(parseInt(id)));
   }, [dispatch, id]);
+
+  // Data
+  const paymentNoticeShowed: PaymentInvoice = useSelector(
+    selectPaymentNoticeShowed
+  );
 
   return (
     <IonPage>
@@ -74,7 +84,7 @@ const PaymentNoticeShow: React.FC = () => {
           <IonItem>
             <IonLabel>
               <p>Descripción</p>
-              <strong>{paymentNoticeShowed.description || '--'}</strong>
+              <strong>{paymentNoticeShowed.description || "--"}</strong>
             </IonLabel>
           </IonItem>
           <IonItem>

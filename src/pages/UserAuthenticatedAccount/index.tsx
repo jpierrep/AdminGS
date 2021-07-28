@@ -12,9 +12,11 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useSelector } from "react-redux";
+// Selectors
+import { selectUser } from "../../store/userAuthentication/selectors/selectUser";
 
 export const UserAuthenticatedAccount: React.FC = () => {
-  const { user } = useSelector((store: any) => store.userAuthentication);
+  const user = useSelector(selectUser);
 
   return (
     <IonPage>

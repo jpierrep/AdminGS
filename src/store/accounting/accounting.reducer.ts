@@ -1,27 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import findInvoices from "./actions/findInvoices";
 import findPaymentNotices from "./actions/findPaymentNotices";
 import createPaymentNotice from "./actions/createPaymentNotices";
 import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
+import { PaymentInvoice } from "../../@types/paymentInvoice";
 
 interface AccountingState {
-  invoices: any[];
-  paymentNotices: any[];
-  paymentNoticeShowed: {};
+  paymentNotices: PaymentInvoice[];
+  paymentNoticeShowed: PaymentInvoice;
   paymentNoticesCreateFormData: {
-    items: any[];
-    identifiedAmount: number;
-    unidentifiedAmount: number;
-    totalAmount: number;
-    identifiedQuantity: number;
-    unidentifiedQuantity: number;
-    totalQuantity: number;
+    items: PaymentInvoice[];
   };
   paymentNoticesCreateFormDataItemEditing: boolean;
-  paymentNoticesCreateFormDataItem: {
-    id?: number;
-  };
+  paymentNoticesCreateFormDataItem: PaymentInvoice;
   parseFilePending: boolean;
   paymentNoticesCreatePending: boolean;
   paymentNoticesCreateFulfilled: boolean;
@@ -31,21 +22,19 @@ interface AccountingState {
   };
 }
 
+const defaultPaymentNotice = {
+  items: [],
+  amount: 0,
+};
+
 const initialState = {
-  invoices: [],
   paymentNotices: [],
-  paymentNoticeShowed: {},
+  paymentNoticeShowed: { ...defaultPaymentNotice },
   paymentNoticesCreateFormData: {
     items: [],
-    identifiedAmount: 0,
-    unidentifiedAmount: 0,
-    totalAmount: 0,
-    identifiedQuantity: 0,
-    unidentifiedQuantity: 0,
-    totalQuantity: 0,
   },
   paymentNoticesCreateFormDataItemEditing: false,
-  paymentNoticesCreateFormDataItem: {},
+  paymentNoticesCreateFormDataItem: { ...defaultPaymentNotice },
   parseFilePending: false,
   paymentNoticesCreatePending: false,
   paymentNoticesCreateFulfilled: false,
@@ -60,7 +49,7 @@ const accountingSlice = createSlice({
   initialState,
   reducers: {
     setPaymentNoticeShowed(state, action: PayloadAction<object>) {
-      state.paymentNoticeShowed = action.payload || {};
+      state.paymentNoticeShowed = action.payload || { amount: 0 };
     },
     showPaymentNoticeItemEditForm(state, action: PayloadAction<object>) {
       state.paymentNoticesCreateFormDataItem = { ...action.payload };
@@ -103,9 +92,6 @@ const accountingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(findInvoices.fulfilled, (state, { payload }) => {
-        state.invoices = [...state.invoices, ...payload];
-      })
       .addCase(findPaymentNotices.fulfilled, (state, { payload }) => {
         state.paymentNotices = [...payload];
       })
@@ -123,7 +109,6 @@ const accountingSlice = createSlice({
         state.paymentNoticesCreatePending = true;
       })
       .addCase(createPaymentNotice.fulfilled, (state, { payload }) => {
-        //state.paymentNotices = [...state.paymentNotices, ...payload];
         state.paymentNoticesCreatePending = false;
         state.paymentNoticesCreateFulfilled = true;
       })

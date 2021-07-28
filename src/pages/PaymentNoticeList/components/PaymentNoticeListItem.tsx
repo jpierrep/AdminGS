@@ -1,13 +1,11 @@
 import { IonLabel, IonItem, IonNote } from "@ionic/react";
-
 import React from "react";
+// Types
+import { PaymentInvoice } from "../../../@types/paymentInvoice";
+// Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
-interface PaymentNoticeListItemProps {
-  paymentNotice: any;
-}
-
-const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
+const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentInvoice }> = ({
   paymentNotice,
 }) => {
   return (
@@ -22,11 +20,11 @@ const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
           <span>No identificado</span>
         )}
         <p>
-          <small>{paymentNotice.code || paymentNotice.description}</small>
+          <small>{paymentNotice.identifier || paymentNotice.description}</small>
         </p>
       </IonLabel>
       <IonNote slot="end">
-        <h5>{currencyFormat(paymentNotice.amount)}</h5>
+        <h5>{currencyFormat(paymentNotice.amount || 0)}</h5>
       </IonNote>
     </IonItem>
   );

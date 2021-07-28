@@ -2,40 +2,30 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonLabel,
-  IonSearchbar,
   IonFooter,
-  IonSegment,
-  IonSegmentButton,
   IonContent,
   IonPage,
   IonBackButton,
   IonButtons,
   IonToast,
+  isPlatform,
 } from "@ionic/react";
-import { checkboxOutline } from "ionicons/icons";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
+// Components
+import PaymentNoticeListHeader from "./components/PaymentNoticeListHeader";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
-import findPaymentNotices from "../../store/accounting/actions/findPaymentNotices";
-import { selectPaymentNoticesGroupedByDate } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
-import { isPlatform } from "@ionic/react";
-const PaymentNoticeList: React.FC = () => {
-  const paymentNoticesGroupedByDate = useSelector((store: any) =>
-    selectPaymentNoticesGroupedByDate(store)
-  );
+import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
+// Selectors
+import { selectPaymentNoticesCreateFulfilled } from "../../store/accounting/selectors/selectPaymentNoticesCreateFulfilled";
 
+const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { paymentNoticesCreateFulfilled } = useSelector(
-    (store: any) => store.accounting
-  );
-
-  const { segmentSelected } = useSelector(
-    (store: any) => store.accounting.paymentNoticesListFilter
+  const paymentNoticesCreateFulfilled = useSelector(
+    selectPaymentNoticesCreateFulfilled
   );
 
   return (
@@ -53,39 +43,8 @@ const PaymentNoticeList: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <br />
-        <section className="ion-padding-horizontal">
-          <IonSegment
-            onIonChange={(e) => {
-              dispatch({
-                type: "accounting/updatePaymentNoticesListFilter",
-                payload: { segmentSelected: e.detail.value },
-              });
-              dispatch(findPaymentNotices());
-            }}
-            value={segmentSelected}
-          >
-            <IonSegmentButton value="pending">
-              <IonLabel>Pendientes</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="fullfiled">
-              <IonLabel>Procesados</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </section>
-        <br />
-        <IonSearchbar
-          placeholder="Buscar"
-          onIonChange={(e) => {
-            dispatch({
-              type: "accounting/updatePaymentNoticesListFilter",
-              payload: { searchText: e.detail.value },
-            });
-            dispatch(findPaymentNotices());
-          }}
-        />
-        <PaymentNoticeListByDate
-          paymentNoticesGroupedByDate={paymentNoticesGroupedByDate}
-        />
+        <PaymentNoticeListHeader />
+        <PaymentNoticeListByDate />
       </IonContent>
       <IonFooter>
         <PaymentNoticeCreateButton />

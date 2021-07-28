@@ -11,8 +11,11 @@ import {
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// Actions
 import findPaymentNotices from "../../../store/accounting/actions/findPaymentNotices";
+// Selectors
 import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
+// Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeListSummary: React.FC = () => {
