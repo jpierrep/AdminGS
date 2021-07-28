@@ -27,7 +27,7 @@ import { selectPaymentNoticesCreateFormDataItem } from "../../../store/accountin
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 // Types
-import { PaymentInvoice } from "../../../@types/paymentInvoice";
+import { PaymentNotice } from "../../../@types/paymentNotice";
 import { Client } from "../../../@types/client";
 import { Invoice } from "../../../@types/invoice";
 
@@ -38,7 +38,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
   const paymentNoticesCreateFormDataItemEditing = useSelector(
     selectPaymentNoticesCreateFormDataItemEditing
   );
-  const paymentNoticesCreateFormDataItem: PaymentInvoice = useSelector(
+  const paymentNoticesCreateFormDataItem: PaymentNotice = useSelector(
     selectPaymentNoticesCreateFormDataItem
   );
 

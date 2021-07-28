@@ -4,11 +4,11 @@ import { checkmarkCircleOutline, alertCircleOutline } from "ionicons/icons";
 import React from "react";
 import { useDispatch } from "react-redux";
 // Types
-import { PaymentInvoice } from "../../../@types/paymentInvoice";
+import { PaymentNotice } from "../../../@types/paymentNotice";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
-const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentInvoice }> = ({
+const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
   paymentNotice,
 }) => {
   const dispatch = useDispatch();

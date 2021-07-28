@@ -3,16 +3,16 @@ import findPaymentNotices from "./actions/findPaymentNotices";
 import createPaymentNotice from "./actions/createPaymentNotices";
 import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
-import { PaymentInvoice } from "../../@types/paymentInvoice";
+import { PaymentNotice } from "../../@types/paymentNotice";
 
 interface AccountingState {
-  paymentNotices: PaymentInvoice[];
-  paymentNoticeShowed: PaymentInvoice;
+  paymentNotices: PaymentNotice[];
+  paymentNoticeShowed: PaymentNotice;
   paymentNoticesCreateFormData: {
-    items: PaymentInvoice[];
+    items: PaymentNotice[];
   };
   paymentNoticesCreateFormDataItemEditing: boolean;
-  paymentNoticesCreateFormDataItem: PaymentInvoice;
+  paymentNoticesCreateFormDataItem: PaymentNotice;
   parseFilePending: boolean;
   paymentNoticesCreatePending: boolean;
   paymentNoticesCreateFulfilled: boolean;

@@ -1,11 +1,11 @@
 import { IonLabel, IonItem, IonNote } from "@ionic/react";
 import React from "react";
 // Types
-import { PaymentInvoice } from "../../../@types/paymentInvoice";
+import { PaymentNotice } from "../../../@types/paymentNotice";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
-const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentInvoice }> = ({
+const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
   paymentNotice,
 }) => {
   return (

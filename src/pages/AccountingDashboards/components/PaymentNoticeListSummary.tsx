@@ -17,6 +17,8 @@ import findPaymentNotices from "../../../store/accounting/actions/findPaymentNot
 import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
+// Types
+import { PaymentNotice } from "../../../@types/paymentNotice";
 
 const PaymentNoticeListSummary: React.FC = () => {
   const paymentNoticesGroupedByDate = useSelector(
@@ -51,7 +53,7 @@ const PaymentNoticeListSummary: React.FC = () => {
       )}
       <IonSlides pager={true}>
         {paymentNoticesGroupedByDate.map(
-          (paymentNotice: any, index: number) => (
+          (paymentNotice: PaymentNotice, index: number) => (
             <IonSlide key={index} style={{ height: "130px" }}>
               <IonCard
                 style={{ width: "100%" }}
@@ -67,7 +69,7 @@ const PaymentNoticeListSummary: React.FC = () => {
                     </h1>
                   </IonLabel>
                   <IonNote slot="end">
-                    {currencyFormat(paymentNotice.amount)}
+                    {currencyFormat(paymentNotice.amount || 0)}
                   </IonNote>
                 </IonItem>
               </IonCard>

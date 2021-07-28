@@ -4,7 +4,7 @@ type Client = {
   invoices: [];
 };
 
-export type PaymentInvoice = {
+export type PaymentNotice = {
   id?: string;
   identifier?: string;
   amount?: number;

@@ -20,7 +20,7 @@ import findOnePaymentNotice from "../../store/accounting/actions/findOnePaymentN
 // Selectors
 import { selectPaymentNoticeShowed } from "../../store/accounting/selectors/selectPaymentNoticeShowed";
 // Types
-import { PaymentInvoice } from "../../@types/paymentInvoice";
+import { PaymentNotice } from "../../@types/paymentNotice";
 // Utils
 import currencyFormat from "../../utils/currencyFormat";
 
@@ -34,7 +34,7 @@ const PaymentNoticeShow: React.FC = () => {
   }, [dispatch, id]);
 
   // Data
-  const paymentNoticeShowed: PaymentInvoice = useSelector(
+  const paymentNoticeShowed: PaymentNotice = useSelector(
     selectPaymentNoticeShowed
   );
 

@@ -6,7 +6,7 @@ import PaymentNoticeListItem from "./PaymentNoticeListItem";
 // Selectors
 import { selectPaymentNoticesGroupedByDate } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
 // Types
-import { PaymentInvoice } from "../../../@types/paymentInvoice";
+import { PaymentNotice } from "../../../@types/paymentNotice";
 
 const PaymentNoticeListByDate: React.FC = () => {
   const paymentNoticesGroupedByDate = useSelector(
@@ -19,13 +19,13 @@ const PaymentNoticeListByDate: React.FC = () => {
         <p className="ion-text-center">No se han encontrado resultados</p>
       )}
       {paymentNoticesGroupedByDate.map(
-        (dateItem: { dateLabel: string; items: PaymentInvoice[] }) => {
+        (dateItem: { dateLabel: string; items: PaymentNotice[] }) => {
           return (
             <IonItemGroup key={dateItem.dateLabel}>
               <IonItemDivider color="light">
                 <IonLabel>{dateItem.dateLabel}</IonLabel>
               </IonItemDivider>
-              {dateItem.items.map((paymentNotice: PaymentInvoice) => (
+              {dateItem.items.map((paymentNotice: PaymentNotice) => (
                 <PaymentNoticeListItem
                   paymentNotice={paymentNotice}
                   key={paymentNotice.id}
