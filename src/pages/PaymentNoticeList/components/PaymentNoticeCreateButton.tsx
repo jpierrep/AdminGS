@@ -1,8 +1,7 @@
-import { IonButton, IonLoading } from "@ionic/react";
-
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { IonButton, IonLoading } from "@ionic/react";
 // Actions
 import parsePaymentNoticesFile from "../../../store/accounting/actions/parsePaymentNoticesFile";
 

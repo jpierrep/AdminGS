@@ -8,11 +8,7 @@ import { PaymentInvoice } from "../../../@types/paymentInvoice";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 
-interface PaymentNoticeListItemProps {
-  paymentNotice: PaymentInvoice;
-}
-
-const PaymentNoticeListItem: React.FC<PaymentNoticeListItemProps> = ({
+const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentInvoice }> = ({
   paymentNotice,
 }) => {
   const dispatch = useDispatch();

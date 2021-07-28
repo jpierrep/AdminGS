@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 import {
   IonHeader,
   IonTitle,
@@ -15,15 +18,11 @@ import {
   IonAlert,
   isPlatform,
 } from "@ionic/react";
-import { useSelector, useDispatch } from "react-redux";
-import React, { useState } from "react";
-import { useHistory } from "react-router";
 
 // Actions
 import createPaymentNotices from "../../store/accounting/actions/createPaymentNotices";
 // Selectors
 import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDateCreateForm";
-
 // Components
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";

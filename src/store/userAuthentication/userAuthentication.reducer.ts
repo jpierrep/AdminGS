@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../@types/user";
 import login from "./actions/login";
 import logout from "./actions/logout";
 
 interface UserAuthenticationState {
-  user?: {
-    id: number;
-    username: string;
-    email: string;
-  };
+  user?: User;
   loginPending: boolean;
 }
 

@@ -1,6 +1,7 @@
 type Client = {
   id?: string;
   name: string;
+  invoices: [];
 };
 
 export type PaymentInvoice = {

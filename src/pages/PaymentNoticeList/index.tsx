@@ -1,3 +1,5 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   IonHeader,
   IonTitle,
@@ -10,9 +12,6 @@ import {
   IonToast,
   isPlatform,
 } from "@ionic/react";
-
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 // Components
 import PaymentNoticeListHeader from "./components/PaymentNoticeListHeader";

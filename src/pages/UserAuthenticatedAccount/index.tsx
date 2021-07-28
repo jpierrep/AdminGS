@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   IonButtons,
   IonContent,
@@ -11,13 +12,13 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useSelector } from "react-redux";
 // Selectors
 import { selectUser } from "../../store/userAuthentication/selectors/selectUser";
+// Types
+import { User } from "../../@types/user";
 
 export const UserAuthenticatedAccount: React.FC = () => {
-  const user = useSelector(selectUser);
-
+  const user: User = useSelector(selectUser);
   return (
     <IonPage>
       <IonHeader>

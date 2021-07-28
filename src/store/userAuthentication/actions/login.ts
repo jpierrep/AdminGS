@@ -1,5 +1,6 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { User } from "../../../@types/user";
 
 const login = createAsyncThunk(
   "userAuthentication/login",
@@ -8,11 +9,12 @@ const login = createAsyncThunk(
       return new Promise((resolve) => setTimeout(resolve, 800));
     }
     await timeout();
-    return {
-      id: 1,
+    const user: User = {
+      id: "1",
       username: "Jaime Cisternas M",
       email: "yo@jaimecisternas.dev",
     };
+    return user;
     /*     try {
       let response = await fetch(`${api.baseURL}user/login`, {
         method: "POST",

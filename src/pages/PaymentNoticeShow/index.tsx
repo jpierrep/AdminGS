@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import {
   IonHeader,
   IonTitle,
@@ -12,9 +15,6 @@ import {
   IonListHeader,
   isPlatform,
 } from "@ionic/react";
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 // Actions
 import findOnePaymentNotice from "../../store/accounting/actions/findOnePaymentNotice";
 // Selectors
@@ -28,7 +28,7 @@ const PaymentNoticeShow: React.FC = () => {
   const dispatch = useDispatch();
 
   // Buscar detalles al cambiar parámetro id de la url
-  let { id } = useParams<{ id: string }>();
+  let { id }: { id: string } = useParams();
   useEffect(() => {
     dispatch(findOnePaymentNotice(parseInt(id)));
   }, [dispatch, id]);

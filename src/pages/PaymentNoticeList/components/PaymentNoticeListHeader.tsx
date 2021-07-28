@@ -1,12 +1,11 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   IonLabel,
   IonSearchbar,
   IonSegment,
   IonSegmentButton,
 } from "@ionic/react";
-
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 // Actions
 import findPaymentNotices from "../../../store/accounting/actions/findPaymentNotices";
 // Selectors
@@ -14,9 +13,7 @@ import { selectSegmentSelected } from "../../../store/accounting/selectors/selec
 
 const PaymentNoticeListHeader: React.FC = () => {
   const dispatch = useDispatch();
-
-  const segmentSelected = useSelector(selectSegmentSelected);
-
+  const segmentSelected: string = useSelector(selectSegmentSelected);
   return (
     <>
       <section className="ion-padding-horizontal">
