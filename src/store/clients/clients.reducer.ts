@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import findClients from "./actions/findClients";
-
+import { Client } from "../../@types/client";
 interface ClientsState {
-  clients: any[];
+  clients: Client[];
 }
 
 const initialState = {
