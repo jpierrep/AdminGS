@@ -1,21 +1,17 @@
 import { createSelector } from "reselect";
-import { PaymentNotice } from "../../../@types/paymentNotice";
+import { RootState } from "../../rootReducer";
 
-type Item = {
-  dateLabel: string;
-  items: PaymentNotice[];
-};
 export const selectPaymentNoticesGroupedByDate = createSelector(
-  [(store: any) => store.accounting.paymentNotices],
-  (list: PaymentNotice[]) =>
+  [(store: RootState) => store.accounting.paymentNotices],
+  (list) =>
     list.reduce((list: any[], item) => {
       let dateExists = list.find(
-        (listItem: Item) => listItem.dateLabel === item.payedAtLegible
+        (listItem) => listItem.dateLabel === item.payedAtLegible
       );
       if (dateExists) {
         dateExists.items.push(item);
       } else {
-        const itemAdded: Item = {
+        const itemAdded = {
           dateLabel: item.payedAtLegible || "",
           items: [item],
         };

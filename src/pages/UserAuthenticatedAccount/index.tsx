@@ -35,7 +35,7 @@ export const UserAuthenticatedAccount: React.FC = () => {
         </IonHeader>
         <section className="ion-padding">
           <h1>
-            Hola <strong>{user.username}</strong>
+            Hola <strong>{user?.username}</strong>
           </h1>
         </section>
         <IonList>

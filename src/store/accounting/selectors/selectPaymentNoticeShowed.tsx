@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-import { PaymentNotice } from "../../../@types/paymentNotice";
+import { RootState } from "../../rootReducer";
 
 export const selectPaymentNoticeShowed = createSelector(
-  [(store: any) => store.accounting.paymentNoticeShowed],
-  (paymentNoticeShowed: PaymentNotice) => paymentNoticeShowed
+  [(store: RootState) => store.accounting.paymentNoticeShowed],
+  (paymentNoticeShowed) => paymentNoticeShowed
 );

@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-import { User } from "../../../@types/user";
+import { RootState } from "../../rootReducer";
 
 export const selectUser = createSelector(
-  [(store: any) => store.userAuthentication.user],
-  (user: User) => user
+  [(store: RootState) => store.userAuthentication.user],
+  (user) => user
 );

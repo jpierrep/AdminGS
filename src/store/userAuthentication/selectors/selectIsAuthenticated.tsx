@@ -1,9 +1,9 @@
 import { createSelector } from "reselect";
+import { RootState } from "../../rootReducer";
 
 export const selectIsAuthenticated = createSelector(
-  [(store: any) => store.userAuthentication.user],
+  [(store: RootState) => store.userAuthentication.user],
   (user) => {
-    console.log(user);
-    return !!user
+    return !!user;
   }
 );

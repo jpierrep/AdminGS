@@ -1,6 +1,10 @@
 import { createSelector } from "reselect";
+import { RootState } from "../../rootReducer";
 
 export const selectPaymentNoticesCreateFormDataItemEditing = createSelector(
-  [(store: any) => store.accounting.paymentNoticesCreateFormDataItemEditing],
-  (data: boolean) => data
+  [
+    (store: RootState) =>
+      store.accounting.paymentNoticesCreateFormDataItemEditing,
+  ],
+  (data) => data
 );

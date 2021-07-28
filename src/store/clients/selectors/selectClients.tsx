@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
-import { Client } from "../../../@types/client";
+import { RootState } from "../../rootReducer";
 export const selectClients = createSelector(
-  [(store: any) => store.clients.clients],
-  (clients: Client[]) => clients
+  [(store: RootState) => store.clients.clients],
+  (clients) => clients
 );
