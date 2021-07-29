@@ -21,9 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 // Actions
 import findClients from "../../../store/clients/actions/findClients";
 // Selectors
-import { selectPaymentNoticesCreateFormDataItemEditing } from "../../../store/accounting/selectors/selectPaymentNoticesCreateFormDataItemEditing";
+import { selectPaymentNoticesCreateFormDataItemEditing } from "../../../store/paymentNotice/selectors/selectPaymentNoticesCreateFormDataItemEditing";
 import { selectClients } from "../../../store/clients/selectors/selectClients";
-import { selectPaymentNoticesCreateFormDataItem } from "../../../store/accounting/selectors/selectPaymentNoticesCreateFormDataItem";
+import { selectPaymentNoticesCreateFormDataItem } from "../../../store/paymentNotice/selectors/selectPaymentNoticesCreateFormDataItem";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 // Types
@@ -42,7 +42,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
 
   const setClient = (clientSelected: number) => {
     dispatch({
-      type: "accounting/updatePaymentNoticesCreateFormDataItem",
+      type: "paymentNotice/updatePaymentNoticesCreateFormDataItem",
       payload: {
         client: clients.find(({ id }: any) => id === clientSelected),
       },
@@ -61,7 +61,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
             <IonButton
               onClick={() =>
                 dispatch({
-                  type: "accounting/hidePaymentNoticeItemEditForm",
+                  type: "paymentNotice/hidePaymentNoticeItemEditForm",
                 })
               }
             >
@@ -73,7 +73,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
             <IonButton
               onClick={() =>
                 dispatch({
-                  type: "accounting/confirmUpdatePaymentNoticesCreateFormDataItem",
+                  type: "paymentNotice/confirmUpdatePaymentNoticesCreateFormDataItem",
                 })
               }
             >

@@ -18,7 +18,7 @@ import PaymentNoticeListHeader from "./components/PaymentNoticeListHeader";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 // Selectors
-import { selectPaymentNoticesCreateFulfilled } from "../../store/accounting/selectors/selectPaymentNoticesCreateFulfilled";
+import { selectPaymentNoticesCreateFulfilled } from "../../store/paymentNotice/selectors/selectPaymentNoticesCreateFulfilled";
 
 const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const PaymentNoticeList: React.FC = () => {
         position="bottom"
         onWillDismiss={() =>
           dispatch({
-            type: "accounting/setPaymentNoticesCreateFulfilled",
+            type: "paymentNotice/setPaymentNoticesCreateFulfilled",
             payload: false,
           })
         }

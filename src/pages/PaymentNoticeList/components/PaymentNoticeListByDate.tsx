@@ -4,7 +4,7 @@ import { IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
 // Components
 import PaymentNoticeListItem from "./PaymentNoticeListItem";
 // Selectors
-import { selectPaymentNoticesGroupedByDate } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDate";
+import { selectPaymentNoticesGroupedByDate } from "../../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDate";
 // Types
 import { PaymentNotice } from "../../../@types/paymentNotice";
 

@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 import { RootState } from "../../rootReducer";
 
 export const selectPaymentNoticesGroupedByDate = createSelector(
-  [(store: RootState) => store.accounting.paymentNotices],
+  [(store: RootState) => store.paymentNotice.paymentNotices],
   (list) =>
     list.reduce((list: any[], item) => {
       let dateExists = list.find(

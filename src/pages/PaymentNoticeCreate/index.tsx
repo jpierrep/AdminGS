@@ -20,9 +20,9 @@ import {
 } from "@ionic/react";
 
 // Actions
-import createPaymentNotices from "../../store/accounting/actions/createPaymentNotices";
+import createPaymentNotices from "../../store/paymentNotice/actions/createPaymentNotices";
 // Selectors
-import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/accounting/selectors/selectPaymentNoticesGroupedByDateCreateForm";
+import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDateCreateForm";
 // Components
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
@@ -33,7 +33,7 @@ const PaymentNoticeCreate: React.FC = () => {
   const history = useHistory();
 
   const { paymentNoticesCreateFormData } = useSelector(
-    (store: any) => store.accounting
+    (store: any) => store.paymentNotice
   );
 
   const paymentNoticesGroupedByDate = useSelector(
@@ -41,7 +41,7 @@ const PaymentNoticeCreate: React.FC = () => {
   );
 
   const { paymentNoticesCreatePending } = useSelector(
-    (store: any) => store.accounting
+    (store: any) => store.paymentNotice
   );
 
   const [showConfirmCreateAlert, setShowConfirmCreateAlert] = useState(false);

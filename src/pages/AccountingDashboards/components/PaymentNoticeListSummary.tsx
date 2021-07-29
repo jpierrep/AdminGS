@@ -12,9 +12,9 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Actions
-import findPaymentNotices from "../../../store/accounting/actions/findPaymentNotices";
+import findPaymentNotices from "../../../store/paymentNotice/actions/findPaymentNotices";
 // Selectors
-import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/accounting/selectors/selectPaymentNoticesGroupedByDateLatest";
+import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDateLatest";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 // Types

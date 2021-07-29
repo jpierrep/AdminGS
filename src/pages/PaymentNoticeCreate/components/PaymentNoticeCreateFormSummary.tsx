@@ -5,38 +5,38 @@ import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeCreateFormSummary: React.FC = () => {
   const identifiedAmount = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items
+    return store.paymentNotice.paymentNoticesCreateFormData.items
       .filter(({ client }: any) => client)
       .reduce((total: any, { amount }: any) => total + amount, 0);
   });
 
   const identifiedQuantity = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items.filter(
+    return store.paymentNotice.paymentNoticesCreateFormData.items.filter(
       ({ client }: any) => client
     ).length;
   });
 
   const unidentifiedAmount = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items
+    return store.paymentNotice.paymentNoticesCreateFormData.items
       .filter(({ client }: any) => !client)
       .reduce((total: any, { amount }: any) => total + amount, 0);
   });
 
   const unidentifiedQuantity = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items.filter(
+    return store.paymentNotice.paymentNoticesCreateFormData.items.filter(
       ({ client }: any) => !client
     ).length;
   });
 
   const totalAmount = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items.reduce(
+    return store.paymentNotice.paymentNoticesCreateFormData.items.reduce(
       (total: any, { amount }: any) => total + amount,
       0
     );
   });
 
   const totalQuantity = useSelector((store: any) => {
-    return store.accounting.paymentNoticesCreateFormData.items.length;
+    return store.paymentNotice.paymentNoticesCreateFormData.items.length;
   });
 
   return (

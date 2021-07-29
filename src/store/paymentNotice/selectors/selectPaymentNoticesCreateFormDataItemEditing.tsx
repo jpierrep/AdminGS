@@ -4,7 +4,7 @@ import { RootState } from "../../rootReducer";
 export const selectPaymentNoticesCreateFormDataItemEditing = createSelector(
   [
     (store: RootState) =>
-      store.accounting.paymentNoticesCreateFormDataItemEditing,
+      store.paymentNotice.paymentNoticesCreateFormDataItemEditing,
   ],
   (data) => data
 );

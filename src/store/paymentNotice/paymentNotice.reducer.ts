@@ -5,7 +5,7 @@ import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
 import { PaymentNotice } from "../../@types/paymentNotice";
 
-interface AccountingState {
+interface PaymentNoticeState {
   paymentNotices: PaymentNotice[];
   paymentNoticeShowed: PaymentNotice;
   paymentNoticesCreateFormData: {
@@ -17,7 +17,7 @@ interface AccountingState {
   paymentNoticesCreatePending: boolean;
   paymentNoticesCreateFulfilled: boolean;
   paymentNoticesListFilter: {
-    segmentSelected: string;
+    listSegmentSelected: string;
     searchText: string;
   };
 }
@@ -34,13 +34,13 @@ const initialState = {
   paymentNoticesCreatePending: false,
   paymentNoticesCreateFulfilled: false,
   paymentNoticesListFilter: {
-    segmentSelected: "pending",
+    listSegmentSelected: "pending",
     searchText: "",
   },
-} as AccountingState;
+} as PaymentNoticeState;
 
-const accountingSlice = createSlice({
-  name: "accounting",
+const paymentNoticeSlice = createSlice({
+  name: "paymentNotice",
   initialState,
   reducers: {
     setPaymentNoticeShowed(state, action: PayloadAction<object>) {
@@ -116,4 +116,4 @@ const accountingSlice = createSlice({
   },
 });
 
-export default accountingSlice.reducer;
+export default paymentNoticeSlice.reducer;

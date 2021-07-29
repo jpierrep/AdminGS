@@ -16,7 +16,7 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
     <IonItem
       onClick={() =>
         dispatch({
-          type: "accounting/showPaymentNoticeItemEditForm",
+          type: "paymentNotice/showPaymentNoticeItemEditForm",
           payload: paymentNotice,
         })
       }

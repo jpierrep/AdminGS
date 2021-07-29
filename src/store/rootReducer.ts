@@ -1,9 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import accounting from "./accounting/accounting.reducer";
+import paymentNotice from "./paymentNotice/paymentNotice.reducer";
 import userAuthentication from "./userAuthentication/userAuthentication.reducer";
 import clients from "./clients/clients.reducer";
 const rootReducer = combineReducers({
-  accounting,
+  paymentNotice,
   userAuthentication,
   clients,
 });

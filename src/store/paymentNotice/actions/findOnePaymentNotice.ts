@@ -1,13 +1,11 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const findInvoices = createAsyncThunk(
-  "invoice/find",
-  async (filter, { rejectWithValue }) => {
+const findOnePaymentNotice = createAsyncThunk(
+  "paymentNotice/findone",
+  async (id: number, { rejectWithValue }) => {
     try {
-      const url = new URL(`${api.baseURL}invoice`);
-      url.searchParams.append("sort", "start ASC");
-      let response = await fetch(url.toJSON());
+      let response = await fetch(`${api.baseURL}paymentNotice/${id}`);
       if (!response.ok) {
         throw response.statusText;
       }
@@ -19,4 +17,4 @@ const findInvoices = createAsyncThunk(
   }
 );
 
-export default findInvoices;
+export default findOnePaymentNotice;

@@ -7,25 +7,25 @@ import {
   IonSegmentButton,
 } from "@ionic/react";
 // Actions
-import findPaymentNotices from "../../../store/accounting/actions/findPaymentNotices";
+import findPaymentNotices from "../../../store/paymentNotice/actions/findPaymentNotices";
 // Selectors
-import { selectSegmentSelected } from "../../../store/accounting/selectors/selectSegmentSelected";
+import { selectListSegmentSelected } from "../../../store/paymentNotice/selectors/selectListSegmentSelected";
 
 const PaymentNoticeListHeader: React.FC = () => {
   const dispatch = useDispatch();
-  const segmentSelected: string = useSelector(selectSegmentSelected);
+  const listSegmentSelected: string = useSelector(selectListSegmentSelected);
   return (
     <>
       <section className="ion-padding-horizontal">
         <IonSegment
           onIonChange={(e) => {
             dispatch({
-              type: "accounting/updatePaymentNoticesListFilter",
-              payload: { segmentSelected: e.detail.value },
+              type: "paymentNotice/updatePaymentNoticesListFilter",
+              payload: { listSegmentSelected: e.detail.value },
             });
             dispatch(findPaymentNotices());
           }}
-          value={segmentSelected}
+          value={listSegmentSelected}
         >
           <IonSegmentButton value="pending">
             <IonLabel>Pendientes</IonLabel>
@@ -40,7 +40,7 @@ const PaymentNoticeListHeader: React.FC = () => {
         placeholder="Buscar"
         onIonChange={(e) => {
           dispatch({
-            type: "accounting/updatePaymentNoticesListFilter",
+            type: "paymentNotice/updatePaymentNoticesListFilter",
             payload: { searchText: e.detail.value },
           });
           dispatch(findPaymentNotices());

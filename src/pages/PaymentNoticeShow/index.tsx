@@ -16,9 +16,9 @@ import {
   isPlatform,
 } from "@ionic/react";
 // Actions
-import findOnePaymentNotice from "../../store/accounting/actions/findOnePaymentNotice";
+import findOnePaymentNotice from "../../store/paymentNotice/actions/findOnePaymentNotice";
 // Selectors
-import { selectPaymentNoticeShowed } from "../../store/accounting/selectors/selectPaymentNoticeShowed";
+import { selectPaymentNoticeShowed } from "../../store/paymentNotice/selectors/selectPaymentNoticeShowed";
 // Utils
 import currencyFormat from "../../utils/currencyFormat";
 

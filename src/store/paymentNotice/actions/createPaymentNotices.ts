@@ -3,13 +3,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import findPaymentNotices from "./findPaymentNotices";
 
 const createPaymentNotices = createAsyncThunk(
-  "paymentnotice/create",
+  "paymentNotice/create",
   async (arg, { getState, rejectWithValue, dispatch }) => {
     try {
       const state: any = getState();
       const createdList = [];
       for (let item of state.accounting.paymentNoticesCreateFormData.items) {
-        let response = await fetch(`${api.baseURL}paymentnotice`, {
+        let response = await fetch(`${api.baseURL}paymentNotice`, {
           method: "POST",
           body: JSON.stringify({
             amount: item.amount,

@@ -2,7 +2,7 @@ import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const parsePaymentNoticesFile = createAsyncThunk(
-  "paymentnotice/parsePaymentNoticesFile",
+  "paymentNotice/parsePaymentNoticesFile",
   async (file: any, { rejectWithValue }) => {
     try {
       const formData = new FormData();

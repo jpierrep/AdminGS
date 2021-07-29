@@ -1,13 +1,14 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "../../rootReducer";
 
 const findPaymentNotices = createAsyncThunk(
-  "paymentnotice/find",
+  "paymentNotice/find",
   async (filter, { getState, rejectWithValue }) => {
     try {
-      const state: any = getState();
-      const { segmentSelected } = state.accounting.paymentNoticesListFilter;
-      const url = new URL(`${api.baseURL}paymentnotice`);
+      const state = getState() as RootState;
+      const { segmentSelected } = state.paymentNotice.paymentNoticesListFilter;
+      const url = new URL(`${api.baseURL}paymentNotice`);
       url.searchParams.append("sort", "payedAt DESC");
       if (segmentSelected) {
         url.searchParams.append(
