@@ -67,6 +67,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
                   type: "paymentNotice/confirmUpdatePaymentNoticesCreateFormDataItem",
                 })
               }
+              routerLink={`/app/contabilidad/abonos/agregar`}
             >
               Listo
             </IonButton>
