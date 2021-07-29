@@ -11,4 +11,5 @@ export type PaymentNotice = {
   client?: Client;
   description?: string;
   payedAtLegible?: string;
+  payedAt?: number;
 };

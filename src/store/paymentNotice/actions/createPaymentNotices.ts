@@ -1,21 +1,22 @@
 import api from "../../../api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import findPaymentNotices from "./findPaymentNotices";
+import { RootState } from "../../rootReducer";
 
 const createPaymentNotices = createAsyncThunk(
   "paymentNotice/create",
   async (arg, { getState, rejectWithValue, dispatch }) => {
     try {
-      const state: any = getState();
+      const state = getState() as RootState;
       const createdList = [];
-      for (let item of state.accounting.paymentNoticesCreateFormData.items) {
+      for (let item of state.paymentNotice.paymentNoticesCreateFormData.items) {
         let response = await fetch(`${api.baseURL}paymentNotice`, {
           method: "POST",
           body: JSON.stringify({
             amount: item.amount,
             client: item.client?.id,
             payedAt: item.payedAt,
-            description: item.description
+            description: item.description,
           }),
         });
         if (!response.ok) {

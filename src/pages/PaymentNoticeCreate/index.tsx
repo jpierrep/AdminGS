@@ -27,15 +27,14 @@ import { selectCreateFormData } from "../../store/paymentNotice/selectors/select
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
+import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
 
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const paymentNoticesCreateFormData = useSelector(selectCreateFormData);
-  const { paymentNoticesCreatePending } = useSelector(
-    (store: any) => store.paymentNotice
-  );
+  const createStatus = useSelector(selectCreateStatus);
 
   const [showConfirmCreateAlert, setShowConfirmCreateAlert] = useState(false);
 
@@ -101,7 +100,7 @@ const PaymentNoticeCreate: React.FC = () => {
         ]}
       />
       <IonLoading
-        isOpen={paymentNoticesCreatePending}
+        isOpen={createStatus === "pending"}
         message={"Registrando abonos..."}
       />
     </IonPage>

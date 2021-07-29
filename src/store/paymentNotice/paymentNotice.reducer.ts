@@ -15,6 +15,7 @@ interface PaymentNoticeState {
   paymentNoticesCreateFormDataItem: PaymentNotice;
   parseFilePending: boolean;
   createStatus: string;
+  parseFileStatus: string;
   paymentNoticesListFilter: {
     listSegmentSelected: string;
     searchText: string;
@@ -30,6 +31,7 @@ const initialState = {
   paymentNoticesCreateFormDataItemEditing: false,
   paymentNoticesCreateFormDataItem: {},
   parseFilePending: false,
+  parseFileStatus: "initial",
   createStatus: "initial",
   paymentNoticesListFilter: {
     listSegmentSelected: "pending",
@@ -89,20 +91,23 @@ const paymentNoticeSlice = createSlice({
         state.paymentNotices = [...payload];
       })
       .addCase(parsePaymentNoticesFile.pending, (state) => {
-        state.parseFilePending = true;
+        state.parseFileStatus = "pending";
       })
       .addCase(parsePaymentNoticesFile.fulfilled, (state, { payload }) => {
         state.paymentNoticesCreateFormData.items = payload;
-        state.parseFilePending = false;
+        state.parseFileStatus = "fulfilled";
       })
       .addCase(parsePaymentNoticesFile.rejected, (state, { payload }) => {
-        state.parseFilePending = false;
+        state.parseFileStatus = "rejected";
       })
       .addCase(createPaymentNotice.pending, (state, { payload }) => {
         state.createStatus = "pending";
       })
       .addCase(createPaymentNotice.fulfilled, (state, { payload }) => {
         state.createStatus = "fulfilled";
+      })
+      .addCase(createPaymentNotice.rejected, (state, { payload }) => {
+        state.createStatus = "rejected";
       })
       .addCase(findOnePaymentNotice.fulfilled, (state, { payload }) => {
         state.paymentNoticeShowed = payload;

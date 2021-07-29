@@ -30,7 +30,7 @@ const PaymentNoticeListHeader: React.FC = () => {
           <IonSegmentButton value="pending">
             <IonLabel>Pendientes</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="fullfiled">
+          <IonSegmentButton value="fulfilled">
             <IonLabel>Procesados</IonLabel>
           </IonSegmentButton>
         </IonSegment>
