@@ -5,11 +5,13 @@ import { IonSplitPane } from "@ionic/react";
 import React from "react";
 import { Redirect, Route, RouteComponentProps } from "react-router";
 import Menu from "./layout/Menu";
+// Pages
 import AccountingDashboards from "./pages/AccountingDashboards";
 import PaymentNoticeCreate from "./pages/PaymentNoticeCreate";
 import PaymentNoticeList from "./pages/PaymentNoticeList";
 import PaymentNoticeShow from "./pages/PaymentNoticeShow";
 import { UserAuthenticatedAccount } from "./pages/UserAuthenticatedAccount";
+import PaymentNoticeCreateItem from "./pages/PaymentNoticeCreateItem";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -50,6 +52,12 @@ const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
           </Route>
           <Route path={`${match.url}/contabilidad/abonos/agregar`} exact={true}>
             <PaymentNoticeCreate />
+          </Route>
+          <Route
+            path={`${match.url}/contabilidad/abonos/agregar/abono`}
+            exact={true}
+          >
+            <PaymentNoticeCreateItem />
           </Route>
           <Route
             path={`${match.url}/contabilidad/abonos/detalle/:id`}

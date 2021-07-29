@@ -5,12 +5,12 @@ import {
   IonLabel,
   IonList,
   IonMenu,
-  IonMenuToggle,
 } from "@ionic/react";
 
 import { useLocation } from "react-router-dom";
-import { personOutline, cashOutline, peopleOutline } from "ionicons/icons";
+import { personOutline, cashOutline } from "ionicons/icons";
 import { useSelector } from "react-redux";
+import { selectUser } from "../store/userAuthentication/selectors/selectUser";
 
 interface AppPage {
   url: string;
@@ -33,9 +33,7 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
-
-  const { user } = useSelector((store: any) => store.userAuthentication);
-
+  const user = useSelector(selectUser);
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>

@@ -9,33 +9,31 @@ import {
   IonNote,
   IonButton,
   IonButtons,
-  IonModal,
   IonSelect,
   IonSelectOption,
   IonContent,
   IonFooter,
   IonCheckbox,
+  IonPage,
+  IonBackButton,
+  isPlatform,
 } from "@ionic/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Actions
-import findClients from "../../../store/clients/actions/findClients";
+import findClients from "../../store/clients/actions/findClients";
 // Selectors
-import { selectPaymentNoticesCreateFormDataItemEditing } from "../../../store/paymentNotice/selectors/selectPaymentNoticesCreateFormDataItemEditing";
-import { selectClients } from "../../../store/clients/selectors/selectClients";
-import { selectCreateFormDataItem } from "../../../store/paymentNotice/selectors/selectCreateFormDataItem";
+import { selectClients } from "../../store/clients/selectors/selectClients";
+import { selectCreateFormDataItem } from "../../store/paymentNotice/selectors/selectCreateFormDataItem";
 // Utils
-import currencyFormat from "../../../utils/currencyFormat";
+import currencyFormat from "../../utils/currencyFormat";
 // Types
-import { Invoice } from "../../../@types/invoice";
+import { Invoice } from "../../@types/invoice";
 
-const PaymentNoticeCreateItemModal: React.FC = () => {
+const PaymentNoticeCreateItem: React.FC = () => {
   const dispatch = useDispatch();
 
   const clients = useSelector(selectClients);
-  const createFormDataItemEditing = useSelector(
-    selectPaymentNoticesCreateFormDataItemEditing
-  );
   const createFormDataItem = useSelector(selectCreateFormDataItem);
 
   const setClient = (clientSelected: number) => {
@@ -51,20 +49,15 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
     dispatch(findClients());
   }, [dispatch]);
 
-  const Modal = () => (
-    <IonModal isOpen={createFormDataItemEditing}>
+  return (
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton
-              onClick={() =>
-                dispatch({
-                  type: "paymentNotice/hidePaymentNoticeItemEditForm",
-                })
-              }
-            >
-              Volver
-            </IonButton>
+            <IonBackButton
+              text={isPlatform("ios") ? "Cancelar" : ""}
+              default-href="/app/contabilidad/abonos/agregar"
+            />
           </IonButtons>
           <IonTitle>Editar Abono</IonTitle>
           <IonButtons slot="end">
@@ -149,10 +142,8 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
           </IonItem>
         </IonFooter>
       </IonContent>
-    </IonModal>
+    </IonPage>
   );
-
-  return <Modal />;
 };
 
-export default PaymentNoticeCreateItemModal;
+export default PaymentNoticeCreateItem;

@@ -24,7 +24,6 @@ import createPaymentNotices from "../../store/paymentNotice/actions/createPaymen
 // Selectors
 import { selectCreateFormData } from "../../store/paymentNotice/selectors/selectCreateFormData";
 // Components
-import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
@@ -74,7 +73,6 @@ const PaymentNoticeCreate: React.FC = () => {
           <PaymentNoticeCreateFormSummary />
         </IonList>
       </IonContent>
-      <PaymentNoticeCreateItemModal />
       <IonFooter>
         <IonButton
           expand="block"
