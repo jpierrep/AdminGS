@@ -74,7 +74,15 @@ export const Login: React.FC = () => {
                 icon={personOutline}
               />
               <IonLabel position="stacked">Usuario</IonLabel>
-              <IonInput value={authFormData.username}></IonInput>
+              <IonInput
+                value={authFormData.username}
+                onIonChange={(e) =>
+                  setAuthFormData({
+                    ...authFormData,
+                    username: e.detail.value || "",
+                  })
+                }
+              ></IonInput>
             </IonItem>
 
             <IonItem lines="inset">
@@ -84,7 +92,15 @@ export const Login: React.FC = () => {
                 icon={shieldOutline}
               />
               <IonLabel position="stacked">Contraseña</IonLabel>
-              <IonInput value={authFormData.password}></IonInput>
+              <IonInput
+                value={authFormData.password}
+                onIonChange={(e) =>
+                  setAuthFormData({
+                    ...authFormData,
+                    password: e.detail.value || "",
+                  })
+                }
+              ></IonInput>
             </IonItem>
           </IonList>
         </section>

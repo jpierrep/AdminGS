@@ -14,22 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 // Actions
 import findPaymentNotices from "../../../store/paymentNotice/actions/findPaymentNotices";
 // Selectors
-import { selectPaymentNoticesGroupedByDateLatest } from "../../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDateLatest";
+import { selectListLatest } from "../../../store/paymentNotice/selectors/selectListLatest";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
-// Types
-import { PaymentNotice } from "../../../@types/paymentNotice";
 
 const PaymentNoticeListSummary: React.FC = () => {
-  const paymentNoticesGroupedByDate = useSelector(
-    selectPaymentNoticesGroupedByDateLatest
-  );
   const dispatch = useDispatch();
-
+  const paymentNoticesGroupedByDate = useSelector(selectListLatest);
   useEffect(() => {
     dispatch(findPaymentNotices());
   }, [dispatch]);
-
   return (
     <section>
       <IonListHeader>
@@ -52,30 +46,28 @@ const PaymentNoticeListSummary: React.FC = () => {
         </IonCard>
       )}
       <IonSlides pager={true}>
-        {paymentNoticesGroupedByDate.map(
-          (paymentNotice: PaymentNotice, index: number) => (
-            <IonSlide key={index} style={{ height: "130px" }}>
-              <IonCard
-                style={{ width: "100%" }}
-                routerLink={`/app/contabilidad/abonos/detalle/${paymentNotice.id}`}
-              >
-                <IonItem lines="none">
-                  <IonLabel>
-                    <p>{paymentNotice.payedAtLegible}</p>
-                    <h1>
-                      <strong>
-                        {paymentNotice.client?.name || "No identificado"}
-                      </strong>
-                    </h1>
-                  </IonLabel>
-                  <IonNote slot="end">
-                    {currencyFormat(paymentNotice.amount || 0)}
-                  </IonNote>
-                </IonItem>
-              </IonCard>
-            </IonSlide>
-          )
-        )}
+        {paymentNoticesGroupedByDate.map((paymentNotice, index) => (
+          <IonSlide key={index} style={{ height: "130px" }}>
+            <IonCard
+              style={{ width: "100%" }}
+              routerLink={`/app/contabilidad/abonos/detalle/${paymentNotice.id}`}
+            >
+              <IonItem lines="none">
+                <IonLabel>
+                  <p>{paymentNotice.payedAtLegible}</p>
+                  <h1>
+                    <strong>
+                      {paymentNotice.client?.name || "No identificado"}
+                    </strong>
+                  </h1>
+                </IonLabel>
+                <IonNote slot="end">
+                  {currencyFormat(paymentNotice.amount || 0)}
+                </IonNote>
+              </IonItem>
+            </IonCard>
+          </IonSlide>
+        ))}
       </IonSlides>
     </section>
   );

@@ -13,7 +13,7 @@ import { selectListSegmentSelected } from "../../../store/paymentNotice/selector
 
 const PaymentNoticeListHeader: React.FC = () => {
   const dispatch = useDispatch();
-  const listSegmentSelected: string = useSelector(selectListSegmentSelected);
+  const listSegmentSelected = useSelector(selectListSegmentSelected);
   return (
     <>
       <section className="ion-padding-horizontal">

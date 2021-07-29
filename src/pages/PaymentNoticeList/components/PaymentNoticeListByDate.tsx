@@ -4,37 +4,30 @@ import { IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
 // Components
 import PaymentNoticeListItem from "./PaymentNoticeListItem";
 // Selectors
-import { selectPaymentNoticesGroupedByDate } from "../../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDate";
-// Types
-import { PaymentNotice } from "../../../@types/paymentNotice";
+import { selectListGroupedByDate } from "../../../store/paymentNotice/selectors/selectListGroupedByDate";
 
 const PaymentNoticeListByDate: React.FC = () => {
-  const paymentNoticesGroupedByDate = useSelector(
-    selectPaymentNoticesGroupedByDate
-  );
-
+  const paymentNoticesGroupedByDate = useSelector(selectListGroupedByDate);
   return (
     <IonList>
       {paymentNoticesGroupedByDate.length === 0 && (
         <p className="ion-text-center">No se han encontrado resultados</p>
       )}
-      {paymentNoticesGroupedByDate.map(
-        (dateItem: { dateLabel: string; items: PaymentNotice[] }) => {
-          return (
-            <IonItemGroup key={dateItem.dateLabel}>
-              <IonItemDivider color="light">
-                <IonLabel>{dateItem.dateLabel}</IonLabel>
-              </IonItemDivider>
-              {dateItem.items.map((paymentNotice) => (
-                <PaymentNoticeListItem
-                  paymentNotice={paymentNotice}
-                  key={paymentNotice.id}
-                />
-              ))}
-            </IonItemGroup>
-          );
-        }
-      )}
+      {paymentNoticesGroupedByDate.map((dateItem) => {
+        return (
+          <IonItemGroup key={dateItem.dateLabel}>
+            <IonItemDivider color="light">
+              <IonLabel>{dateItem.dateLabel}</IonLabel>
+            </IonItemDivider>
+            {dateItem.items.map((paymentNotice) => (
+              <PaymentNoticeListItem
+                paymentNotice={paymentNotice}
+                key={paymentNotice.id}
+              />
+            ))}
+          </IonItemGroup>
+        );
+      })}
     </IonList>
   );
 };

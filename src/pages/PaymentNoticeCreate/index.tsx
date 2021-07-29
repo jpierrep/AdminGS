@@ -22,7 +22,7 @@ import {
 // Actions
 import createPaymentNotices from "../../store/paymentNotice/actions/createPaymentNotices";
 // Selectors
-import { selectPaymentNoticesGroupedByDateCreateForm } from "../../store/paymentNotice/selectors/selectPaymentNoticesGroupedByDateCreateForm";
+import { selectCreateFormData } from "../../store/paymentNotice/selectors/selectCreateFormData";
 // Components
 import PaymentNoticeCreateItemModal from "./components/PaymentNoticeCreateItemModal";
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
@@ -32,14 +32,7 @@ const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { paymentNoticesCreateFormData } = useSelector(
-    (store: any) => store.paymentNotice
-  );
-
-  const paymentNoticesGroupedByDate = useSelector(
-    selectPaymentNoticesGroupedByDateCreateForm
-  );
-
+  const paymentNoticesCreateFormData = useSelector(selectCreateFormData);
   const { paymentNoticesCreatePending } = useSelector(
     (store: any) => store.paymentNotice
   );
@@ -78,11 +71,7 @@ const PaymentNoticeCreate: React.FC = () => {
           <IonListHeader>
             <IonLabel>Abonos</IonLabel>
           </IonListHeader>
-
-          <PaymentNoticeListByDate
-            paymentNoticesGroupedByDate={paymentNoticesGroupedByDate}
-          />
-
+          <PaymentNoticeListByDate />
           <PaymentNoticeCreateFormSummary />
         </IonList>
       </IonContent>

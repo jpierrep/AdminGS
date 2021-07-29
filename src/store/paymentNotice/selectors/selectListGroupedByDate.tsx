@@ -1,7 +1,8 @@
 import { createSelector } from "reselect";
+import { PaymentNotice } from "../../../@types/paymentNotice";
 import { RootState } from "../../rootReducer";
 
-export const selectPaymentNoticesGroupedByDate = createSelector(
+export const selectListGroupedByDate = createSelector(
   [(store: RootState) => store.paymentNotice.paymentNotices],
   (list) =>
     list.reduce((list: any[], item) => {
@@ -18,5 +19,5 @@ export const selectPaymentNoticesGroupedByDate = createSelector(
         list.push(itemAdded);
       }
       return list;
-    }, [])
+    }, []) as { dateLabel: string; items: PaymentNotice[] }[]
 );

@@ -18,15 +18,11 @@ import PaymentNoticeListHeader from "./components/PaymentNoticeListHeader";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 // Selectors
-import { selectPaymentNoticesCreateFulfilled } from "../../store/paymentNotice/selectors/selectPaymentNoticesCreateFulfilled";
+import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
 
 const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
-
-  const paymentNoticesCreateFulfilled = useSelector(
-    selectPaymentNoticesCreateFulfilled
-  );
-
+  const createStatus = useSelector(selectCreateStatus);
   return (
     <IonPage>
       <IonHeader>
@@ -49,13 +45,13 @@ const PaymentNoticeList: React.FC = () => {
         <PaymentNoticeCreateButton />
       </IonFooter>
       <IonToast
-        isOpen={paymentNoticesCreateFulfilled}
+        isOpen={createStatus === "fulfilled"}
         message="Abonos registrados exitosamente"
         position="bottom"
         onWillDismiss={() =>
           dispatch({
-            type: "paymentNotice/setPaymentNoticesCreateFulfilled",
-            payload: false,
+            type: "paymentNotice/setCreateStatus",
+            payload: "initial",
           })
         }
         duration={6000}

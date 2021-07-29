@@ -18,7 +18,7 @@ import {
 // Actions
 import findOnePaymentNotice from "../../store/paymentNotice/actions/findOnePaymentNotice";
 // Selectors
-import { selectPaymentNoticeShowed } from "../../store/paymentNotice/selectors/selectPaymentNoticeShowed";
+import { selectShowData } from "../../store/paymentNotice/selectors/selectShowData";
 // Utils
 import currencyFormat from "../../utils/currencyFormat";
 
@@ -32,7 +32,7 @@ const PaymentNoticeShow: React.FC = () => {
   }, [dispatch, id]);
 
   // Data
-  const paymentNoticeShowed = useSelector(selectPaymentNoticeShowed);
+  const paymentNoticeShowed = useSelector(selectShowData);
 
   return (
     <IonPage>

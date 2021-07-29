@@ -23,7 +23,7 @@ import findClients from "../../../store/clients/actions/findClients";
 // Selectors
 import { selectPaymentNoticesCreateFormDataItemEditing } from "../../../store/paymentNotice/selectors/selectPaymentNoticesCreateFormDataItemEditing";
 import { selectClients } from "../../../store/clients/selectors/selectClients";
-import { selectPaymentNoticesCreateFormDataItem } from "../../../store/paymentNotice/selectors/selectPaymentNoticesCreateFormDataItem";
+import { selectCreateFormDataItem } from "../../../store/paymentNotice/selectors/selectCreateFormDataItem";
 // Utils
 import currencyFormat from "../../../utils/currencyFormat";
 // Types
@@ -33,12 +33,10 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
   const dispatch = useDispatch();
 
   const clients = useSelector(selectClients);
-  const paymentNoticesCreateFormDataItemEditing = useSelector(
+  const createFormDataItemEditing = useSelector(
     selectPaymentNoticesCreateFormDataItemEditing
   );
-  const paymentNoticesCreateFormDataItem = useSelector(
-    selectPaymentNoticesCreateFormDataItem
-  );
+  const createFormDataItem = useSelector(selectCreateFormDataItem);
 
   const setClient = (clientSelected: number) => {
     dispatch({
@@ -54,7 +52,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
   }, [dispatch]);
 
   const Modal = () => (
-    <IonModal isOpen={paymentNoticesCreateFormDataItemEditing}>
+    <IonModal isOpen={createFormDataItemEditing}>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -88,24 +86,20 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
             <IonLabel>
               <strong>Fecha</strong>
             </IonLabel>
-            <IonNote slot="end">
-              {paymentNoticesCreateFormDataItem.payedAtLegible}
-            </IonNote>
+            <IonNote slot="end">{createFormDataItem.payedAtLegible}</IonNote>
           </IonItem>
           <IonItem>
             <IonLabel>
               <strong>Descripción</strong>
             </IonLabel>
-            <IonNote slot="end">
-              {paymentNoticesCreateFormDataItem.description}
-            </IonNote>
+            <IonNote slot="end">{createFormDataItem.description}</IonNote>
           </IonItem>
           <IonItem>
             <IonLabel>
               <strong>Pagado</strong>
             </IonLabel>
             <IonNote slot="end">
-              {currencyFormat(paymentNoticesCreateFormDataItem.amount || 0)}
+              {currencyFormat(createFormDataItem.amount || 0)}
             </IonNote>
           </IonItem>
           <IonItem>
@@ -113,7 +107,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
               <strong>Cliente</strong>
             </IonLabel>
             <IonSelect
-              value={paymentNoticesCreateFormDataItem.client?.id}
+              value={createFormDataItem.client?.id}
               placeholder="Seleccionar"
               onIonChange={(e) => setClient(e.detail.value)}
             >
@@ -131,7 +125,7 @@ const PaymentNoticeCreateItemModal: React.FC = () => {
             </IonLabel>
           </IonListHeader>
           <section>
-            {paymentNoticesCreateFormDataItem.client?.invoices?.map(
+            {createFormDataItem.client?.invoices?.map(
               (invoice: Invoice, index: number) => (
                 <IonItem key={index}>
                   <IonCheckbox slot="start" />

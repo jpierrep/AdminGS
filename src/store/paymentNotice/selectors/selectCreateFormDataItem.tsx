@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { RootState } from "../../rootReducer";
 
-export const selectPaymentNoticesCreateFormDataItem = createSelector(
+export const selectCreateFormDataItem = createSelector(
   [(store: RootState) => store.paymentNotice.paymentNoticesCreateFormDataItem],
   (data) => data
 );

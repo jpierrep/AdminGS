@@ -1,36 +1,34 @@
 import { IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
 import React from "react";
-// Types
-import { PaymentNotice } from "../../../@types/paymentNotice";
+import { useSelector } from "react-redux";
+// Selectors
+import { selectCreateFormData } from "../../../store/paymentNotice/selectors/selectCreateFormData";
 // Components
 import PaymentNoticeListItem from "./PaymentNoticeListItem";
 
-const PaymentNoticeListByDate: React.FC<{
-  paymentNoticesGroupedByDate: { dateLabel: string; items: PaymentNotice[] }[];
-}> = ({ paymentNoticesGroupedByDate }) => {
+const PaymentNoticeListByDate: React.FC = () => {
+  const paymentNoticesCreateFormData = useSelector(selectCreateFormData);
   return (
     <>
-      {paymentNoticesGroupedByDate.length === 0 && (
+      {paymentNoticesCreateFormData.items.length === 0 && (
         <p className="ion-text-center">No se han encontrado resultados</p>
       )}
       <IonList>
-        {paymentNoticesGroupedByDate.map(
-          (dateItem: { dateLabel: string; items: PaymentNotice[] }) => {
-            return (
-              <IonItemGroup key={dateItem.dateLabel}>
-                <IonItemDivider color="light">
-                  <IonLabel>{dateItem.dateLabel}</IonLabel>
-                </IonItemDivider>
-                {dateItem.items.map((paymentNotice: PaymentNotice) => (
-                  <PaymentNoticeListItem
-                    paymentNotice={paymentNotice}
-                    key={paymentNotice.id}
-                  />
-                ))}
-              </IonItemGroup>
-            );
-          }
-        )}
+        {paymentNoticesCreateFormData.items.map((dateItem) => {
+          return (
+            <IonItemGroup key={dateItem.dateLabel}>
+              <IonItemDivider color="light">
+                <IonLabel>{dateItem.dateLabel}</IonLabel>
+              </IonItemDivider>
+              {dateItem.items.map((paymentNotice) => (
+                <PaymentNoticeListItem
+                  paymentNotice={paymentNotice}
+                  key={paymentNotice.id}
+                />
+              ))}
+            </IonItemGroup>
+          );
+        })}
       </IonList>
     </>
   );

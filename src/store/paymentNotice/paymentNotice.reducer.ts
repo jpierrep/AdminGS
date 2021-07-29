@@ -14,8 +14,7 @@ interface PaymentNoticeState {
   paymentNoticesCreateFormDataItemEditing: boolean;
   paymentNoticesCreateFormDataItem: PaymentNotice;
   parseFilePending: boolean;
-  paymentNoticesCreatePending: boolean;
-  paymentNoticesCreateFulfilled: boolean;
+  createStatus: string;
   paymentNoticesListFilter: {
     listSegmentSelected: string;
     searchText: string;
@@ -31,8 +30,7 @@ const initialState = {
   paymentNoticesCreateFormDataItemEditing: false,
   paymentNoticesCreateFormDataItem: {},
   parseFilePending: false,
-  paymentNoticesCreatePending: false,
-  paymentNoticesCreateFulfilled: false,
+  createStatus: "initial",
   paymentNoticesListFilter: {
     listSegmentSelected: "pending",
     searchText: "",
@@ -81,8 +79,8 @@ const paymentNoticeSlice = createSlice({
         ...action.payload,
       };
     },
-    setPaymentNoticesCreateFulfilled(state) {
-      state.paymentNoticesCreateFulfilled = false;
+    setCreateStatus(state, action: PayloadAction<string>) {
+      state.createStatus = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -101,11 +99,10 @@ const paymentNoticeSlice = createSlice({
         state.parseFilePending = false;
       })
       .addCase(createPaymentNotice.pending, (state, { payload }) => {
-        state.paymentNoticesCreatePending = true;
+        state.createStatus = "pending";
       })
       .addCase(createPaymentNotice.fulfilled, (state, { payload }) => {
-        state.paymentNoticesCreatePending = false;
-        state.paymentNoticesCreateFulfilled = true;
+        state.createStatus = "fulfilled";
       })
       .addCase(findOnePaymentNotice.fulfilled, (state, { payload }) => {
         state.paymentNoticeShowed = payload;
