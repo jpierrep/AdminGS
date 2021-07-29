@@ -20,7 +20,7 @@ import currencyFormat from "../../../utils/currencyFormat";
 
 const PaymentNoticeListSummary: React.FC = () => {
   const dispatch = useDispatch();
-  const paymentNoticesGroupedByDate = useSelector(selectListLatest);
+  const listLatest = useSelector(selectListLatest);
   useEffect(() => {
     dispatch(findPaymentNotices());
   }, [dispatch]);
@@ -33,7 +33,7 @@ const PaymentNoticeListSummary: React.FC = () => {
         <IonButton routerLink="/app/contabilidad/abonos">Ver todos</IonButton>
       </IonListHeader>
 
-      {paymentNoticesGroupedByDate.length === 0 && (
+      {listLatest.length === 0 && (
         <IonCard
           style={{ height: "130px" }}
           routerLink={`/app/contabilidad/abonos`}
@@ -45,30 +45,32 @@ const PaymentNoticeListSummary: React.FC = () => {
           </IonItem>
         </IonCard>
       )}
-      <IonSlides pager={true}>
-        {paymentNoticesGroupedByDate.map((paymentNotice, index) => (
-          <IonSlide key={index} style={{ height: "130px" }}>
-            <IonCard
-              style={{ width: "100%" }}
-              routerLink={`/app/contabilidad/abonos/detalle/${paymentNotice.id}`}
-            >
-              <IonItem lines="none">
-                <IonLabel>
-                  <p>{paymentNotice.payedAtLegible}</p>
-                  <h1>
-                    <strong>
-                      {paymentNotice.client?.name || "No identificado"}
-                    </strong>
-                  </h1>
-                </IonLabel>
-                <IonNote slot="end">
-                  {currencyFormat(paymentNotice.amount || 0)}
-                </IonNote>
-              </IonItem>
-            </IonCard>
-          </IonSlide>
-        ))}
-      </IonSlides>
+      {listLatest.length > 0 && (
+        <IonSlides pager={true}>
+          {listLatest.map((paymentNotice, index) => (
+            <IonSlide key={index} style={{ height: "130px" }}>
+              <IonCard
+                style={{ width: "100%" }}
+                routerLink={`/app/contabilidad/abonos/detalle/${paymentNotice.id}`}
+              >
+                <IonItem lines="none">
+                  <IonLabel>
+                    <p>{paymentNotice.payedAtLegible}</p>
+                    <h1>
+                      <strong>
+                        {paymentNotice.client?.name || "No identificado"}
+                      </strong>
+                    </h1>
+                  </IonLabel>
+                  <IonNote slot="end">
+                    {currencyFormat(paymentNotice.amount || 0)}
+                  </IonNote>
+                </IonItem>
+              </IonCard>
+            </IonSlide>
+          ))}
+        </IonSlides>
+      )}
     </section>
   );
 };

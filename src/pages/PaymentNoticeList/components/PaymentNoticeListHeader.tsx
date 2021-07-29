@@ -9,11 +9,11 @@ import {
 // Actions
 import findPaymentNotices from "../../../store/paymentNotice/actions/findPaymentNotices";
 // Selectors
-import { selectListSegmentSelected } from "../../../store/paymentNotice/selectors/selectListSegmentSelected";
+import { selectListFilter } from "../../../store/paymentNotice/selectors/selectListFilter";
 
 const PaymentNoticeListHeader: React.FC = () => {
   const dispatch = useDispatch();
-  const listSegmentSelected = useSelector(selectListSegmentSelected);
+  const { listSegmentSelected, searchText } = useSelector(selectListFilter);
   return (
     <>
       <section className="ion-padding-horizontal">
@@ -38,6 +38,7 @@ const PaymentNoticeListHeader: React.FC = () => {
       <br />
       <IonSearchbar
         placeholder="Buscar"
+        value={searchText}
         onIonChange={(e) => {
           dispatch({
             type: "paymentNotice/updatePaymentNoticesListFilter",
