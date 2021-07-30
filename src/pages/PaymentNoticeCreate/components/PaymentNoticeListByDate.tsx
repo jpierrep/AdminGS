@@ -17,7 +17,7 @@ const PaymentNoticeListByDate: React.FC = () => {
         {paymentNoticesCreateFormData.items.map((dateItem) => {
           return (
             <IonItemGroup key={dateItem.dateLabel}>
-              <IonItemDivider color="transparent">
+              <IonItemDivider sticky={true}>
                 <IonLabel>
                   <strong>{dateItem.dateLabel}</strong>
                 </IonLabel>

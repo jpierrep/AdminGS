@@ -22,7 +22,7 @@ const PaymentNoticeListByDate: React.FC = () => {
           {paymentNoticesGroupedByDate.map((dateItem) => {
             return (
               <IonItemGroup key={dateItem.dateLabel}>
-                <IonItemDivider color="transparent">
+                <IonItemDivider sticky={true}>
                   <IonLabel>
                     <strong>{dateItem.dateLabel}</strong>
                   </IonLabel>

@@ -51,7 +51,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={isPlatform('android') ? 'primary' : ''}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Cancelar" : ""}

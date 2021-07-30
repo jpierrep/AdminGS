@@ -6,6 +6,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  isPlatform,
 } from "@ionic/react";
 
 import React from "react";
@@ -16,7 +17,7 @@ const AccountingDashboards: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonMenuButton></IonMenuButton>
           </IonButtons>

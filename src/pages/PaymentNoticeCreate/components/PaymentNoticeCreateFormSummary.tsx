@@ -23,9 +23,10 @@ const PaymentNoticeCreateFormSummary: React.FC = () => {
   return (
     <IonItemGroup>
       <IonItem lines="none">
-        <IonLabel>
-          <h6>{identifiedQuantity} Identificados</h6>
-          <h6>{unidentifiedQuantity} Pendientes</h6>
+        <IonLabel class="ion-no-margin">
+          <h6>
+            <strong>{identifiedQuantity} Identificados</strong>
+          </h6>
         </IonLabel>
         <IonNote slot="end" class="ion-text-right">
           <IonText color="primary">
@@ -33,6 +34,15 @@ const PaymentNoticeCreateFormSummary: React.FC = () => {
               {currencyFormat(identifiedAmount || 0)}
             </h5>
           </IonText>
+        </IonNote>
+      </IonItem>
+      <IonItem lines="none">
+        <IonLabel class="ion-no-margin">
+          <h6>
+            <strong>{unidentifiedQuantity} Pendientes</strong>
+          </h6>
+        </IonLabel>
+        <IonNote slot="end" class="ion-text-right">
           <IonText color="primary">
             <h5 className="ion-no-margin">
               {currencyFormat(unidentifiedAmount || 0)}
@@ -40,6 +50,7 @@ const PaymentNoticeCreateFormSummary: React.FC = () => {
           </IonText>
         </IonNote>
       </IonItem>
+
       <IonItem lines="none">
         <IonLabel>
           <strong>Total</strong>

@@ -47,7 +47,7 @@ const PaymentNoticeCreate: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Cancelar" : ""}
@@ -63,13 +63,14 @@ const PaymentNoticeCreate: React.FC = () => {
             <IonTitle size="large">Registrar abonos</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <br />
         <PaymentNoticeListByDate />
       </IonContent>
       <IonFooter>
         <PaymentNoticeCreateFormSummary />
         <IonButton
           expand="block"
+          class="ion-no-margin ion-margin-horizontal"
+          style={{marginBottom: '3px'}}
           onClick={() => setShowConfirmCreateAlert(true)}
         >
           <strong>REGISTRAR ABONOS</strong>

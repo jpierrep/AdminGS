@@ -26,7 +26,7 @@ const PaymentNoticeList: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Contabilidad" : ""}
@@ -41,10 +41,8 @@ const PaymentNoticeList: React.FC = () => {
         <PaymentNoticeListHeader />
         <PaymentNoticeListByDate />
         <PaymentNoticeCreateButton />
-
       </IonContent>
-      <IonFooter>
-      </IonFooter>
+      <IonFooter></IonFooter>
       <IonToast
         isOpen={createStatus === "fulfilled"}
         message="Abonos registrados exitosamente"
