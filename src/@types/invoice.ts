@@ -1,6 +1,5 @@
 export type Invoice = {
-    id?: string;
-    identifier?: string;
-    amount?: number;
-  };
-  
+  id?: string;
+  identifier?: string;
+  amount?: number;
+};

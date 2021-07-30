@@ -30,7 +30,8 @@ const PaymentNoticeCreate: React.FC = () => {
   const history = useHistory();
 
   const createStatus = useSelector(selectCreateStatus);
-  const { totalQuantity } = useSelector(selectCreateSummary);
+  const { totalQuantity, unidentifiedQuantity } =
+    useSelector(selectCreateSummary);
 
   const [showConfirmCreateAlert, setShowConfirmCreateAlert] = useState(false);
 
@@ -76,7 +77,10 @@ const PaymentNoticeCreate: React.FC = () => {
       </IonFooter>
       <IonAlert
         isOpen={showConfirmCreateAlert}
-        message={`<h3>Se registrarán ${totalQuantity} abonos</h3>`}
+        message={`
+          <h1>Último paso</h1>
+          <h3>Se registrarán ${totalQuantity} abonos, incluidos ${unidentifiedQuantity} sin identificar</h3>
+          `}
         onDidDismiss={() => setShowConfirmCreateAlert(false)}
         buttons={[
           {

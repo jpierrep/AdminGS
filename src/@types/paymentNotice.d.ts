@@ -12,4 +12,8 @@ export type PaymentNotice = {
   description?: string;
   payedAtLegible?: string;
   payedAt?: number;
+  log?: {
+    description: string;
+    createdAtLegible: string;
+  }[];
 };

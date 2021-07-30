@@ -92,6 +92,15 @@ const PaymentNoticeShow: React.FC = () => {
           <IonListHeader>
             <IonLabel>Actividad</IonLabel>
           </IonListHeader>
+
+          {paymentNoticeShowed?.log?.map((logItem, index) => (
+            <IonItem key={index}>
+              <IonLabel>
+                <h2>{logItem.description}</h2>
+                <h4 className="ion-text-right">{logItem.createdAtLegible}</h4>
+              </IonLabel>
+            </IonItem>
+          ))}
         </IonList>
       </IonContent>
     </IonPage>
