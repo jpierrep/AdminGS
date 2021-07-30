@@ -5,40 +5,32 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonLabel,
-  IonList,
   IonPage,
   IonContent,
   IonBackButton,
   IonButtons,
-  IonListHeader,
   IonButton,
   IonFooter,
   IonLoading,
   IonAlert,
   isPlatform,
-  IonItem,
-  IonNote,
 } from "@ionic/react";
 
-// Actions
-import createPaymentNotices from "../../store/paymentNotice/actions/createPaymentNotices";
-// Selectors
-import { selectCreateFormData } from "../../store/paymentNotice/selectors/selectCreateFormData";
 // Components
 import PaymentNoticeCreateFormSummary from "./components/PaymentNoticeCreateFormSummary";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
-import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
-import currencyFormat from "../../utils/currencyFormat";
+// Actions
+import createPaymentNotices from "../../store/paymentNotice/actions/createPaymentNotices";
+// Selectors
 import { selectCreateSummary } from "../../store/paymentNotice/selectors/selectCreateSummary";
+import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
 
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const paymentNoticesCreateFormData = useSelector(selectCreateFormData);
   const createStatus = useSelector(selectCreateStatus);
-  const { totalQuantity, totalAmount } = useSelector(selectCreateSummary);
+  const { totalQuantity } = useSelector(selectCreateSummary);
 
   const [showConfirmCreateAlert, setShowConfirmCreateAlert] = useState(false);
 
@@ -70,24 +62,11 @@ const PaymentNoticeCreate: React.FC = () => {
             <IonTitle size="large">Registrar abonos</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonList>
-          <IonListHeader>
-            <IonLabel>Abonos</IonLabel>
-          </IonListHeader>
-          <PaymentNoticeListByDate />
-          <PaymentNoticeCreateFormSummary />
-        </IonList>
+        <br />
+        <PaymentNoticeListByDate />
       </IonContent>
       <IonFooter>
-        <IonItem>
-          <IonLabel>
-            <strong>Total</strong>
-            <p>{totalQuantity} abonos</p>
-          </IonLabel>
-          <IonNote slot="end">
-            <strong>{currencyFormat(totalAmount)}</strong>
-          </IonNote>
-        </IonItem>
+        <PaymentNoticeCreateFormSummary />
         <IonButton
           expand="block"
           onClick={() => setShowConfirmCreateAlert(true)}
@@ -97,7 +76,7 @@ const PaymentNoticeCreate: React.FC = () => {
       </IonFooter>
       <IonAlert
         isOpen={showConfirmCreateAlert}
-        message={`<h3>Se registrarán ${paymentNoticesCreateFormData.items.length} abonos</h3>`}
+        message={`<h3>Se registrarán ${totalQuantity} abonos</h3>`}
         onDidDismiss={() => setShowConfirmCreateAlert(false)}
         buttons={[
           {

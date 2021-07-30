@@ -2,8 +2,8 @@ import {
   IonLabel,
   IonItem,
   IonNote,
-  IonItemDivider,
   IonItemGroup,
+  IonText,
 } from "@ionic/react";
 import { useSelector } from "react-redux";
 import React from "react";
@@ -16,29 +16,41 @@ const PaymentNoticeCreateFormSummary: React.FC = () => {
     identifiedAmount,
     unidentifiedQuantity,
     unidentifiedAmount,
+    totalQuantity,
+    totalAmount,
   } = useSelector(selectCreateSummary);
 
   return (
     <IonItemGroup>
-      <IonItemDivider color="light">
-        <IonLabel>Resumen</IonLabel>
-      </IonItemDivider>
-      <IonItem>
+      <IonItem lines="none">
         <IonLabel>
-          <strong>Identificado</strong>
-          <p>{identifiedQuantity} abonos</p>
+          <h6>{identifiedQuantity} Identificados</h6>
+          <h6>{unidentifiedQuantity} Pendientes</h6>
         </IonLabel>
-        <IonNote slot="end">
-          <strong>{currencyFormat(identifiedAmount)}</strong>
+        <IonNote slot="end" class="ion-text-right">
+          <IonText color="primary">
+            <h5 className="ion-no-margin">
+              {currencyFormat(identifiedAmount || 0)}
+            </h5>
+          </IonText>
+          <IonText color="primary">
+            <h5 className="ion-no-margin">
+              {currencyFormat(unidentifiedAmount || 0)}
+            </h5>
+          </IonText>
         </IonNote>
       </IonItem>
-      <IonItem>
+      <IonItem lines="none">
         <IonLabel>
-          <strong>Pendiente</strong>
-          <p>{unidentifiedQuantity} abonos</p>
+          <strong>Total</strong>
+          <p>{totalQuantity} abonos</p>
         </IonLabel>
-        <IonNote slot="end">
-          <strong>{currencyFormat(unidentifiedAmount)}</strong>
+        <IonNote slot="end" class="ion-text-right">
+          <IonText color="primary">
+            <h5 className="ion-no-margin">
+              {currencyFormat(totalAmount || 0)}
+            </h5>
+          </IonText>
         </IonNote>
       </IonItem>
     </IonItemGroup>

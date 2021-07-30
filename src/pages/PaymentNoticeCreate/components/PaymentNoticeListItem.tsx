@@ -1,4 +1,4 @@
-import { IonLabel, IonItem, IonNote, IonIcon } from "@ionic/react";
+import { IonLabel, IonItem, IonNote, IonIcon, IonText } from "@ionic/react";
 import { checkmarkCircleOutline, alertCircleOutline } from "ionicons/icons";
 
 import React from "react";
@@ -23,22 +23,33 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
         });
         history.push(`/app/contabilidad/abonos/agregar/abono`);
       }}
+      lines="none"
+      className={!paymentNotice.client ? "ion-activated" : ""}
     >
-      <IonIcon
-        icon={
-          paymentNotice.client ? checkmarkCircleOutline : alertCircleOutline
-        }
-        style={{ color: paymentNotice.client ? "green" : "red" }}
-        slot="start"
-      />
       <IonLabel>
-        <strong>{paymentNotice.client?.name || "No identificado"}</strong>
+        <h5 style={{ color: paymentNotice.client ? "" : "red" }}>
+          {!paymentNotice.client && (
+            <IonIcon
+              icon={
+                paymentNotice.client
+                  ? checkmarkCircleOutline
+                  : alertCircleOutline
+              }
+              style={{ paddingRight: "8px" }}
+            />
+          )}
+          <strong>{paymentNotice.client?.name || "No identificado"}</strong>
+        </h5>
         <p>
-          <small>{paymentNotice.identifier}</small>
+          <small>{paymentNotice.description}</small>
         </p>
       </IonLabel>
-      <IonNote slot="end">
-        <strong>{currencyFormat(paymentNotice.amount || 0)}</strong>
+      <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
+        <IonText color="primary">
+          <h5 className="ion-no-margin">
+            {currencyFormat(paymentNotice.amount || 0)}
+          </h5>
+        </IonText>
       </IonNote>
     </IonItem>
   );

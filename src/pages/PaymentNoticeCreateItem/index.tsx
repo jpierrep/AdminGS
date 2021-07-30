@@ -12,7 +12,6 @@ import {
   IonSelect,
   IonSelectOption,
   IonContent,
-  IonFooter,
   IonCheckbox,
   IonPage,
   IonBackButton,
@@ -80,25 +79,23 @@ const PaymentNoticeCreateItem: React.FC = () => {
           <IonItem>
             <IonLabel>
               <strong>Fecha</strong>
+              <h5>{createFormDataItem.payedAtLegible}</h5>
             </IonLabel>
-            <IonNote slot="end">{createFormDataItem.payedAtLegible}</IonNote>
           </IonItem>
           <IonItem>
             <IonLabel>
               <strong>Descripción</strong>
+              <h5>{createFormDataItem.description}</h5>
             </IonLabel>
-            <IonNote slot="end">{createFormDataItem.description}</IonNote>
           </IonItem>
           <IonItem>
             <IonLabel>
-              <strong>Pagado</strong>
+              <strong>Monto</strong>
+              <h5>{currencyFormat(createFormDataItem.amount || 0)}</h5>
             </IonLabel>
-            <IonNote slot="end">
-              {currencyFormat(createFormDataItem.amount || 0)}
-            </IonNote>
           </IonItem>
           <IonItem>
-            <IonLabel>
+            <IonLabel position="stacked">
               <strong>Cliente</strong>
             </IonLabel>
             <IonSelect
@@ -131,18 +128,11 @@ const PaymentNoticeCreateItem: React.FC = () => {
                 </IonItem>
               )
             )}
+            {!createFormDataItem.client?.invoices && (
+              <p className="ion-text-center">No hay facturas pendientes</p>
+            )}
           </section>
         </IonList>
-        <IonFooter>
-          <IonItem lines="none">
-            <IonLabel>
-              <strong>Total</strong>
-            </IonLabel>
-            <IonNote slot="end">
-              <IonLabel>$12.000.000</IonLabel>
-            </IonNote>
-          </IonItem>
-        </IonFooter>
       </IonContent>
     </IonPage>
   );

@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
-  IonButton,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -34,15 +33,6 @@ const PaymentNoticeCreateButton: React.FC = () => {
   return (
     <>
       <input ref={fileInput} hidden type="file" onChange={onSelectFile} />
-      {/*       <IonButton
-        expand="block"
-        onClick={() => {
-          // @ts-ignore
-          fileInput?.current?.click();
-        }}
-      >
-        REGISTRAR ABONOS
-      </IonButton> */}
       <IonFab vertical="bottom" horizontal="end" slot="fixed">
         <IonFabButton
           onClick={() => {
