@@ -1,4 +1,4 @@
-import api from "../../../api";
+import api from "../../../utils/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../rootReducer";
 

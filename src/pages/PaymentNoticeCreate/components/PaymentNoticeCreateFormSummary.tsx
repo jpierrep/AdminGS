@@ -1,49 +1,28 @@
-import { IonLabel, IonItem, IonListHeader, IonNote } from "@ionic/react";
+import {
+  IonLabel,
+  IonItem,
+  IonNote,
+  IonItemDivider,
+  IonItemGroup,
+} from "@ionic/react";
 import { useSelector } from "react-redux";
 import React from "react";
 import currencyFormat from "../../../utils/currencyFormat";
+import { selectCreateSummary } from "../../../store/paymentNotice/selectors/selectCreateSummary";
 
 const PaymentNoticeCreateFormSummary: React.FC = () => {
-  const identifiedAmount = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items
-      .filter(({ client }: any) => client)
-      .reduce((total: any, { amount }: any) => total + amount, 0);
-  });
-
-  const identifiedQuantity = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items.filter(
-      ({ client }: any) => client
-    ).length;
-  });
-
-  const unidentifiedAmount = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items
-      .filter(({ client }: any) => !client)
-      .reduce((total: any, { amount }: any) => total + amount, 0);
-  });
-
-  const unidentifiedQuantity = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items.filter(
-      ({ client }: any) => !client
-    ).length;
-  });
-
-  const totalAmount = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items.reduce(
-      (total: any, { amount }: any) => total + amount,
-      0
-    );
-  });
-
-  const totalQuantity = useSelector((store: any) => {
-    return store.paymentNotice.paymentNoticesCreateFormData.items.length;
-  });
+  const {
+    identifiedQuantity,
+    identifiedAmount,
+    unidentifiedQuantity,
+    unidentifiedAmount,
+  } = useSelector(selectCreateSummary);
 
   return (
-    <section>
-      <IonListHeader>
+    <IonItemGroup>
+      <IonItemDivider color="light">
         <IonLabel>Resumen</IonLabel>
-      </IonListHeader>
+      </IonItemDivider>
       <IonItem>
         <IonLabel>
           <strong>Identificado</strong>
@@ -62,16 +41,7 @@ const PaymentNoticeCreateFormSummary: React.FC = () => {
           <strong>{currencyFormat(unidentifiedAmount)}</strong>
         </IonNote>
       </IonItem>
-      <IonItem>
-        <IonLabel>
-          <strong>Total</strong>
-          <p>{totalQuantity} abonos</p>
-        </IonLabel>
-        <IonNote slot="end">
-          <strong>{currencyFormat(totalAmount)}</strong>
-        </IonNote>
-      </IonItem>
-    </section>
+    </IonItemGroup>
   );
 };
 

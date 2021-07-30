@@ -68,6 +68,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
                 })
               }
               routerLink={`/app/contabilidad/abonos/agregar`}
+              routerDirection="back"
             >
               Listo
             </IonButton>

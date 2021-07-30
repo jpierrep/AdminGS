@@ -7,6 +7,7 @@ import { PaymentNotice } from "../../@types/paymentNotice";
 
 interface PaymentNoticeState {
   paymentNotices: PaymentNotice[];
+  findStatus: string;
   paymentNoticeShowed: PaymentNotice;
   paymentNoticesCreateFormData: {
     items: PaymentNotice[];
@@ -24,6 +25,7 @@ interface PaymentNoticeState {
 
 const initialState = {
   paymentNotices: [],
+  findStatus: "initial",
   paymentNoticeShowed: {},
   paymentNoticesCreateFormData: {
     items: [],
@@ -87,8 +89,15 @@ const paymentNoticeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(findPaymentNotices.pending, (state) => {
+        state.findStatus = "pending";
+      })
       .addCase(findPaymentNotices.fulfilled, (state, { payload }) => {
         state.paymentNotices = [...payload];
+        state.findStatus = "fulfilled";
+      })
+      .addCase(findPaymentNotices.rejected, (state) => {
+        state.findStatus = "rejected";
       })
       .addCase(parsePaymentNoticesFile.pending, (state) => {
         state.parseFileStatus = "pending";

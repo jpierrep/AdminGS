@@ -40,9 +40,10 @@ const PaymentNoticeList: React.FC = () => {
         <br />
         <PaymentNoticeListHeader />
         <PaymentNoticeListByDate />
+        <PaymentNoticeCreateButton />
+
       </IonContent>
       <IonFooter>
-        <PaymentNoticeCreateButton />
       </IonFooter>
       <IonToast
         isOpen={createStatus === "fulfilled"}
