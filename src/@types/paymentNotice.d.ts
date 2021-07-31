@@ -1,8 +1,4 @@
-type Client = {
-  id?: string;
-  name: string;
-  invoices: [];
-};
+import { Client } from "./client";
 
 export type PaymentNotice = {
   id?: string;

@@ -15,12 +15,13 @@ import {
   IonFooter,
   IonLoading,
 } from "@ionic/react";
-
 import { personOutline, shieldOutline } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 // Actions
 import login from "../../store/userAuthentication/actions/login";
+// Selectors
+import { selectLoginStatus } from "../../store/userAuthentication/selectors/selectLoginStatus";
 
 export const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,9 +37,7 @@ export const Login: React.FC = () => {
     margin: "32px auto",
   };
 
-  const { loginPending } = useSelector(
-    (store: any) => store.userAuthentication
-  );
+  const loginStatus = useSelector(selectLoginStatus);
 
   const onLogin = async () => {
     try {
@@ -116,7 +115,10 @@ export const Login: React.FC = () => {
         </IonButton>
       </IonFooter>
 
-      <IonLoading isOpen={loginPending} message={"Ingresando..."} />
+      <IonLoading
+        isOpen={loginStatus === "pending"}
+        message={"Ingresando..."}
+      />
     </IonPage>
   );
 };

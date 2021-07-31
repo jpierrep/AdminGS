@@ -34,6 +34,7 @@ import "./theme/variables.css";
 import { useSelector } from "react-redux";
 import { IonApp, IonPage, IonRouterOutlet } from "@ionic/react";
 import { selectIsAuthenticated } from "./store/userAuthentication/selectors/selectIsAuthenticated";
+import { selectLoginStatus } from "./store/userAuthentication/selectors/selectLoginStatus";
 
 const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
   return (
@@ -73,7 +74,7 @@ const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
 };
 
 const App: React.FC = () => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const loginStatus = useSelector(selectLoginStatus);
 
   return (
     <IonApp>
@@ -82,7 +83,7 @@ const App: React.FC = () => {
           <Route
             path="/app"
             render={(props) => {
-              return !isAuthenticated ? (
+              return loginStatus !== "fulfilled" ? (
                 <Redirect to="/ingresar" />
               ) : (
                 <UserAuthenticatedRouter {...props} />

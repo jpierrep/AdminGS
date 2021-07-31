@@ -5,12 +5,14 @@ import logout from "./actions/logout";
 
 interface UserAuthenticationState {
   user?: User;
-  loginPending: boolean;
+  loginStatus: string;
+  logoutStatus: string;
 }
 
 const initialState = {
   user: undefined,
-  loginPending: false,
+  loginStatus: "initial",
+  logoutStatus: "initial",
 } as UserAuthenticationState;
 
 const userAuthenticationSlice = createSlice({
@@ -19,18 +21,25 @@ const userAuthenticationSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(login.pending, (state) => {
+        state.loginStatus = "pending";
+      })
       .addCase(login.fulfilled, (state, { payload }) => {
         state.user = payload;
-        state.loginPending = false;
+        state.loginStatus = "fulfilled";
       })
-      .addCase(login.pending, (state) => {
-        state.loginPending = true;
+      .addCase(login.rejected, (state) => {
+        state.loginStatus = "rejected";
+      })
+      .addCase(logout.pending, (state) => {
+        state.logoutStatus = "pending";
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = undefined;
+        state.logoutStatus = "fulfilled";
       })
       .addDefaultCase((state, action) => {
-        console.log(action);
+        //console.log(action);
       });
   },
 });
