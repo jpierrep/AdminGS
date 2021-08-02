@@ -37,7 +37,7 @@ const PaymentNoticeShow: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform('android') ? 'primary' : ''}>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Abonos" : ""}
@@ -49,7 +49,7 @@ const PaymentNoticeShow: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
-          <IonToolbar color={isPlatform('android') ? 'primary' : ''}>
+          <IonToolbar color={isPlatform("android") ? "primary" : ""}>
             <IonTitle size="large">Abono</IonTitle>
           </IonToolbar>
         </IonHeader>

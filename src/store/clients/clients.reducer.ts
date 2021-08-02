@@ -18,9 +18,6 @@ const clientsSlice = createSlice({
       .addCase(findClients.fulfilled, (state, { payload }) => {
         state.clients = payload;
       })
-      .addDefaultCase((state, action) => {
-        console.log(action);
-      });
   },
 });
 

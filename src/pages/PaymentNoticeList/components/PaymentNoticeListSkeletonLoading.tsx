@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  IonAvatar,
   IonItem,
   IonLabel,
   IonList,

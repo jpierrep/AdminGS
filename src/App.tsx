@@ -33,7 +33,6 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import { useSelector } from "react-redux";
 import { IonApp, IonPage, IonRouterOutlet } from "@ionic/react";
-import { selectIsAuthenticated } from "./store/userAuthentication/selectors/selectIsAuthenticated";
 import { selectLoginStatus } from "./store/userAuthentication/selectors/selectLoginStatus";
 
 const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
