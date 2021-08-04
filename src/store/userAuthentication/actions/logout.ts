@@ -5,12 +5,17 @@ const logout = createAsyncThunk(
   "userAuthentication/logout",
   async (data, { rejectWithValue }) => {
     try {
-      let response = await fetch(`${api.baseURL}user/logout`);
+      const timeout = () => {
+        return new Promise((resolve) => setTimeout(resolve, 800));
+      };
+      await timeout();
+      return true;
+      /* let response = await fetch(`${api.baseURL}user/logout`);
       if (!response.ok) {
         throw response.statusText;
       }
       let data = await response.json();
-      return data;
+      return data; */
     } catch (error) {
       return rejectWithValue(error);
     }

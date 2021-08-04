@@ -1,9 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
+  IonAvatar,
   IonButtons,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -14,6 +20,9 @@ import {
 } from "@ionic/react";
 // Selectors
 import { selectUser } from "../../store/userAuthentication/selectors/selectUser";
+// Components
+import LogoutButton from "./components/LogoutButton";
+import { helpCircleOutline } from "ionicons/icons";
 
 export const UserAuthenticatedAccount: React.FC = () => {
   const user = useSelector(selectUser);
@@ -33,19 +42,29 @@ export const UserAuthenticatedAccount: React.FC = () => {
             <IonTitle size="large">Mi cuenta</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <section className="ion-padding">
-          <h1>
-            Hola <strong>{user?.username}</strong>
-          </h1>
-        </section>
-        <IonList>
-          <IonItem>
-            <IonLabel>Ayuda</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Salir</IonLabel>
-          </IonItem>
-        </IonList>
+        <IonCard>
+          <IonAvatar class="ion-margin">
+            <img
+              src={`https://jaimecisternas.dev/img/welcome.d7bad8d2.png`}
+              alt=""
+              width="60"
+              height="60"
+            />
+          </IonAvatar>
+          <IonCardHeader>
+            <IonCardTitle>{user?.username}</IonCardTitle>
+            <IonCardSubtitle>{user?.email}</IonCardSubtitle>
+          </IonCardHeader>
+        </IonCard>
+        <IonCard>
+          <IonList>
+            <IonItem lines="none">
+              <IonIcon icon={helpCircleOutline} slot="start"></IonIcon>
+              <IonLabel>Ayuda</IonLabel>
+            </IonItem>
+            <LogoutButton />
+          </IonList>
+        </IonCard>
       </IonContent>
     </IonPage>
   );

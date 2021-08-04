@@ -1,36 +1,36 @@
 import React, { useState } from "react";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonIcon,
-  IonButton,
-  IonImg,
-  IonFooter,
-  IonLoading,
-} from "@ionic/react";
-import { personOutline, shieldOutline } from "ionicons/icons";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import {
+  IonContent,
+  IonPage,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonInput,
+  IonHeader,
+  IonImg,
+  IonLoading,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+
 // Actions
 import login from "../../store/userAuthentication/actions/login";
 // Selectors
 import { selectLoginStatus } from "../../store/userAuthentication/selectors/selectLoginStatus";
 
-export const Login: React.FC = () => {
+let initialValues = {
+  username: "",
+  password: "",
+};
+
+let renderCount = 0;
+
+const Login: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [authFormData, setAuthFormData] = useState({
-    username: "",
-    password: "",
-  });
-
   const imgStyle = {
     width: "100px",
     height: "100px",
@@ -39,9 +39,9 @@ export const Login: React.FC = () => {
 
   const loginStatus = useSelector(selectLoginStatus);
 
-  const onLogin = async () => {
+  const onLogin = async (data: {}) => {
     try {
-      await dispatch(login(authFormData));
+      await dispatch(login(data));
       history.replace("/app/contabilidad");
     } catch (error) {
       console.log(error);
@@ -55,6 +55,50 @@ export const Login: React.FC = () => {
     marginRight: "auto",
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    defaultValues: { ...initialValues },
+    delayError: 500,
+    mode: "onChange",
+  });
+
+  const [data, setData] = useState();
+
+  renderCount++;
+
+  /**
+   *
+   * @param _fieldName
+   */
+  const showError = (errorMessage?: string) => {
+    return (
+      errorMessage && (
+        <div
+          style={{
+            color: "red",
+            padding: 5,
+            paddingLeft: 12,
+            fontSize: "smaller",
+          }}
+        >
+          {errorMessage}
+        </div>
+      )
+    );
+  };
+
+  /**
+   *
+   * @param data
+   */
+  const onSubmit = (data: any) => {
+    onLogin(data);
+  };
+
+  console.log(errors);
   return (
     <IonPage>
       <IonHeader>
@@ -62,63 +106,48 @@ export const Login: React.FC = () => {
           <IonTitle>GuardService Admins</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent class="ion-padding">
-        <section style={maxWidthLimited}>
+
+      <IonContent>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 18 }}>
+          <span className="counter">Render Count: {renderCount}</span>
           <IonImg src="assets/gs-logo.png" style={imgStyle} />
-          <IonList>
-            <IonItem lines="inset">
-              <IonIcon
-                class="ion-align-self-end"
-                slot="start"
-                icon={personOutline}
-              />
-              <IonLabel position="stacked">Usuario</IonLabel>
-              <IonInput
-                value={authFormData.username}
-                onIonChange={(e) =>
-                  setAuthFormData({
-                    ...authFormData,
-                    username: e.detail.value || "",
-                  })
-                }
-              ></IonInput>
-            </IonItem>
 
-            <IonItem lines="inset">
-              <IonIcon
-                class="ion-align-self-end"
-                slot="start"
-                icon={shieldOutline}
-              />
-              <IonLabel position="stacked">Contraseña</IonLabel>
-              <IonInput
-                value={authFormData.password}
-                onIonChange={(e) =>
-                  setAuthFormData({
-                    ...authFormData,
-                    password: e.detail.value || "",
-                  })
-                }
-              ></IonInput>
-            </IonItem>
-          </IonList>
-        </section>
+          <IonItem>
+            <IonLabel position="stacked">Usuario</IonLabel>
+            <IonInput
+              {...register("username", {
+                required: "Campo obligatorio.",
+              })}
+              name="username"
+            ></IonInput>
+          </IonItem>
+          {showError(errors.username?.message)}
+
+          <IonItem>
+            <IonLabel position="stacked">Contraseña</IonLabel>
+            <IonInput
+              {...register("password", {
+                required: "Campo obligatorio.",
+              })}
+              type="password"
+              name="password"
+            ></IonInput>
+          </IonItem>
+          {showError(errors.password?.message)}
+
+          <br />
+
+          <IonButton type="submit" expand="block">
+            Ingresar
+          </IonButton>
+          <IonLoading
+            isOpen={loginStatus === "pending"}
+            message={"Ingresando..."}
+          />
+        </form>
       </IonContent>
-      <IonFooter>
-        <IonButton
-          expand="block"
-          color="primary"
-          onClick={() => onLogin()}
-          style={maxWidthLimited}
-        >
-          Ingresar
-        </IonButton>
-      </IonFooter>
-
-      <IonLoading
-        isOpen={loginStatus === "pending"}
-        message={"Ingresando..."}
-      />
     </IonPage>
   );
 };
+
+export default Login;

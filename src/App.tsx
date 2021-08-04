@@ -1,5 +1,4 @@
 import { IonReactRouter } from "@ionic/react-router";
-import { Login } from "./pages/Login";
 import { IonSplitPane } from "@ionic/react";
 
 import React from "react";
@@ -12,6 +11,7 @@ import PaymentNoticeList from "./pages/PaymentNoticeList";
 import PaymentNoticeShow from "./pages/PaymentNoticeShow";
 import { UserAuthenticatedAccount } from "./pages/UserAuthenticatedAccount";
 import PaymentNoticeCreateItem from "./pages/PaymentNoticeCreateItem";
+import Login from "./pages/Login";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
