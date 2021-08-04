@@ -13,7 +13,10 @@ const InputErrorMessage: React.FC<{ errorMessage: string }> = ({
       }}
     >
       {errorMessage && (
-        <IonIcon icon={warningOutline} class="ion-margin-right"></IonIcon>
+        <IonIcon
+          icon={warningOutline}
+          style={{ fontSize: "13px", marginRight: "5px" }}
+        ></IonIcon>
       )}
       <small>{errorMessage}</small>
     </IonText>
