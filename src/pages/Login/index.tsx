@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
@@ -14,19 +14,15 @@ import {
   IonLoading,
   IonTitle,
   IonToolbar,
+  IonIcon,
 } from "@ionic/react";
 
 // Actions
 import login from "../../store/userAuthentication/actions/login";
 // Selectors
 import { selectLoginStatus } from "../../store/userAuthentication/selectors/selectLoginStatus";
-
-let initialValues = {
-  username: "",
-  password: "",
-};
-
-let renderCount = 0;
+import { personOutline, shieldOutline } from "ionicons/icons";
+import InputErrorMessage from "../../components/InputErrorMessage";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,7 +35,23 @@ const Login: React.FC = () => {
 
   const loginStatus = useSelector(selectLoginStatus);
 
-  const onLogin = async (data: {}) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
+  /**
+   *
+   * @param data
+   */
+  const onSubmit = async (data: any) => {
     try {
       await dispatch(login(data));
       history.replace("/app/contabilidad");
@@ -48,57 +60,6 @@ const Login: React.FC = () => {
     }
   };
 
-  const maxWidthLimited = {
-    width: "500px",
-    maxWidth: "95%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({
-    defaultValues: { ...initialValues },
-    delayError: 500,
-    mode: "onChange",
-  });
-
-  const [data, setData] = useState();
-
-  renderCount++;
-
-  /**
-   *
-   * @param _fieldName
-   */
-  const showError = (errorMessage?: string) => {
-    return (
-      errorMessage && (
-        <div
-          style={{
-            color: "red",
-            padding: 5,
-            paddingLeft: 12,
-            fontSize: "smaller",
-          }}
-        >
-          {errorMessage}
-        </div>
-      )
-    );
-  };
-
-  /**
-   *
-   * @param data
-   */
-  const onSubmit = (data: any) => {
-    onLogin(data);
-  };
-
-  console.log(errors);
   return (
     <IonPage>
       <IonHeader>
@@ -108,43 +69,67 @@ const Login: React.FC = () => {
       </IonHeader>
 
       <IonContent>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 18 }}>
-          <span className="counter">Render Count: {renderCount}</span>
-          <IonImg src="assets/gs-logo.png" style={imgStyle} />
-
+        <IonImg src="assets/gs-logo.png" style={imgStyle} />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{ padding: 18 }}
+          noValidate
+        >
           <IonItem>
+            <IonIcon
+              slot="start"
+              icon={personOutline}
+              class="ion-align-self-end"
+            ></IonIcon>
             <IonLabel position="stacked">Usuario</IonLabel>
-            <IonInput
-              {...register("username", {
-                required: "Campo obligatorio.",
-              })}
+            <Controller
+              control={control}
               name="username"
-            ></IonInput>
+              render={({ field: { onChange, value } }) => (
+                <IonInput
+                  onIonChange={(e) => onChange(e.detail.value)}
+                  value={value}
+                  {...register("username", {
+                    required: "Campo obligatorio.",
+                  })}
+                ></IonInput>
+              )}
+            />
           </IonItem>
-          {showError(errors.username?.message)}
+          <InputErrorMessage errorMessage={errors.username?.message || ""} />
 
           <IonItem>
+            <IonIcon
+              slot="start"
+              icon={shieldOutline}
+              class="ion-align-self-end"
+            ></IonIcon>
             <IonLabel position="stacked">Contraseña</IonLabel>
-            <IonInput
-              {...register("password", {
-                required: "Campo obligatorio.",
-              })}
-              type="password"
+            <Controller
+              control={control}
               name="password"
-            ></IonInput>
+              render={({ field: { onChange, value } }) => (
+                <IonInput
+                  onIonChange={(e) => onChange(e.detail.value)}
+                  value={value}
+                  {...register("password", {
+                    required: "Campo obligatorio.",
+                  })}
+                  type="password"
+                ></IonInput>
+              )}
+            />
           </IonItem>
-          {showError(errors.password?.message)}
+          <InputErrorMessage errorMessage={errors.password?.message || ""} />
 
-          <br />
-
-          <IonButton type="submit" expand="block">
+          <IonButton type="submit" expand="block" style={{ marginTop: 40 }}>
             Ingresar
           </IonButton>
-          <IonLoading
-            isOpen={loginStatus === "pending"}
-            message={"Ingresando..."}
-          />
         </form>
+        <IonLoading
+          isOpen={loginStatus === "pending"}
+          message={"Ingresando..."}
+        />
       </IonContent>
     </IonPage>
   );
