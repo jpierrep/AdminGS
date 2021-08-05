@@ -1,6 +1,5 @@
 import api from "../../../utils/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import findPaymentNotices from "./findPaymentNotices";
 import { RootState } from "../../rootReducer";
 
 const createPaymentNotices = createAsyncThunk(
@@ -25,7 +24,6 @@ const createPaymentNotices = createAsyncThunk(
         let createdItem = await response.json();
         createdList.push(createdItem);
       }
-      dispatch(findPaymentNotices);
       return createdList;
     } catch (error) {
       return rejectWithValue(error);

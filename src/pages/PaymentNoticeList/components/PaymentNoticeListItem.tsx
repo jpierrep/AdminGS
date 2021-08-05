@@ -1,4 +1,4 @@
-import { IonLabel, IonItem, IonNote } from "@ionic/react";
+import { IonLabel, IonItem, IonNote, IonText } from "@ionic/react";
 import React from "react";
 // Types
 import { PaymentNotice } from "../../../@types/paymentNotice";
@@ -15,13 +15,13 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
     >
       <IonLabel>
         {paymentNotice.client ? (
-          <strong>{paymentNotice.client.name}</strong>
+          <IonText color="primary">
+            <strong>{paymentNotice.client.name}</strong>
+          </IonText>
         ) : (
           <span>No identificado</span>
         )}
-        <p>
-          <small>{paymentNotice.identifier || paymentNotice.description}</small>
-        </p>
+        <p>{paymentNotice.client?.identifier || paymentNotice.description}</p>
       </IonLabel>
       <IonNote slot="end">
         <h5>{currencyFormat(paymentNotice.amount || 0)}</h5>

@@ -17,6 +17,7 @@ import {
 } from "@ionic/react";
 // Actions
 import findOnePaymentNotice from "../../store/paymentNotice/actions/findOnePaymentNotice";
+import findPaymentReconciliations from "../../store/paymentNotice/actions/findPaymentReconciliations";
 // Selectors
 import { selectShowData } from "../../store/paymentNotice/selectors/selectShowData";
 // Utils
@@ -29,6 +30,7 @@ const PaymentNoticeShow: React.FC = () => {
   let { id }: { id: string } = useParams();
   useEffect(() => {
     dispatch(findOnePaymentNotice(parseInt(id)));
+    dispatch(findPaymentReconciliations(parseInt(id)));
   }, [dispatch, id]);
 
   // Data
@@ -37,32 +39,30 @@ const PaymentNoticeShow: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
+        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Abonos" : ""}
               default-href="/contabilidad/abonos"
             />
           </IonButtons>
-          <IonTitle>Abono</IonTitle>
+          <IonTitle>Abono #{paymentNoticeShowed.code}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
-          <IonToolbar color={isPlatform("android") ? "primary" : ""}>
-            <IonTitle size="large">Abono</IonTitle>
+          <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
+            <IonTitle size="large">Abono {paymentNoticeShowed.code}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonList>
-          <IonListHeader>
-            <IonLabel>Datos abono</IonLabel>
-          </IonListHeader>
           <IonItem>
             <IonLabel>
               <p>Cliente</p>
               <strong>
                 {paymentNoticeShowed.client?.name || "No identificado"}
               </strong>
+              <p>{paymentNoticeShowed.client?.identifier}</p>
             </IonLabel>
           </IonItem>
           <IonItem>
@@ -86,13 +86,31 @@ const PaymentNoticeShow: React.FC = () => {
           <IonItem>
             <IonLabel>
               <p>Facturas pagadas</p>
-              <strong>--</strong>
+              <strong>
+                {paymentNoticeShowed.reconciliations?.map(
+                  (paymentReconciliationItem, index) => (
+                    <span>
+                      #{paymentReconciliationItem.invoice?.code || ""}{" "}
+                      {index ===
+                        paymentNoticeShowed.reconciliations?.length && (
+                        <span>-</span>
+                      )}{" "}
+                    </span>
+                  )
+                )}
+              </strong>
             </IonLabel>
           </IonItem>
           <IonListHeader>
             <IonLabel>Actividad</IonLabel>
           </IonListHeader>
-
+          {paymentNoticeShowed?.log?.length === 0 && (
+            <IonItem lines="none">
+              <IonLabel>
+                <h2>No se ha registrado actividad</h2>
+              </IonLabel>
+            </IonItem>
+          )}
           {paymentNoticeShowed?.log?.map((logItem, index) => (
             <IonItem key={index}>
               <IonLabel>

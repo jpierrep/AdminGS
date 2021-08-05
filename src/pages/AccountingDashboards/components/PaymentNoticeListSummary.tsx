@@ -7,6 +7,7 @@ import {
   IonNote,
   IonSlide,
   IonSlides,
+  isPlatform,
 } from "@ionic/react";
 
 import React, { useEffect } from "react";
@@ -25,10 +26,12 @@ const PaymentNoticeListSummary: React.FC = () => {
     dispatch(findPaymentNotices());
   }, [dispatch]);
   return (
-    <section>
+    <section className="ion-padding-vertical">
       <IonListHeader>
         <IonLabel>
-          <strong>Últimos abonos</strong>
+          <h1>
+            <strong>Últimos abonos</strong>
+          </h1>
         </IonLabel>
         <IonButton routerLink="/app/contabilidad/abonos">Ver todos</IonButton>
       </IonListHeader>
@@ -46,7 +49,10 @@ const PaymentNoticeListSummary: React.FC = () => {
         </IonCard>
       )}
       {listLatest.length > 0 && (
-        <IonSlides pager={true}>
+        <IonSlides
+          pager={true}
+          options={{ slidesPerView: isPlatform("desktop") ? 3.3 : 1.2 }}
+        >
           {listLatest.map((paymentNotice, index) => (
             <IonSlide key={index} style={{ height: "130px" }}>
               <IonCard

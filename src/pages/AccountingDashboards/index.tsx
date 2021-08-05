@@ -17,7 +17,7 @@ const AccountingDashboards: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
+        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonMenuButton></IonMenuButton>
           </IonButtons>

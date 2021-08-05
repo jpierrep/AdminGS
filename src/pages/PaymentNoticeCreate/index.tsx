@@ -24,6 +24,7 @@ import createPaymentNotices from "../../store/paymentNotice/actions/createPaymen
 // Selectors
 import { selectCreateSummary } from "../../store/paymentNotice/selectors/selectCreateSummary";
 import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
+import findPaymentNotices from "../../store/paymentNotice/actions/findPaymentNotices";
 
 const PaymentNoticeCreate: React.FC = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const PaymentNoticeCreate: React.FC = () => {
   const onCreatePaymentNoticesConfirmed = async () => {
     try {
       await dispatch(createPaymentNotices());
+      dispatch(findPaymentNotices());
       history.replace("/app/contabilidad/abonos");
     } catch (error) {
       console.log(error);
@@ -47,7 +49,7 @@ const PaymentNoticeCreate: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
+        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Cancelar" : ""}
@@ -70,7 +72,7 @@ const PaymentNoticeCreate: React.FC = () => {
         <IonButton
           expand="block"
           class="ion-no-margin ion-margin-horizontal"
-          style={{marginBottom: '3px'}}
+          style={{ marginBottom: "3px" }}
           onClick={() => setShowConfirmCreateAlert(true)}
         >
           <strong>REGISTRAR ABONOS</strong>

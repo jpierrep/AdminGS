@@ -10,11 +10,12 @@ const findPaymentNotices = createAsyncThunk(
       const { listSegmentSelected } = state.paymentNotice.paymentNoticesListFilter;
       const url = new URL(`${api.baseURL}paymentNotice`);
       url.searchParams.append("sort", "payedAt DESC");
+      url.searchParams.append("limit", "200");
       if (listSegmentSelected) {
         url.searchParams.append(
           "where",
           JSON.stringify({
-            client: listSegmentSelected === "pending" ? null : { "!=": null },
+            clientIdentifier: listSegmentSelected === "pending" ? null : { "!=": '' },
           })
         );
       }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   IonHeader,
@@ -19,14 +19,20 @@ import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 // Selectors
 import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
+import findClients from "../../store/clients/actions/findClients";
 
 const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
   const createStatus = useSelector(selectCreateStatus);
+
+  useEffect(() => {
+    dispatch(findClients());
+  }, [dispatch]);
+
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
+        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Contabilidad" : ""}

@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// Types
+import { PaymentNotice } from "../../@types/paymentNotice";
+// Actions
 import findPaymentNotices from "./actions/findPaymentNotices";
 import createPaymentNotice from "./actions/createPaymentNotices";
 import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
-import { PaymentNotice } from "../../@types/paymentNotice";
+import findPaymentReconciliations from "./actions/findPaymentReconciliations";
 
 interface PaymentNoticeState {
   paymentNotices: PaymentNotice[];
@@ -99,6 +102,11 @@ const paymentNoticeSlice = createSlice({
       .addCase(findPaymentNotices.rejected, (state) => {
         state.findStatus = "rejected";
       })
+      .addCase(findPaymentReconciliations.pending, (state) => {})
+      .addCase(findPaymentReconciliations.fulfilled, (state, { payload }) => {
+        state.paymentNoticeShowed.reconciliations = payload;
+      })
+      .addCase(findPaymentReconciliations.rejected, (state, { payload }) => {})
       .addCase(parsePaymentNoticesFile.pending, (state) => {
         state.parseFileStatus = "pending";
       })
