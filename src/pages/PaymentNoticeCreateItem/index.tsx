@@ -44,14 +44,33 @@ const PaymentNoticeCreateItem: React.FC = () => {
     });
   };
 
+  const setInvoiceChecked = (invoice: Invoice, checked: boolean) => {
+    if (!checked) {
+      return console.log("checked no enviado");
+    }
+    dispatch({
+      type: "paymentNotice/updatePaymentNoticesCreateFormDataItem",
+      payload: {
+        client: {
+          ...createFormDataItem.client,
+          invoices: createFormDataItem.client?.invoices?.map((item) =>
+            item.id === invoice.id ? { ...invoice, checked } : item
+          ),
+        },
+      },
+    });
+  };
+
   useEffect(() => {
-    dispatch(findClients());
-  }, [dispatch]);
+    if (!clients) {
+      dispatch(findClients());
+    }
+  }, [dispatch, clients]);
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color={isPlatform('android') ? 'primary' : ''}>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Cancelar" : ""}
@@ -117,17 +136,29 @@ const PaymentNoticeCreateItem: React.FC = () => {
             </IonLabel>
           </IonListHeader>
           <section>
-            {createFormDataItem.client?.invoices?.map(
-              (invoice: Invoice, index: number) => (
-                <IonItem key={index}>
-                  <IonCheckbox slot="start" />
-                  <IonLabel>#{invoice.identifier}</IonLabel>
-                  <IonNote slot="end">
-                    <IonLabel>{currencyFormat(invoice.amount || 0)}</IonLabel>
-                  </IonNote>
-                </IonItem>
-              )
-            )}
+            {createFormDataItem.client?.invoices &&
+              createFormDataItem.client?.invoices?.map(
+                (invoice: Invoice, index: number) => (
+                  <IonItem key={index}>
+                    <IonCheckbox
+                      slot="start"
+                      checked={invoice.checked}
+                      onIonChange={(e) =>
+                        setInvoiceChecked(invoice, e.detail.checked)
+                      }
+                    />
+                    <IonLabel>
+                      <h3>#{invoice.identifier}</h3>
+                      <h4>{invoice.expiresAtLegible}</h4>
+                    </IonLabel>
+                    <IonNote slot="end">
+                      <IonLabel>
+                        {currencyFormat(invoice.pendingAmount || 0)}
+                      </IonLabel>
+                    </IonNote>
+                  </IonItem>
+                )
+              )}
             {!createFormDataItem.client?.invoices && (
               <p className="ion-text-center">No hay facturas pendientes</p>
             )}

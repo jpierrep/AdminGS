@@ -27,19 +27,22 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
       className={!paymentNotice.client ? "ion-activated" : ""}
     >
       <IonLabel>
-        <h5 style={{ color: paymentNotice.client ? "" : "red" }}>
-          {!paymentNotice.client && (
-            <IonIcon
-              icon={
-                paymentNotice.client
-                  ? checkmarkCircleOutline
-                  : alertCircleOutline
-              }
-              style={{ paddingRight: "8px" }}
-            />
-          )}
-          <strong>{paymentNotice.client?.name || "No identificado"}</strong>
-        </h5>
+        <IonText color="primary">
+          <h5 style={{ color: paymentNotice.client ? "" : "red" }}>
+            {!paymentNotice.client && (
+              <IonIcon
+                icon={
+                  paymentNotice.client
+                    ? checkmarkCircleOutline
+                    : alertCircleOutline
+                }
+                style={{ paddingRight: "8px" }}
+              />
+            )}
+            <strong>{paymentNotice.client?.name || "No identificado"}</strong>
+          </h5>
+        </IonText>
+        <p>{paymentNotice.client?.identifierFormatted}</p>
         <p>
           <small>{paymentNotice.description}</small>
         </p>

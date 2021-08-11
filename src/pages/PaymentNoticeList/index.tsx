@@ -43,9 +43,16 @@ const PaymentNoticeList: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <br />
-        <PaymentNoticeListHeader />
-        <PaymentNoticeListByDate />
+        <section
+          style={{
+            maxWidth: "800px",
+          }}
+          className={isPlatform("desktop") ? "ion-padding" : ""}
+        >
+          <br />
+          <PaymentNoticeListHeader />
+          <PaymentNoticeListByDate />
+        </section>
         <PaymentNoticeCreateButton />
       </IonContent>
       <IonFooter></IonFooter>

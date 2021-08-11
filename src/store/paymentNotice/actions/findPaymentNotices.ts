@@ -7,7 +7,8 @@ const findPaymentNotices = createAsyncThunk(
   async (filter, { getState, rejectWithValue }) => {
     try {
       const state = getState() as RootState;
-      const { listSegmentSelected } = state.paymentNotice.paymentNoticesListFilter;
+      const { listSegmentSelected } =
+        state.paymentNotice.paymentNoticesListFilter;
       const url = new URL(`${api.baseURL}paymentNotice`);
       url.searchParams.append("sort", "payedAt DESC");
       url.searchParams.append("limit", "200");
@@ -15,7 +16,11 @@ const findPaymentNotices = createAsyncThunk(
         url.searchParams.append(
           "where",
           JSON.stringify({
-            clientIdentifier: listSegmentSelected === "pending" ? null : { "!=": '' },
+            clientIdentifier:
+              listSegmentSelected === "pending" ? null : { "!=": "" },
+            payedAt: {
+              "<": new Date(),
+            },
           })
         );
       }

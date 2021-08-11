@@ -7,6 +7,7 @@ import {
   IonNote,
   IonSlide,
   IonSlides,
+  IonText,
   isPlatform,
 } from "@ionic/react";
 
@@ -62,11 +63,13 @@ const PaymentNoticeListSummary: React.FC = () => {
                 <IonItem lines="none">
                   <IonLabel>
                     <p>{paymentNotice.payedAtLegible}</p>
-                    <h1>
-                      <strong>
-                        {paymentNotice.client?.name || "No identificado"}
-                      </strong>
-                    </h1>
+                    <IonText color="primary">
+                      <h1>
+                        <strong>
+                          {paymentNotice.client?.name || "No identificado"}
+                        </strong>
+                      </h1>
+                    </IonText>
                   </IonLabel>
                   <IonNote slot="end">
                     {currencyFormat(paymentNotice.amount || 0)}

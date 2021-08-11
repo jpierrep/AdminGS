@@ -5,6 +5,7 @@ import {
   IonLabel,
   IonList,
   IonMenu,
+  IonText,
 } from "@ionic/react";
 
 import { useLocation } from "react-router-dom";
@@ -40,9 +41,11 @@ const Menu: React.FC = () => {
         <IonList>
           <IonItem className="ion-margin-vertical" lines="none">
             <IonLabel>
-              <h1>
-                <strong>{user?.username}</strong>
-              </h1>
+              <IonText color="primary">
+                <h1>
+                  <strong>{user?.username}</strong>
+                </h1>
+              </IonText>
               <h3>{user?.email}</h3>
             </IonLabel>
           </IonItem>

@@ -62,7 +62,7 @@ const PaymentNoticeShow: React.FC = () => {
               <strong>
                 {paymentNoticeShowed.client?.name || "No identificado"}
               </strong>
-              <p>{paymentNoticeShowed.client?.identifier}</p>
+              <p>{paymentNoticeShowed.client?.identifierFormatted}</p>
             </IonLabel>
           </IonItem>
           <IonItem>
@@ -90,7 +90,7 @@ const PaymentNoticeShow: React.FC = () => {
                 {paymentNoticeShowed.reconciliations?.map(
                   (paymentReconciliationItem, index) => (
                     <span>
-                      #{paymentReconciliationItem.invoice?.code || ""}{" "}
+                      #{paymentReconciliationItem.invoice?.identifier || ""}{" "}
                       {index ===
                         paymentNoticeShowed.reconciliations?.length && (
                         <span>-</span>

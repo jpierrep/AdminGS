@@ -4,5 +4,6 @@ export type Client = {
   id?: string;
   name?: string;
   identifier?: string;
+  identifierFormatted?: string;
   invoices: Invoice[]
 };
