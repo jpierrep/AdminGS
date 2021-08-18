@@ -1,10 +1,16 @@
 import {
+  IonAvatar,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonContent,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
   IonMenu,
+  IonMenuToggle,
   IonText,
 } from "@ionic/react";
 
@@ -38,34 +44,45 @@ const Menu: React.FC = () => {
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
-        <IonList>
-          <IonItem className="ion-margin-vertical" lines="none">
-            <IonLabel>
-              <IonText color="primary">
-                <h1>
-                  <strong>{user?.username}</strong>
-                </h1>
-              </IonText>
-              <h3>{user?.email}</h3>
-            </IonLabel>
-          </IonItem>
+        <IonCard color="secondary">
+          <IonAvatar class="ion-margin">
+            <img
+              src={`https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y`}
+              alt=""
+              width="60"
+              height="60"
+            />
+          </IonAvatar>
+          <IonCardHeader>
+            <IonCardTitle>{user?.name}</IonCardTitle>
+            <IonCardSubtitle>{user?.email}</IonCardSubtitle>
+          </IonCardHeader>
+        </IonCard>
+        <IonList class="ion-padding-horizontal" color="transparent">
           {appPages.map((appPage, index) => {
             return (
-              <IonItem
-                key={index}
-                className={
-                  location.pathname === appPage.url ? "ion-activated" : ""
-                }
-                routerLink={appPage.url}
-                routerDirection="none"
-                lines="none"
-                detail={false}
-              >
-                <IonIcon slot="start" icon={appPage.icon} />
-                <IonLabel>
-                  <h2>{appPage.title}</h2>
-                </IonLabel>
-              </IonItem>
+              <IonMenuToggle key={index} auto-hide="false">
+                <IonItem
+                  color={
+                    location.pathname.includes(appPage.url)
+                      ? "primary"
+                      : "transparent"
+                  }
+                  routerLink={appPage.url}
+                  routerDirection="none"
+                  lines="none"
+                  detail={false}
+                  style={{
+                    borderRadius: "4px",
+                    marginBottom: "4px",
+                  }}
+                >
+                  <IonIcon slot="start" icon={appPage.icon} />
+                  <IonLabel>
+                    <h2>{appPage.title}</h2>
+                  </IonLabel>
+                </IonItem>
+              </IonMenuToggle>
             );
           })}
         </IonList>

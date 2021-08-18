@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../@types/user";
 import login from "./actions/login";
 import logout from "./actions/logout";
@@ -18,7 +18,11 @@ const initialState = {
 const userAuthenticationSlice = createSlice({
   name: "userAuthentication",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoginStatus(state, action: PayloadAction<string>) {
+      state.loginStatus = action.payload || "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {

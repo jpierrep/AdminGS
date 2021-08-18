@@ -1,9 +1,17 @@
-import { IonLabel, IonItem, IonNote, IonIcon, IonText } from "@ionic/react";
+import {
+  IonLabel,
+  IonItem,
+  IonNote,
+  IonIcon,
+  IonText,
+  IonItemSliding,
+  IonItemOption,
+  IonItemOptions,
+} from "@ionic/react";
 import { checkmarkCircleOutline, alertCircleOutline } from "ionicons/icons";
 
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 // Types
 import { PaymentNotice } from "../../../@types/paymentNotice";
 // Utils
@@ -13,22 +21,20 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
   paymentNotice,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   return (
-    <IonItem
-      onClick={() => {
-        dispatch({
-          type: "paymentNotice/showPaymentNoticeItemEditForm",
-          payload: paymentNotice,
-        });
-        history.push(`/app/contabilidad/abonos/agregar/abono`);
-      }}
-      lines="none"
-      className={!paymentNotice.client ? "ion-activated" : ""}
-    >
-      <IonLabel>
-        <IonText color="primary">
-          <h5 style={{ color: paymentNotice.client ? "" : "red" }}>
+    <IonItemSliding>
+      <IonItem
+        onClick={() => {
+          dispatch({
+            type: "paymentNotice/showPaymentNoticeItemEditForm",
+            payload: paymentNotice,
+          });
+        }}
+        lines="none"
+        routerLink={`/app/contabilidad/abonos/agregar/abono`}
+      >
+        <IonLabel>
+          <IonText color={paymentNotice.client ? "primary" : "danger"}>
             {!paymentNotice.client && (
               <IonIcon
                 icon={
@@ -40,21 +46,24 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
               />
             )}
             <strong>{paymentNotice.client?.name || "No identificado"}</strong>
-          </h5>
-        </IonText>
-        <p>{paymentNotice.client?.identifierFormatted}</p>
-        <p>
-          <small>{paymentNotice.description}</small>
-        </p>
-      </IonLabel>
-      <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
-        <IonText color="primary">
-          <h5 className="ion-no-margin">
-            {currencyFormat(paymentNotice.amount || 0)}
-          </h5>
-        </IonText>
-      </IonNote>
-    </IonItem>
+          </IonText>
+          <p>{paymentNotice.client?.identifierFormatted}</p>
+          <p>
+            <small>{paymentNotice.description}</small>
+          </p>
+        </IonLabel>
+        <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
+          <IonText color="primary">
+            <h5 className="ion-no-margin">
+              {currencyFormat(paymentNotice.amount || 0)}
+            </h5>
+          </IonText>
+        </IonNote>
+      </IonItem>
+      <IonItemOptions side="end">
+        <IonItemOption color="danger">Quitar</IonItemOption>
+      </IonItemOptions>
+    </IonItemSliding>
   );
 };
 

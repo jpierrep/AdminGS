@@ -17,6 +17,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  isPlatform,
 } from "@ionic/react";
 // Selectors
 import { selectUser } from "../../store/userAuthentication/selectors/selectUser";
@@ -28,40 +29,42 @@ export const UserAuthenticatedAccount: React.FC = () => {
   const user = useSelector(selectUser);
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            <IonMenuButton></IonMenuButton>
+            <IonMenuButton color="light"></IonMenuButton>
           </IonButtons>
+        </IonToolbar>
+        <IonToolbar>
           <IonTitle>Mi cuenta</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        <IonHeader collapse="condense" class="ion-no-border">
           <IonToolbar>
             <IonTitle size="large">Mi cuenta</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonCard>
+        <IonCard color="secondary">
           <IonAvatar class="ion-margin">
             <img
-              src={`https://jaimecisternas.dev/img/welcome.d7bad8d2.png`}
+              src={`https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y`}
               alt=""
               width="60"
               height="60"
             />
           </IonAvatar>
           <IonCardHeader>
-            <IonCardTitle>{user?.username}</IonCardTitle>
+            <IonCardTitle>{user?.name}</IonCardTitle>
             <IonCardSubtitle>{user?.email}</IonCardSubtitle>
           </IonCardHeader>
         </IonCard>
         <IonCard>
           <IonList>
-            <IonItem lines="none">
+{/*             <IonItem lines="none" button disabled>
               <IonIcon icon={helpCircleOutline} slot="start"></IonIcon>
               <IonLabel>Ayuda</IonLabel>
-            </IonItem>
+            </IonItem> */}
             <LogoutButton />
           </IonList>
         </IonCard>

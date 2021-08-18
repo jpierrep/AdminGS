@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { Prompt, useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
   IonHeader,
@@ -40,16 +40,19 @@ const PaymentNoticeCreate: React.FC = () => {
     try {
       await dispatch(createPaymentNotices());
       dispatch(findPaymentNotices());
+      setIsBlocking(false);
       history.replace("/app/contabilidad/abonos");
     } catch (error) {
       console.log(error);
     }
   };
 
+  let [isBlocking, setIsBlocking] = useState(true);
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
+      <IonHeader class="ion-no-border">
+        <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Cancelar" : ""}
@@ -60,23 +63,40 @@ const PaymentNoticeCreate: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Registrar abonos</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <PaymentNoticeListByDate />
-      </IonContent>
-      <IonFooter>
-        <PaymentNoticeCreateFormSummary />
-        <IonButton
-          expand="block"
-          class="ion-no-margin ion-margin-horizontal"
-          style={{ marginBottom: "3px" }}
-          onClick={() => setShowConfirmCreateAlert(true)}
+        <section
+          style={{
+            maxWidth: "800px",
+          }}
+          className={isPlatform("desktop") ? "ion-padding" : ""}
         >
-          <strong>REGISTRAR ABONOS</strong>
-        </IonButton>
+          <IonHeader collapse="condense" class="ion-no-border">
+            <IonToolbar>
+              <IonTitle size="large">Registrar abonos</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <PaymentNoticeListByDate />
+        </section>
+      </IonContent>
+      <IonFooter class="ion-no-border">
+        <section
+          style={{
+            maxWidth: "800px",
+          }}
+          className={isPlatform("desktop") ? "ion-padding" : ""}
+        >
+          <IonToolbar color="secondary">
+            <PaymentNoticeCreateFormSummary />
+            <IonButton
+              expand="block"
+              class="ion-margin-horizontal ion-margin-bottom"
+              onClick={() => setShowConfirmCreateAlert(true)}
+              color="primary"
+              disabled
+            >
+              <strong>REGISTRAR ABONOS</strong>
+            </IonButton>
+          </IonToolbar>
+        </section>
       </IonFooter>
       <IonAlert
         isOpen={showConfirmCreateAlert}
@@ -101,6 +121,17 @@ const PaymentNoticeCreate: React.FC = () => {
         isOpen={createStatus === "pending"}
         message={"Registrando abonos..."}
       />
+      {/*       <Prompt
+        message={(location, action) => {
+          if (
+            action === "POP" &&
+            location.pathname === "/app/contabilidad/abonos"
+          ) {
+            return "¿Estás seguro de volver sin registrar los abonos?";
+          }
+          return true;
+        }}
+      /> */}
     </IonPage>
   );
 };

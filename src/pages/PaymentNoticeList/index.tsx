@@ -4,7 +4,6 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonFooter,
   IonContent,
   IonPage,
   IonBackButton,
@@ -14,48 +13,54 @@ import {
 } from "@ionic/react";
 
 // Components
-import PaymentNoticeListHeader from "./components/PaymentNoticeListHeader";
 import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 // Selectors
 import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
 import findClients from "../../store/clients/actions/findClients";
+import PaymentNoticeListHeaderSegment from "./components/PaymentNoticeListHeaderSegment";
+import PaymentNoticeListHeaderSearch from "./components/PaymentNoticeListHeaderSearch";
 
 const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
   const createStatus = useSelector(selectCreateStatus);
 
   useEffect(() => {
-    dispatch(findClients());
+    //dispatch(findClients());
   }, [dispatch]);
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
+      <IonHeader class="ion-no-border">
+        <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Contabilidad" : ""}
               default-href="/app/contabilidad"
+              color="light"
             />
           </IonButtons>
           <IonTitle>Abonos</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonHeader collapse="condense" class="ion-no-border">
+          <IonToolbar>
+            <IonTitle size="large">Abonos</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <section
           style={{
             maxWidth: "800px",
           }}
           className={isPlatform("desktop") ? "ion-padding" : ""}
         >
-          <br />
-          <PaymentNoticeListHeader />
+          <PaymentNoticeListHeaderSegment />
+          <PaymentNoticeListHeaderSearch />
           <PaymentNoticeListByDate />
         </section>
         <PaymentNoticeCreateButton />
       </IonContent>
-      <IonFooter></IonFooter>
       <IonToast
         isOpen={createStatus === "fulfilled"}
         message="Abonos registrados exitosamente"

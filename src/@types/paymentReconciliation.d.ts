@@ -5,4 +5,5 @@ export type PaymentReconciliation = {
   id?: string;
   payment?: PaymentNotice;
   invoice?: Invoice;
+  amount?: number;
 };

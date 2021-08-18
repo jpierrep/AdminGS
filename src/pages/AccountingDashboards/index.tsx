@@ -4,6 +4,7 @@ import {
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonText,
   IonTitle,
   IonToolbar,
   isPlatform,
@@ -16,16 +17,16 @@ import PaymentNoticeListSummary from "./components/PaymentNoticeListSummary";
 const AccountingDashboards: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
+      <IonHeader class="ion-no-border">
+        <IonToolbar>
           <IonButtons slot="start">
-            <IonMenuButton></IonMenuButton>
+            <IonMenuButton color="light"></IonMenuButton>
           </IonButtons>
           <IonTitle>Contabilidad</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        <IonHeader collapse="condense" class="ion-no-border">
           <IonToolbar>
             <IonTitle size="large">Contabilidad</IonTitle>
           </IonToolbar>

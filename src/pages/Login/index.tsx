@@ -15,6 +15,7 @@ import {
   IonRow,
   IonCol,
   IonText,
+  IonToast,
 } from "@ionic/react";
 
 // Actions
@@ -42,8 +43,8 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: "",
-      password: "",
+      username: "jfcisternasm@gmail.com",
+      password: "1735",
     },
   });
 
@@ -75,7 +76,7 @@ const Login: React.FC = () => {
             <IonImg src="assets/gs-logo.png" style={imgStyle} />
             <IonText class="ion-text-center" color="primary">
               <h1>
-                <strong>GuardService Admins</strong>
+                <strong>GuardService Admin</strong>
               </h1>
             </IonText>
             <form
@@ -83,7 +84,7 @@ const Login: React.FC = () => {
               style={{ padding: 18 }}
               noValidate
             >
-              <IonItem>
+              <IonItem lines="inset">
                 <IonIcon
                   slot="start"
                   icon={personOutline}
@@ -108,7 +109,7 @@ const Login: React.FC = () => {
                 errorMessage={errors.username?.message || ""}
               />
 
-              <IonItem>
+              <IonItem lines="inset">
                 <IonIcon
                   slot="start"
                   icon={shieldOutline}
@@ -143,6 +144,19 @@ const Login: React.FC = () => {
         <IonLoading
           isOpen={loginStatus === "pending"}
           message={"Ingresando..."}
+        />
+        <IonToast
+          isOpen={loginStatus === "rejected"}
+          message="Ingreso fallido"
+          position="top"
+          onWillDismiss={() =>
+            dispatch({
+              type: "userAuthentication/setLoginStatus",
+              payload: "initial",
+            })
+          }
+          duration={6000}
+          color="danger"
         />
       </IonContent>
     </IonPage>

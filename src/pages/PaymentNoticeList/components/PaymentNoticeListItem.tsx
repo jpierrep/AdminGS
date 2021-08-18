@@ -21,12 +21,15 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
         ) : (
           <span>No identificado</span>
         )}
-        <p>{paymentNotice.client?.identifierFormatted || paymentNotice.description}</p>
+        <p>
+          {paymentNotice.client?.identifierFormatted ||
+            paymentNotice.description}
+        </p>
       </IonLabel>
       <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
         <IonText color="primary">
           <h5 className="ion-no-margin">
-            {currencyFormat(paymentNotice.amount || 0)}
+            <strong>{currencyFormat(paymentNotice.amount || 0)}</strong>
           </h5>
         </IonText>
       </IonNote>

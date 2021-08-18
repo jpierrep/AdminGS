@@ -7,6 +7,7 @@ import createPaymentNotice from "./actions/createPaymentNotices";
 import findOnePaymentNotice from "./actions/findOnePaymentNotice";
 import parsePaymentNoticesFile from "./actions/parsePaymentNoticesFile";
 import findPaymentReconciliations from "./actions/findPaymentReconciliations";
+import findPendingInvoicesByClientIdentifier from "./actions/findPendingInvoicesByClientIdentifier";
 
 interface PaymentNoticeState {
   paymentNotices: PaymentNotice[];
@@ -17,6 +18,7 @@ interface PaymentNoticeState {
   };
   paymentNoticesCreateFormDataItemEditing: boolean;
   paymentNoticesCreateFormDataItem: PaymentNotice;
+  clientSelectorSearchText: string;
   parseFilePending: boolean;
   createStatus: string;
   parseFileStatus: string;
@@ -35,6 +37,7 @@ const initialState = {
   },
   paymentNoticesCreateFormDataItemEditing: false,
   paymentNoticesCreateFormDataItem: {},
+  clientSelectorSearchText: "",
   parseFilePending: false,
   parseFileStatus: "initial",
   createStatus: "initial",
@@ -48,6 +51,9 @@ const paymentNoticeSlice = createSlice({
   name: "paymentNotice",
   initialState,
   reducers: {
+    updateClientSelectorSearchText(state, action: PayloadAction<string>) {
+      state.clientSelectorSearchText = action.payload || "";
+    },
     setPaymentNoticeShowed(state, action: PayloadAction<object>) {
       state.paymentNoticeShowed = action.payload || { amount: 0 };
     },
@@ -129,6 +135,14 @@ const paymentNoticeSlice = createSlice({
       .addCase(findOnePaymentNotice.fulfilled, (state, { payload }) => {
         state.paymentNoticeShowed = payload;
       })
+      .addCase(
+        findPendingInvoicesByClientIdentifier.fulfilled,
+        (state, { payload }) => {
+          if (state.paymentNoticesCreateFormDataItem.client) {
+            state.paymentNoticesCreateFormDataItem.client.invoices = payload;
+          }
+        }
+      )
       .addDefaultCase((state, action) => {
         console.log(action);
       });

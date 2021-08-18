@@ -3,10 +3,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Client } from "../../../@types/client";
 const findClients = createAsyncThunk(
   "clients/find",
-  async (filter, { rejectWithValue }) => {
+  async (searchText, { rejectWithValue }) => {
     try {
       const findMethod = async (model: string) => {
         const url = new URL(`${api.baseURL}${model}`);
+        url.searchParams.append(
+          "where",
+          JSON.stringify({
+            enabled: true,
+          })
+        );
         url.searchParams.append("sort", "name ASC");
         url.searchParams.append("limit", "50000");
         let response = await fetch(url.toJSON());

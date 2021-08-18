@@ -5,10 +5,7 @@ import {
   IonLabel,
   IonListHeader,
   IonNote,
-  IonSlide,
-  IonSlides,
   IonText,
-  isPlatform,
 } from "@ionic/react";
 
 import React, { useEffect } from "react";
@@ -27,14 +24,14 @@ const PaymentNoticeListSummary: React.FC = () => {
     dispatch(findPaymentNotices());
   }, [dispatch]);
   return (
-    <section className="ion-padding-vertical">
+    <section className="ion-margin-vertical">
       <IonListHeader>
         <IonLabel>
-          <h1>
-            <strong>Últimos abonos</strong>
-          </h1>
+          <IonText color="tertiary">Últimos abonos</IonText>
         </IonLabel>
-        <IonButton routerLink="/app/contabilidad/abonos">Ver todos</IonButton>
+        <IonButton routerLink="/app/contabilidad/abonos" color="secondary">
+          <strong>Ver todos</strong>
+        </IonButton>
       </IonListHeader>
 
       {listLatest.length === 0 && (
@@ -50,35 +47,45 @@ const PaymentNoticeListSummary: React.FC = () => {
         </IonCard>
       )}
       {listLatest.length > 0 && (
-        <IonSlides
-          pager={true}
-          options={{ slidesPerView: isPlatform("desktop") ? 3.3 : 1.2 }}
+        <section
+          style={{
+            display: "flex",
+            scrollSnapType: "x mandatory",
+            overflow: "auto",
+          }}
         >
           {listLatest.map((paymentNotice, index) => (
-            <IonSlide key={index} style={{ height: "130px" }}>
+            <article
+              key={index}
+              style={{
+                scrollSnapAlign: "center",
+                width: "400px",
+                maxWidth: "90%",
+              }}
+            >
               <IonCard
-                style={{ width: "100%" }}
                 routerLink={`/app/contabilidad/abonos/detalle/${paymentNotice.id}`}
+                color="primary"
               >
-                <IonItem lines="none">
+                <IonItem
+                  lines="none"
+                  color="primary"
+                  class="ion-margin-vertical"
+                >
                   <IonLabel>
                     <p>{paymentNotice.payedAtLegible}</p>
-                    <IonText color="primary">
-                      <h1>
-                        <strong>
-                          {paymentNotice.client?.name || "No identificado"}
-                        </strong>
-                      </h1>
-                    </IonText>
+                    <strong>
+                      {paymentNotice.client?.name || "No identificado"}
+                    </strong>
                   </IonLabel>
-                  <IonNote slot="end">
-                    {currencyFormat(paymentNotice.amount || 0)}
+                  <IonNote slot="end" color="light">
+                    <h5>{currencyFormat(paymentNotice.amount || 0)}</h5>
                   </IonNote>
                 </IonItem>
               </IonCard>
-            </IonSlide>
+            </article>
           ))}
-        </IonSlides>
+        </section>
       )}
     </section>
   );

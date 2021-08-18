@@ -1,4 +1,10 @@
-import { IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
+import {
+  IonItemDivider,
+  IonItemGroup,
+  IonLabel,
+  IonList,
+  IonText,
+} from "@ionic/react";
 import React from "react";
 import { useSelector } from "react-redux";
 // Selectors
@@ -11,15 +17,17 @@ const PaymentNoticeListByDate: React.FC = () => {
   return (
     <>
       {paymentNoticesCreateFormData.items.length === 0 && (
-        <p className="ion-text-center">No se han encontrado resultados</p>
+        <p className="ion-text-center" style={{ fontWeight: 300 }}>
+          No se han encontrado resultados
+        </p>
       )}
-      <IonList>
+      <IonList class="ion-no-padding">
         {paymentNoticesCreateFormData.items.map((dateItem) => {
           return (
             <IonItemGroup key={dateItem.dateLabel}>
               <IonItemDivider sticky={true}>
                 <IonLabel>
-                  <strong>{dateItem.dateLabel}</strong>
+                  <IonText color="tertiary">{dateItem.dateLabel}</IonText>
                 </IonLabel>
               </IonItemDivider>
               {dateItem.items.map((paymentNotice) => (

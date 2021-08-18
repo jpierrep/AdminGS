@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -14,6 +14,7 @@ import {
   IonButtons,
   IonListHeader,
   isPlatform,
+  IonText,
 } from "@ionic/react";
 // Actions
 import findOnePaymentNotice from "../../store/paymentNotice/actions/findOnePaymentNotice";
@@ -22,6 +23,7 @@ import findPaymentReconciliations from "../../store/paymentNotice/actions/findPa
 import { selectShowData } from "../../store/paymentNotice/selectors/selectShowData";
 // Utils
 import currencyFormat from "../../utils/currencyFormat";
+import InvoicesItem from "./components/InvoicesItem";
 
 const PaymentNoticeShow: React.FC = () => {
   const dispatch = useDispatch();
@@ -38,88 +40,96 @@ const PaymentNoticeShow: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
+      <IonHeader class="ion-no-border">
+        <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
               text={isPlatform("ios") ? "Abonos" : ""}
               default-href="/contabilidad/abonos"
+              color="light"
             />
           </IonButtons>
-          <IonTitle>Abono #{paymentNoticeShowed.code}</IonTitle>
+          <IonTitle>Abono</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar color={!isPlatform("ios") ? "primary" : ""}>
-            <IonTitle size="large">Abono {paymentNoticeShowed.code}</IonTitle>
+        <IonHeader collapse="condense" class="ion-no-border">
+          <IonToolbar>
+            <IonTitle size="large">Abono</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonList>
-          <IonItem>
-            <IonLabel>
-              <p>Cliente</p>
-              <strong>
-                {paymentNoticeShowed.client?.name || "No identificado"}
-              </strong>
-              <p>{paymentNoticeShowed.client?.identifierFormatted}</p>
-            </IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>
-              <p>Fecha</p>
-              <strong>{paymentNoticeShowed.payedAtLegible}</strong>
-            </IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>
-              <p>Monto</p>
-              <strong>{currencyFormat(paymentNoticeShowed.amount || 0)}</strong>
-            </IonLabel>
-          </IonItem>
-          <IonItem>
+        <section
+          style={{
+            maxWidth: "800px",
+          }}
+          className={isPlatform("desktop") ? "ion-padding" : ""}
+        >
+          <IonList>
+            <IonListHeader>
+              <IonLabel>
+                <IonText color="tertiary">General</IonText>
+              </IonLabel>
+            </IonListHeader>
+            <IonItem>
+              <IonLabel class="ion-text-wrap">
+                <p>Cliente</p>
+                <IonText color="primary">
+                  <strong>
+                    {paymentNoticeShowed.client?.name || "No identificado"}
+                  </strong>
+                </IonText>
+                <p>{paymentNoticeShowed.client?.identifierFormatted}</p>
+              </IonLabel>
+            </IonItem>
+            <IonItem>
+              <IonLabel>
+                <p>Fecha</p>
+                <IonText color="primary">
+                  <strong>{paymentNoticeShowed.payedAtLegible}</strong>
+                </IonText>
+              </IonLabel>
+            </IonItem>
+            <IonItem>
+              <IonLabel>
+                <p>Monto</p>
+                <IonText color="primary">
+                  <strong>
+                    {currencyFormat(paymentNoticeShowed.amount || 0)}
+                  </strong>
+                </IonText>
+              </IonLabel>
+            </IonItem>
+            {/*           <IonItem>
             <IonLabel>
               <p>Descripción</p>
               <strong>{paymentNoticeShowed.description || "--"}</strong>
             </IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>
-              <p>Facturas pagadas</p>
-              <strong>
-                {paymentNoticeShowed.reconciliations?.map(
-                  (paymentReconciliationItem, index) => (
-                    <span>
-                      #{paymentReconciliationItem.invoice?.identifier || ""}{" "}
-                      {index ===
-                        paymentNoticeShowed.reconciliations?.length && (
-                        <span>-</span>
-                      )}{" "}
-                    </span>
-                  )
-                )}
-              </strong>
-            </IonLabel>
-          </IonItem>
-          <IonListHeader>
-            <IonLabel>Actividad</IonLabel>
-          </IonListHeader>
-          {paymentNoticeShowed?.log?.length === 0 && (
-            <IonItem lines="none">
+          </IonItem> */}
+            <InvoicesItem></InvoicesItem>
+            <IonListHeader>
               <IonLabel>
-                <h2>No se ha registrado actividad</h2>
+                <IonText color="tertiary">Actividad</IonText>
               </IonLabel>
-            </IonItem>
-          )}
-          {paymentNoticeShowed?.log?.map((logItem, index) => (
-            <IonItem key={index}>
-              <IonLabel>
-                <h2>{logItem.description}</h2>
-                <h4 className="ion-text-right">{logItem.createdAtLegible}</h4>
-              </IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
+            </IonListHeader>
+            {paymentNoticeShowed?.log?.length === 0 && (
+              <IonItem lines="none">
+                <IonLabel>
+                  <h2 style={{ fontWeight: 200 }}>
+                    No se ha registrado actividad
+                  </h2>
+                </IonLabel>
+              </IonItem>
+            )}
+            {paymentNoticeShowed?.log?.map((logItem, index) => (
+              <IonItem key={index}>
+                <IonLabel>
+                  <h2>{logItem.description}</h2>
+                  <h4 className="ion-text-right">{logItem.createdAtLegible}</h4>
+                </IonLabel>
+              </IonItem>
+            ))}
+          </IonList>
+        </section>
       </IonContent>
     </IonPage>
   );

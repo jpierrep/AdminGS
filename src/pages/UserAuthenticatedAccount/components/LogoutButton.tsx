@@ -23,7 +23,7 @@ const LogoutButton: React.FC = () => {
   };
   return (
     <>
-      <IonItem onClick={() => setLogoutAlert(true)} lines="none">
+      <IonItem onClick={() => setLogoutAlert(true)} lines="none" button>
         <IonIcon icon={logOutOutline} slot="start"></IonIcon>
         <IonLabel>Salir</IonLabel>
       </IonItem>

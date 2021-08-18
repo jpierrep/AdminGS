@@ -1,6 +1,6 @@
 {
-  "short_name": "GuardServiceAdmins",
-  "name": "GuardServiceAdmins",
+  "short_name": "GuardServiceAdmin",
+  "name": "GuardServiceAdmin",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
