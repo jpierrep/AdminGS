@@ -4,17 +4,28 @@ import {
   IonHeader,
   IonMenuButton,
   IonPage,
-  IonText,
   IonTitle,
   IonToolbar,
-  isPlatform,
 } from "@ionic/react";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import findClients from "../../store/clients/actions/findClients";
+import { selectClients } from "../../store/clients/selectors/selectClients";
 // Components
 import PaymentNoticeListSummary from "./components/PaymentNoticeListSummary";
 
 const AccountingDashboards: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const clients: any[] = useSelector(selectClients);
+
+  useEffect(() => {
+    if (!clients.length) {
+      dispatch(findClients());
+    }
+  }, [dispatch, clients]);
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">

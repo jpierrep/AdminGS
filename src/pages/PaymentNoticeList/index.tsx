@@ -17,17 +17,12 @@ import PaymentNoticeListByDate from "./components/PaymentNoticeListByDate";
 import PaymentNoticeCreateButton from "./components/PaymentNoticeCreateButton";
 // Selectors
 import { selectCreateStatus } from "../../store/paymentNotice/selectors/selectCreateStatus";
-import findClients from "../../store/clients/actions/findClients";
 import PaymentNoticeListHeaderSegment from "./components/PaymentNoticeListHeaderSegment";
 import PaymentNoticeListHeaderSearch from "./components/PaymentNoticeListHeaderSearch";
 
 const PaymentNoticeList: React.FC = () => {
   const dispatch = useDispatch();
   const createStatus = useSelector(selectCreateStatus);
-
-  useEffect(() => {
-    //dispatch(findClients());
-  }, [dispatch]);
 
   return (
     <IonPage>
