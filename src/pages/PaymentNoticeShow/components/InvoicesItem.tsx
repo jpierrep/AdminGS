@@ -64,7 +64,9 @@ const InvoicesItem: React.FC = () => {
             <IonListHeader>
               <IonLabel>
                 <IonText color="tertiary">
-                  <strong>{`${paymentNoticeShowed.reconciliations?.length} facturas`}</strong>
+                  <strong>{`${
+                    paymentNoticeShowed.reconciliations?.length || 0
+                  } facturas`}</strong>
                 </IonText>
               </IonLabel>
             </IonListHeader>
