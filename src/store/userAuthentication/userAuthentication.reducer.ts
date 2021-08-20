@@ -41,6 +41,7 @@ const userAuthenticationSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = undefined;
         state.logoutStatus = "fulfilled";
+        state.loginStatus = "initial";
       })
       .addDefaultCase((state, action) => {
         //console.log(action);

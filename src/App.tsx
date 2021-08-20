@@ -2,7 +2,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { IonSplitPane } from "@ionic/react";
 
 import React from "react";
-import { Redirect, Route, RouteComponentProps } from "react-router";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import Menu from "./layout/Menu";
 // Pages
 import AccountingDashboards from "./pages/AccountingDashboards";
@@ -78,7 +78,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
+        <Switch>
           <Route
             path="/app"
             render={(props) => {
@@ -91,7 +91,7 @@ const App: React.FC = () => {
           ></Route>
           <Route path="/ingresar" component={Login}></Route>
           <Redirect to="/app/contabilidad" />
-        </IonRouterOutlet>
+        </Switch>
       </IonReactRouter>
     </IonApp>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { Redirect, useLocation } from "react-router";
 import {
   IonContent,
   IonPage,
@@ -27,7 +27,7 @@ import InputErrorMessage from "../../components/InputErrorMessage";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const { state } = useLocation<any>();
   const imgStyle = {
     width: "100px",
     height: "100px",
@@ -35,6 +35,7 @@ const Login: React.FC = () => {
   };
 
   const loginStatus = useSelector(selectLoginStatus);
+  const [redirectToReferrer, setRedirectToReferrer] = React.useState(false);
 
   const {
     register,
@@ -43,7 +44,7 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: "jfcisternasm@gmail.com",
+      username: "test",
       password: "1735",
     },
   });
@@ -55,11 +56,15 @@ const Login: React.FC = () => {
   const onSubmit = async (data: any) => {
     try {
       await dispatch(login(data));
-      history.replace("/app/contabilidad");
+      setRedirectToReferrer(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (redirectToReferrer === true) {
+    return <Redirect to={state?.from || "/app/mi-cuenta"} />;
+  }
 
   return (
     <IonPage>

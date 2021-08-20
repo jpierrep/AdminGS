@@ -15,7 +15,7 @@ const LogoutButton: React.FC = () => {
   const logoutStatus = useSelector(selectLogoutStatus);
   const onLogoutConfirmed = async () => {
     try {
-      await dispatch(logout);
+      await dispatch(logout());
       history.push("/ingresar");
     } catch (error) {
       console.log(error);
