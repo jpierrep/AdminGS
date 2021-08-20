@@ -34,8 +34,6 @@ export const UserAuthenticatedAccount: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton color="light"></IonMenuButton>
           </IonButtons>
-        </IonToolbar>
-        <IonToolbar>
           <IonTitle>Mi cuenta</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -61,7 +59,7 @@ export const UserAuthenticatedAccount: React.FC = () => {
         </IonCard>
         <IonCard>
           <IonList>
-{/*             <IonItem lines="none" button disabled>
+            {/*             <IonItem lines="none" button disabled>
               <IonIcon icon={helpCircleOutline} slot="start"></IonIcon>
               <IonLabel>Ayuda</IonLabel>
             </IonItem> */}
