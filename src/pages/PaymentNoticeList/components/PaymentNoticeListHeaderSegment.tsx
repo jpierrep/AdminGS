@@ -22,11 +22,11 @@ const PaymentNoticeListHeaderSegment: React.FC = () => {
         value={listSegmentSelected}
         color="primary"
       >
+        <IonSegmentButton value="all">
+          <IonLabel>Todos</IonLabel>
+        </IonSegmentButton>
         <IonSegmentButton value="pending">
           <IonLabel>Pendientes</IonLabel>
-        </IonSegmentButton>
-        <IonSegmentButton value="fulfilled">
-          <IonLabel>Procesados</IonLabel>
         </IonSegmentButton>
       </IonSegment>
     </section>

@@ -21,7 +21,7 @@ import { selectCreateFormDataItem } from "../../store/paymentNotice/selectors/se
 import currencyFormat from "../../utils/currencyFormat";
 // Components
 import ClientSelector from "./components/ClientSelector";
-import ClientInvoiceSelector from "./components/ClientInvoiceSelector";
+import ReconciliationsSelector from "./components/ReconciliationsSelector";
 
 const PaymentNoticeCreateItem: React.FC = () => {
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
           className={isPlatform("desktop") ? "ion-padding" : ""}
         >
           <IonList>
-            <IonItem>
+            <IonItem lines="none">
               <IonLabel>
                 <p>Fecha</p>
                 <IonText color="primary">
@@ -71,7 +71,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
                 </IonText>
               </IonLabel>
             </IonItem>
-            <IonItem>
+            <IonItem lines="none">
               <IonLabel>
                 <p>Descripción</p>
                 <IonText color="primary">
@@ -79,7 +79,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
                 </IonText>
               </IonLabel>
             </IonItem>
-            <IonItem>
+            <IonItem lines="none">
               <IonLabel>
                 <p>Monto</p>
                 <IonText color="primary">
@@ -90,7 +90,7 @@ const PaymentNoticeCreateItem: React.FC = () => {
               </IonLabel>
             </IonItem>
             <ClientSelector />
-            <ClientInvoiceSelector />
+            <ReconciliationsSelector />
           </IonList>
         </section>
       </IonContent>

@@ -11,7 +11,6 @@ const findPaymentNotices = createAsyncThunk(
         state.paymentNotice.paymentNoticesListFilter;
       const url = new URL(`${api.baseURL}paymentNotice`);
       url.searchParams.append("sort", "payedAt DESC");
-      url.searchParams.append("limit", "200");
       if (listSegmentSelected) {
         url.searchParams.append(
           "where",

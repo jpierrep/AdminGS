@@ -51,7 +51,8 @@ const PaymentNoticeList: React.FC = () => {
           className={isPlatform("desktop") ? "ion-padding" : ""}
         >
           <PaymentNoticeListHeaderSegment />
-          <PaymentNoticeListHeaderSearch />
+          <br />
+          {/* <PaymentNoticeListHeaderSearch /> */}
           <PaymentNoticeListByDate />
         </section>
         <PaymentNoticeCreateButton />

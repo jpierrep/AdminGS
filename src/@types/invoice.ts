@@ -4,6 +4,8 @@ export type Invoice = {
   amount?: number;
   pendingAmount?: number;
   expiresAtLegible?: string;
-  code?: string;
   checked: boolean;
+
+  // Para formulario
+  payedAmountAtCurrentPaymentNotice?: number;
 };

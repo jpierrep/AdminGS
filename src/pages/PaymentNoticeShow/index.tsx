@@ -24,6 +24,7 @@ import { selectShowData } from "../../store/paymentNotice/selectors/selectShowDa
 // Utils
 import currencyFormat from "../../utils/currencyFormat";
 import InvoicesItem from "./components/InvoicesItem";
+import PaymentNoticeLog from "./components/PaymentNoticeLog";
 
 const PaymentNoticeShow: React.FC = () => {
   const dispatch = useDispatch();
@@ -65,12 +66,12 @@ const PaymentNoticeShow: React.FC = () => {
           className={isPlatform("desktop") ? "ion-padding" : ""}
         >
           <IonList>
-            <IonListHeader>
+            {/*             <IonListHeader>
               <IonLabel>
                 <IonText color="tertiary">General</IonText>
               </IonLabel>
-            </IonListHeader>
-            <IonItem>
+            </IonListHeader> */}
+            <IonItem lines="none">
               <IonLabel class="ion-text-wrap">
                 <p>Cliente</p>
                 <IonText color="primary">
@@ -81,7 +82,15 @@ const PaymentNoticeShow: React.FC = () => {
                 <p>{paymentNoticeShowed.client?.identifierFormatted}</p>
               </IonLabel>
             </IonItem>
-            <IonItem>
+            <IonItem lines="none">
+              <IonLabel class="ion-text-wrap">
+                <p>Empresa</p>
+                <IonText color="primary">
+                  <strong>{paymentNoticeShowed.company?.name}</strong>
+                </IonText>
+              </IonLabel>
+            </IonItem>
+            <IonItem lines="none">
               <IonLabel>
                 <p>Fecha</p>
                 <IonText color="primary">
@@ -89,7 +98,7 @@ const PaymentNoticeShow: React.FC = () => {
                 </IonText>
               </IonLabel>
             </IonItem>
-            <IonItem>
+            <IonItem lines="none">
               <IonLabel>
                 <p>Monto</p>
                 <IonText color="primary">
@@ -99,35 +108,8 @@ const PaymentNoticeShow: React.FC = () => {
                 </IonText>
               </IonLabel>
             </IonItem>
-            {/*           <IonItem>
-            <IonLabel>
-              <p>Descripción</p>
-              <strong>{paymentNoticeShowed.description || "--"}</strong>
-            </IonLabel>
-          </IonItem> */}
             <InvoicesItem></InvoicesItem>
-            <IonListHeader>
-              <IonLabel>
-                <IonText color="tertiary">Actividad</IonText>
-              </IonLabel>
-            </IonListHeader>
-            {paymentNoticeShowed?.log?.length === 0 && (
-              <IonItem lines="none">
-                <IonLabel>
-                  <h2 style={{ fontWeight: 200 }}>
-                    No se ha registrado actividad
-                  </h2>
-                </IonLabel>
-              </IonItem>
-            )}
-            {paymentNoticeShowed?.log?.map((logItem, index) => (
-              <IonItem key={index}>
-                <IonLabel>
-                  <h2>{logItem.description}</h2>
-                  <h4 className="ion-text-right">{logItem.createdAtLegible}</h4>
-                </IonLabel>
-              </IonItem>
-            ))}
+            {/* <PaymentNoticeLog></PaymentNoticeLog> */}
           </IonList>
         </section>
       </IonContent>

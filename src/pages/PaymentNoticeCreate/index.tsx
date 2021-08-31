@@ -91,7 +91,6 @@ const PaymentNoticeCreate: React.FC = () => {
               class="ion-margin-horizontal ion-margin-bottom"
               onClick={() => setShowConfirmCreateAlert(true)}
               color="primary"
-              disabled
             >
               <strong>REGISTRAR ABONOS</strong>
             </IonButton>

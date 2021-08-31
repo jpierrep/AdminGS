@@ -42,7 +42,7 @@ const initialState = {
   parseFileStatus: "initial",
   createStatus: "initial",
   paymentNoticesListFilter: {
-    listSegmentSelected: "pending",
+    listSegmentSelected: "all",
     searchText: "",
   },
 } as PaymentNoticeState;
@@ -55,7 +55,10 @@ const paymentNoticeSlice = createSlice({
       state.clientSelectorSearchText = action.payload || "";
     },
     setPaymentNoticeShowed(state, action: PayloadAction<object>) {
-      state.paymentNoticeShowed = action.payload || { amount: 0 };
+      state.paymentNoticeShowed = {
+        ...state.paymentNoticeShowed,
+        ...action.payload,
+      };
     },
     showPaymentNoticeItemEditForm(state, action: PayloadAction<object>) {
       state.paymentNoticesCreateFormDataItem = { ...action.payload };
@@ -133,7 +136,10 @@ const paymentNoticeSlice = createSlice({
         state.createStatus = "rejected";
       })
       .addCase(findOnePaymentNotice.fulfilled, (state, { payload }) => {
-        state.paymentNoticeShowed = payload;
+        state.paymentNoticeShowed = {
+          ...state.paymentNoticeShowed,
+          ...payload,
+        };
       })
       .addCase(
         findPendingInvoicesByClientIdentifier.fulfilled,

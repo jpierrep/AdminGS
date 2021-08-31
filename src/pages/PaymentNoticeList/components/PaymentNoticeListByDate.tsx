@@ -26,7 +26,7 @@ const PaymentNoticeListByDate: React.FC = () => {
         </p>
       )}
       {findStatus !== "pending" && paymentNoticesGroupedByDate.length > 0 && (
-        <IonList>
+        <IonList class="ion-no-padding">
           {paymentNoticesGroupedByDate.map((dateItem) => {
             return (
               <IonItemGroup key={dateItem.dateLabel}>

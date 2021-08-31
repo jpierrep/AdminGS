@@ -27,18 +27,21 @@ const PaymentNoticeListSummary: React.FC = () => {
     <section className="ion-margin-vertical">
       <IonListHeader>
         <IonLabel>
-          <IonText color="tertiary">Últimos abonos</IonText>
+          <IonText color="tertiary">
+            <strong>Abonos</strong>
+          </IonText>
         </IonLabel>
-        <IonButton routerLink="/app/contabilidad/abonos" color="secondary">
+        <IonButton
+          routerLink="/app/contabilidad/abonos"
+          color="secondary"
+          class="ion-margin-right"
+        >
           <strong>Ver todos</strong>
         </IonButton>
       </IonListHeader>
 
       {listLatest.length === 0 && (
-        <IonCard
-          style={{ height: "130px" }}
-          routerLink={`/app/contabilidad/abonos`}
-        >
+        <IonCard style={{ height: "130px" }}>
           <IonItem lines="none">
             <IonLabel>
               <p> No hay abonos registrados</p>
@@ -74,12 +77,19 @@ const PaymentNoticeListSummary: React.FC = () => {
                 >
                   <IonLabel>
                     <p>{paymentNotice.payedAtLegible}</p>
-                    <strong>
-                      {paymentNotice.client?.name || "No identificado"}
-                    </strong>
+                    <h3>
+                      <strong>
+                        {paymentNotice.client?.name || "No identificado"}
+                      </strong>
+                    </h3>
+                    <h3>
+                      <strong>
+                        {paymentNotice.company?.name}
+                      </strong>
+                    </h3>
                   </IonLabel>
                   <IonNote slot="end" color="light">
-                    <h5>{currencyFormat(paymentNotice.amount || 0)}</h5>
+                    <h6>{currencyFormat(paymentNotice.amount || 0)}</h6>
                   </IonNote>
                 </IonItem>
               </IonCard>

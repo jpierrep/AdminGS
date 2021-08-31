@@ -8,14 +8,17 @@ const createPaymentNotices = createAsyncThunk(
     try {
       const state = getState() as RootState;
       const createdList = [];
-      for (let item of state.paymentNotice.paymentNoticesCreateFormData.items) {
+      const items = state.paymentNotice.paymentNoticesCreateFormData.items;
+      for (let { identifier, amount, client, payedAt } of items) {
         let response = await fetch(`${api.baseURL}paymentNotice`, {
           method: "POST",
           body: JSON.stringify({
-            amount: item.amount,
-            client: item.client?.id,
-            payedAt: item.payedAt,
-            description: item.description,
+            identifier,
+            amount,
+            client: client?.id,
+            payedAt: new Date(payedAt || ""),
+            //description: item.description,
+            company: 1,
           }),
         });
         if (!response.ok) {

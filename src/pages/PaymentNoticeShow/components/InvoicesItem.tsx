@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import {
   IonButton,
   IonButtons,
+  IonCard,
+  IonCol,
   IonContent,
   IonHeader,
   IonIcon,
@@ -12,13 +14,14 @@ import {
   IonListHeader,
   IonModal,
   IonNote,
+  IonRow,
   IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 // Actions
 // Selectors
-import { chevronBack } from "ionicons/icons";
+import { arrowBack, chevronBack } from "ionicons/icons";
 import { selectShowData } from "../../../store/paymentNotice/selectors/selectShowData";
 import currencyFormat from "../../../utils/currencyFormat";
 
@@ -29,9 +32,9 @@ const InvoicesItem: React.FC = () => {
 
   return (
     <div>
-      <IonItem onClick={() => setShowModal(true)} detail button>
+      <IonItem onClick={() => setShowModal(true)} detail button lines="none">
         <IonLabel>
-          <p>Facturas pagadas</p>
+          <p>Facturas abonadas</p>
           <IonText color="primary">
             <strong>
               {paymentNoticeShowed.reconciliations?.map(
@@ -53,10 +56,10 @@ const InvoicesItem: React.FC = () => {
           <IonToolbar>
             <IonButtons slot="start">
               <IonButton onClick={() => setShowModal(false)}>
-                <IonIcon icon={chevronBack}></IonIcon>
+                <IonIcon icon={arrowBack}></IonIcon>
               </IonButton>
             </IonButtons>
-            <IonTitle>Facturas pagadas</IonTitle>
+            <IonTitle>Facturas abonadas</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>
@@ -64,48 +67,68 @@ const InvoicesItem: React.FC = () => {
             <IonListHeader>
               <IonLabel>
                 <IonText color="tertiary">
-                  <strong>{`${
-                    paymentNoticeShowed.reconciliations?.length || 0
-                  } facturas`}</strong>
+                  <strong>
+                    {`Hay ${
+                      paymentNoticeShowed.reconciliations?.length || 0
+                    } facturas asociadas al abono`}
+                  </strong>
                 </IonText>
               </IonLabel>
             </IonListHeader>
             {paymentNoticeShowed.reconciliations?.map(
               (paymentReconciliationItem) => (
-                <IonItem key={paymentReconciliationItem.id} lines="none">
-                  <IonLabel>
-                    <IonText color="primary">
+                <IonCard key={paymentReconciliationItem.id}>
+                  <IonItem lines="full" color="secondary">
+                    <IonLabel>
                       <strong>
-                        #{paymentReconciliationItem.invoice?.identifier}
+                        Factura #{paymentReconciliationItem.invoice?.identifier}
                       </strong>
-                      <p>
-                        Vence{" "}
+                    </IonLabel>
+                  </IonItem>
+                  <IonItem lines="none">
+                    <IonLabel>
+                      <p>Vencimiento</p>
+                      <strong>
                         {paymentReconciliationItem.invoice?.expiresAtLegible}
-                      </p>
-                    </IonText>
-                  </IonLabel>
-                  <IonNote color="primary">
-                    <h4>
-                      {currencyFormat(paymentReconciliationItem.amount || 0)}/
-                      <IonText color="medium">
-                        <small>
-                          {currencyFormat(
-                            paymentReconciliationItem.invoice?.amount || 0
-                          )}
-                        </small>
-                      </IonText>
-                    </h4>
-                  </IonNote>
-                </IonItem>
+                      </strong>
+                    </IonLabel>
+                  </IonItem>
+                  <IonRow>
+                    <IonCol size="6" class="ion-no-padding">
+                      <IonItem lines="none">
+                        <IonLabel>
+                          <p>Monto factura</p>
+                          <strong>
+                            {currencyFormat(
+                              paymentReconciliationItem.invoice?.amount || 0
+                            )}
+                          </strong>
+                        </IonLabel>
+                      </IonItem>
+                    </IonCol>
+                    <IonCol size="6" class="ion-no-padding">
+                      <IonItem lines="none" class="ion-margin-bottom">
+                        <IonLabel>
+                          <p>Monto abonado</p>
+                          <strong>
+                            {currencyFormat(
+                              paymentReconciliationItem.amount || 0
+                            )}
+                          </strong>
+                        </IonLabel>
+                      </IonItem>
+                    </IonCol>
+                  </IonRow>
+                </IonCard>
               )
             )}
 
-            <IonItem lines="none">
+            {/*             <IonItem lines="none">
               <IonLabel>Total</IonLabel>
               <IonNote>
                 {currencyFormat(paymentNoticeShowed.amount || 0)}
               </IonNote>
-            </IonItem>
+            </IonItem> */}
           </IonList>
         </IonContent>
       </IonModal>

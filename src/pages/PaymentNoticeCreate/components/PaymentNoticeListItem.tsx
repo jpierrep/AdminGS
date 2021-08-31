@@ -34,19 +34,21 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
         routerLink={`/app/contabilidad/abonos/agregar/abono`}
       >
         <IonLabel>
-          <IonText color={paymentNotice.client ? "primary" : "danger"}>
-            {!paymentNotice.client && (
-              <IonIcon
-                icon={
-                  paymentNotice.client
-                    ? checkmarkCircleOutline
-                    : alertCircleOutline
-                }
-                style={{ paddingRight: "8px" }}
-              />
-            )}
-            <strong>{paymentNotice.client?.name || "No identificado"}</strong>
-          </IonText>
+          <h3>
+            <IonText color={paymentNotice.client ? "primary" : "danger"}>
+              {!paymentNotice.client && (
+                <IonIcon
+                  icon={
+                    paymentNotice.client
+                      ? checkmarkCircleOutline
+                      : alertCircleOutline
+                  }
+                  style={{ paddingRight: "8px" }}
+                />
+              )}
+              <strong>{paymentNotice.client?.name || "No identificado"}</strong>
+            </IonText>
+          </h3>
           <p>{paymentNotice.client?.identifierFormatted}</p>
           <p>
             <small>{paymentNotice.description}</small>
@@ -54,9 +56,9 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
         </IonLabel>
         <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
           <IonText color="primary">
-            <h5 className="ion-no-margin">
-              {currencyFormat(paymentNotice.amount || 0)}
-            </h5>
+            <h6 className="ion-no-margin">
+              <strong>{currencyFormat(paymentNotice.amount || 0)}</strong>
+            </h6>
           </IonText>
         </IonNote>
       </IonItem>

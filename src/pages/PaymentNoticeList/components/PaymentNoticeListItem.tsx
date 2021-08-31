@@ -14,23 +14,29 @@ const PaymentNoticeListItem: React.FC<{ paymentNotice: PaymentNotice }> = ({
       lines="none"
     >
       <IonLabel>
-        {paymentNotice.client ? (
-          <strong>
-            <IonText color="primary">{paymentNotice.client.name}</IonText>
-          </strong>
-        ) : (
-          <span>No identificado</span>
-        )}
-        <p>
+        <h3>
+          {paymentNotice.client ? (
+            <>
+              <strong>
+                <IonText color="primary">{paymentNotice.client.name}</IonText>
+              </strong>
+              <small> {paymentNotice.client?.identifierFormatted}</small>
+            </>
+          ) : (
+            <span>No identificado</span>
+          )}
+        </h3>
+        {/*         <p>
           {paymentNotice.client?.identifierFormatted ||
             paymentNotice.description}
-        </p>
+        </p> */}
+        <p>{paymentNotice.company?.name}</p>
       </IonLabel>
-      <IonNote slot="end" style={{ minWidth: "110px", textAlign: "right" }}>
+      <IonNote slot="end" style={{ minWidth: "70px", textAlign: "right" }}>
         <IonText color="primary">
-          <h5 className="ion-no-margin">
+          <h6 className="ion-no-margin">
             <strong>{currencyFormat(paymentNotice.amount || 0)}</strong>
-          </h5>
+          </h6>
         </IonText>
       </IonNote>
     </IonItem>

@@ -17,30 +17,22 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
-  isPlatform,
 } from "@ionic/react";
-// Actions
-import findClients from "../../../store/clients/actions/findClients";
 // Selectors
-import { selectClients } from "../../../store/clients/selectors/selectClients";
 import { selectCreateFormDataItem } from "../../../store/paymentNotice/selectors/selectCreateFormDataItem";
 import { checkmarkOutline, chevronBack, chevronDown } from "ionicons/icons";
 import { selectClientSelectorSearchText } from "../../../store/paymentNotice/selectors/selectClientSelectorSearchText";
 import findPendingInvoicesByClientIdentifier from "../../../store/paymentNotice/actions/findPendingInvoicesByClientIdentifier";
+import { Client } from "../../../@types/client";
+import { selectClients } from "../../../store/paymentNotice/selectors/selectClients";
 
 const ClientSelector: React.FC = () => {
-  const clients: any[] = useSelector(selectClients);
-  const createFormDataItem: any = useSelector(selectCreateFormDataItem);
+  const clients = useSelector(selectClients);
+  const createFormDataItem = useSelector(selectCreateFormDataItem);
   const searchText = useSelector(selectClientSelectorSearchText);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!clients) {
-      dispatch(findClients());
-    }
-  }, [dispatch, clients]);
-
-  const selectClient = () => {
+  const selectClient = (clientSelected: Client) => {
     setShowModal(false);
     dispatch({
       type: "paymentNotice/updatePaymentNoticesCreateFormDataItem",
@@ -49,35 +41,54 @@ const ClientSelector: React.FC = () => {
       },
     });
 
-    dispatch(findPendingInvoicesByClientIdentifier(clientSelected.identifier));
+    dispatch(
+      findPendingInvoicesByClientIdentifier(clientSelected?.identifier || "")
+    );
   };
-  const [clientSelected, setClientSelected] = useState(
+  /*   const [clientSelected, setClientSelected] = useState(
     createFormDataItem.client
-  );
+  ); */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setClientSelected(createFormDataItem.client);
-  }, [createFormDataItem]);
+  }, [createFormDataItem]); */
 
-  const preselectClient = (client: any) => {
+  /*   const preselectClient = (client: any) => {
     setClientSelected(client);
-  };
+  }; */
 
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div>
-      <IonItem onClick={() => setShowModal(true)} detail={true} button>
-        <IonLabel>
+      <IonItem
+        onClick={() => setShowModal(true)}
+        detail={true}
+        button
+        lines="none"
+      >
+        <IonLabel class="ion-text-wrap">
           <p>Cliente</p>
-          <IonText color="primary">
+          <h2>
             <strong>
-              {createFormDataItem.client?.name || "Aún sin seleccionar"}
+              <IonText color="primary">
+                {createFormDataItem.client?.name || "No has seleccionado aún"}
+              </IonText>
             </strong>
-          </IonText>
+          </h2>
+          <p>{createFormDataItem.client?.identifierFormatted}</p>
         </IonLabel>
       </IonItem>
-      <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
+      <IonModal
+        isOpen={showModal}
+        onDidDismiss={() => {
+          setShowModal(false);
+          dispatch({
+            type: "paymentNotice/updateClientSelectorSearchText",
+            payload: "",
+          });
+        }}
+      >
         <IonHeader translucent>
           <IonToolbar>
             <IonButtons slot="start">
@@ -103,13 +114,15 @@ const ClientSelector: React.FC = () => {
             <IonListHeader>
               <IonLabel>
                 <IonText color="tertiary">
-                  <strong>{`${clients.length} clientes`}</strong>
+                  <strong>{`${clients.length} clientes encontrados`}</strong>
                 </IonText>
               </IonLabel>
             </IonListHeader>
-            {clients.map((client) => (
+            {clients.slice(0, 30).map((client) => (
               <IonItem
-                onClick={() => preselectClient(client)}
+                onClick={() => {
+                  selectClient(client);
+                }}
                 key={client.identifier}
                 lines="none"
                 style={{
@@ -124,7 +137,8 @@ const ClientSelector: React.FC = () => {
                   </IonText>
                   <h6>{client.identifierFormatted}</h6>
                 </IonLabel>
-                {client.identifier === clientSelected?.identifier && (
+                {client.identifier ===
+                  createFormDataItem.client?.identifier && (
                   <IonNote slot="end">
                     <IonIcon
                       icon={checkmarkOutline}
@@ -137,7 +151,7 @@ const ClientSelector: React.FC = () => {
             ))}
           </IonList>
         </IonContent>
-        {clientSelected?.id && (
+        {/*         {clientSelected?.id && (
           <IonFooter>
             <IonToolbar color="secondary">
               <span
@@ -170,7 +184,7 @@ const ClientSelector: React.FC = () => {
               </IonButton>
             </IonToolbar>
           </IonFooter>
-        )}
+        )} */}
       </IonModal>
     </div>
   );

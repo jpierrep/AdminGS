@@ -6,13 +6,21 @@ const findPaymentReconciliations = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const url = new URL(`${api.baseURL}paymentReconciliation`);
-      url.searchParams.append("payment", id.toString());
+      url.searchParams.append(
+        "where",
+        JSON.stringify({
+          payment: id.toString(),
+          paymentType: { "!=": 0 },
+        })
+      );
       let response = await fetch(url.toJSON());
       if (!response.ok) {
         throw response.statusText;
       }
       let data = await response.json();
-      return data;
+      return data.sort((a: any, b: any) =>
+        parseInt(a.invoice.identifier) > parseInt(b.invoice.identifier) ? 1 : -1
+      );
     } catch (error) {
       return rejectWithValue(error);
     }

@@ -1,7 +1,7 @@
 import { IonReactRouter } from "@ionic/react-router";
 import { IonSplitPane } from "@ionic/react";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import Menu from "./layout/Menu";
 // Pages
@@ -31,11 +31,21 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IonApp, IonPage, IonRouterOutlet } from "@ionic/react";
 import { selectLoginStatus } from "./store/userAuthentication/selectors/selectLoginStatus";
+import findClients from "./store/clients/actions/findClients";
+import { selectClients } from "./store/clients/selectors/selectClients";
 
 const UserAuthenticatedRouter: React.FC<RouteComponentProps> = ({ match }) => {
+  const dispatch = useDispatch();
+  const clients: any[] = useSelector(selectClients);
+  useEffect(() => {
+    if (clients.length === 0) {
+      dispatch(findClients());
+    }
+  }, [dispatch, clients]);
+
   return (
     <IonPage>
       <IonSplitPane contentId="main">

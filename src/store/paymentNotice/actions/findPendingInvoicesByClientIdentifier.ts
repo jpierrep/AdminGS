@@ -1,5 +1,6 @@
 import api from "../../../utils/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Invoice } from "../../../@types/invoice";
 
 const findPendingInvoicesByClientIdentifier = createAsyncThunk(
   "paymentNotice/findPendingInvoicesByClientIdentifier",
@@ -16,7 +17,10 @@ const findPendingInvoicesByClientIdentifier = createAsyncThunk(
         throw response.statusText;
       }
       let data = await response.json();
-      return data;
+      return data.map((invoice: Invoice) => ({
+        ...invoice,
+        payedAmountAtCurrentPaymentNotice: 0,
+      }));
     } catch (error) {
       return rejectWithValue(error);
     }
